@@ -1,0 +1,75 @@
+---
+import Base from "../layouts/Base.astro";
+import { SITE } from "../site";
+const updated = "6 September 2026";
+---
+<Base
+  title="Terms of Use — Croodit"
+  description="The terms you agree to when you use the Croodit app and croodit.com."
+  path="/terms"
+>
+  <article class="wrap prose">
+    <h1>Terms of Use</h1>
+    <p>Last updated {updated}. By using the Croodit app or {SITE.url} you agree to these terms.</p>
+
+    <h2>What Croodit is</h2>
+    <p>
+      Croodit is a tool that helps you create invoices, send them yourself over WhatsApp, and keep track of who
+      has paid. It is not a payment gateway, a bank, an accountant or a tax adviser.
+    </p>
+
+    <h2>Your account</h2>
+    <p>
+      You need a working mobile number to sign in and you are responsible for what happens under your account.
+      You must be at least 18 and use Croodit for a lawful business.
+    </p>
+
+    <h2>What you're responsible for</h2>
+    <ul>
+      <li>The accuracy of your invoices — amounts, tax, GSTIN and your UPI ID.</li>
+      <li>Having the right to contact the clients you add, and honouring their request if they ask you to stop.</li>
+      <li>Your own tax and regulatory obligations. Croodit's GST features are a convenience, not tax advice.</li>
+      <li>Every message you send. Croodit prepares text; you press send from your own WhatsApp account and are bound by WhatsApp's own terms.</li>
+    </ul>
+
+    <h2>Payments between you and your clients</h2>
+    <p>
+      Money moves directly from your client's UPI app to your UPI ID. Croodit never holds funds and is not a
+      party to that transaction. Disputes, refunds and chargebacks are between you and your client.
+    </p>
+
+    <h2>Free tier and subscriptions</h2>
+    <p>
+      Your first {SITE.freeInvoices} invoices are free. Croodit Pro is ₹{SITE.pro.monthly} per month or
+      ₹{SITE.pro.yearly} per year after a {SITE.pro.trialDays}-day free trial. Subscriptions are billed by the
+      app store you bought them from, renew automatically, and can be cancelled there at any time; cancelling
+      stops the next renewal and leaves the period you have paid for intact.
+    </p>
+
+    <h2>Acceptable use</h2>
+    <p>
+      Do not use Croodit to send unsolicited bulk messages, to invoice for anything illegal, to impersonate
+      someone else, or to attack, reverse-engineer or overload the service.
+    </p>
+
+    <h2>Availability and liability</h2>
+    <p>
+      We work to keep Croodit running but provide it "as is", without warranty. To the extent the law allows,
+      our total liability to you is limited to what you have paid us in the twelve months before the claim, and
+      we are not liable for lost profits or lost business. Nothing here limits liability that cannot be limited
+      by law. Keep your own exports — Settings → Export data.
+    </p>
+
+    <h2>Ending it</h2>
+    <p>
+      You can stop using Croodit and delete your account at any time. We may suspend an account that breaches
+      these terms, and will tell you why where we can.
+    </p>
+
+    <h2>Governing law</h2>
+    <p>These terms are governed by the laws of India, with courts in India having jurisdiction.</p>
+
+    <h2>Contact</h2>
+    <p><a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+  </article>
+</Base>

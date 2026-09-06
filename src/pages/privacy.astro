@@ -1,0 +1,79 @@
+---
+import Base from "../layouts/Base.astro";
+import { SITE } from "../site";
+const updated = "6 September 2026";
+---
+<Base
+  title="Privacy Policy — Croodit"
+  description="What Croodit collects, why, and what it never touches. Croodit sends invoices through the WhatsApp already on your phone and cannot read your chats."
+  path="/privacy"
+>
+  <article class="wrap prose">
+    <h1>Privacy Policy</h1>
+    <p>Last updated {updated}. This policy covers the Croodit mobile app and {SITE.url}.</p>
+
+    <h2>The short version</h2>
+    <ul>
+      <li>Croodit cannot read your WhatsApp chats. It opens WhatsApp with a message prepared; you press send.</li>
+      <li>We never message your clients on your behalf. Reminders are notifications to you.</li>
+      <li>We do not sell your data or your client list, to anyone, ever.</li>
+    </ul>
+
+    <h2>What we collect</h2>
+    <ul>
+      <li><b>Your account:</b> phone number (verified by SMS code), business name, your name, UPI ID, optional logo, city and GSTIN if you enable GST.</li>
+      <li><b>Your business records:</b> clients you add, services and prices, invoices, payments you record, attendance and expenses.</li>
+      <li><b>Contacts:</b> only if you tap "From contacts". Croodit reads the contact you pick to fill in a name and number. It does not upload your address book.</li>
+      <li><b>Pay-page analytics:</b> when a client opens a pay link we log that it was opened, so your invoice timeline can show it.</li>
+      <li><b>App diagnostics:</b> crash and error reports, so we can fix things.</li>
+    </ul>
+
+    <h2>What we never collect</h2>
+    <ul>
+      <li>Your WhatsApp messages, contacts inside WhatsApp, or read/delivery receipts. No integration exists that would let us.</li>
+      <li>Your UPI PIN, bank credentials or card details. Payments happen inside your client's own UPI app.</li>
+    </ul>
+
+    <h2>Why we use it</h2>
+    <p>
+      To run the product you asked for: generate invoices and PDFs, host your pay links, schedule the reminders
+      you switched on, and produce your earnings and GST summaries. We also use aggregate, non-identifying usage
+      counts to decide what to build next.
+    </p>
+
+    <h2>Who else sees it</h2>
+    <p>
+      Only the service providers Croodit runs on — hosting, database, crash reporting, SMS delivery for your
+      login code and, if you subscribe, the app store handling your payment. They process data on our
+      instructions and nothing more. We disclose data to authorities only where the law requires it.
+    </p>
+
+    <h2>Where your client's payment goes</h2>
+    <p>
+      Straight to you. A Croodit pay link opens a standard UPI request addressed to your UPI ID. Croodit is not
+      a payment gateway, never holds your money, and takes no cut of it.
+    </p>
+
+    <h2>How long we keep it</h2>
+    <p>
+      For as long as your account is open — invoices are business records you may need years later. Delete your
+      account from Settings and we remove your data within 30 days, except records we must retain by law.
+    </p>
+
+    <h2>Your choices</h2>
+    <p>
+      You can export everything (Excel, PDF or Tally format) from Settings at any time, edit or delete any client
+      or invoice, revoke contacts and notification permissions in your phone settings, and close your account.
+      To ask what we hold on you, or to have it deleted, write to <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+    </p>
+
+    <h2>Children</h2>
+    <p>Croodit is a business tool and is not intended for anyone under 18.</p>
+
+    <h2>Changes</h2>
+    <p>
+      If this policy changes materially we will say so in the app before the change applies. Questions:
+      <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+    </p>
+  </article>
+</Base>

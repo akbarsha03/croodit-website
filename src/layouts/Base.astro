@@ -1,0 +1,95 @@
+---
+import "../styles/global.css";
+import Wordmark from "../components/Wordmark.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  /** Path only, e.g. "/pricing". Canonical is built from astro.config `site`. */
+  path?: string;
+  ogImage?: string;
+  noindex?: boolean;
+  /** JSON-LD objects rendered into <head>. */
+  schema?: Record<string, unknown>[];
+}
+
+const {
+  title,
+  description,
+  path = Astro.url.pathname,
+  ogImage = "/og.png",
+  noindex = false,
+  schema = [],
+} = Astro.props;
+
+const site = Astro.site ?? new URL("https://croodit.com");
+const clean = path === "/index" ? "/" : path;
+// Root keeps its slash; every other path has none, matching astro.config trailingSlash.
+const canonical = clean === "/" ? site.href : new URL(clean, site).href.replace(/\/$/, "");
+const ogUrl = new URL(ogImage, site).href;
+const year = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang="en-IN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Croodit" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogUrl} />
+    <meta property="og:locale" content="en_IN" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogUrl} />
+    <meta name="theme-color" content="#141218" />
+
+    <link rel="icon" href="/brand/icon-rounded-lime.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/brand/icon-rounded-lime.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700..800&family=DM+Sans:opsz,wght@9..40,400..700&family=Manrope:wght@800&display=swap"
+    />
+
+    {schema.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
+  </head>
+
+  <body>
+    <a href="#main" class="sr-only">Skip to content</a>
+    <header class="wrap nav">
+      <a href="/" aria-label="Croodit home"><Wordmark /></a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="/#how" class="nav__link--hide">How it works</a>
+        <a href="/#who" class="nav__link--hide">Who it's for</a>
+        <a href="/#faq" class="nav__link--hide">FAQ</a>
+        <a href="/#get" class="btn--pill" style="background:#141218">Get the app — free</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="wrap footer">
+      <span>© {year} Croodit · Made in India 🇮🇳</span>
+      <nav aria-label="Footer">
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+        <a href="mailto:hello@croodit.com">hello@croodit.com</a>
+      </nav>
+    </footer>
+  </body>
+</html>

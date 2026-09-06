@@ -1,0 +1,49 @@
+---
+import Mark from "./Mark.astro";
+---
+<div class="phone__app app">
+  <div class="app__row">
+    <div class="app__back">←</div>
+    <div class="app__step">New invoice · 3 of 3</div>
+    <div style="width:40px"></div>
+  </div>
+  <h3 style="margin:6px 0 0">Ready to send</h3>
+  <div style="display:flex;align-items:center;gap:12px">
+    <div class="avatar" style="width:44px;height:44px;border-radius:15px;background:#FFE8D6;color:#B3541E">RK</div>
+    <div style="flex:1">
+      <div style="font-weight:700;font-size:16px">To Rahul Khanna</div>
+      <div style="font-size:12px;color:#12924A;font-weight:600">● on WhatsApp · +91 98201 44556</div>
+    </div>
+  </div>
+  <div class="chat" style="border-radius:20px;padding:14px">
+    <div class="bubble" style="padding:8px">
+      <div class="linkcard">
+        <div class="linkcard__tile"><Mark id="c1" /></div>
+        <div>
+          <div style="font-size:13px;font-weight:600;color:#111">Invoice CR‑0143 · ₹4,000</div>
+          <div style="font-size:11px;color:#666">croodit.com · View PDF &amp; pay via UPI</div>
+        </div>
+      </div>
+    </div>
+    <div class="bubble">
+      Hey Rahul! 👋 Here's your invoice for <b>Sep — Monthly Unlimited + 2 privates: ₹4,000</b>. Due 10 Sep.<br /><br />
+      Pay in one tap 👉 <span style="color:#0b7bd6;text-decoration:underline">croodit.com/pay/0143</span><br /><br />
+      See you at 7am! 💃
+      <div class="bubble__time">9:41</div>
+    </div>
+  </div>
+  <div style="display:flex;gap:6px">
+    <span class="chip chip--on">Friendly</span><span class="chip">Formal</span><span class="chip">Short</span><span class="chip">हिंदी</span>
+  </div>
+  <div class="card" style="display:flex;align-items:center;justify-content:space-between;gap:10px;border-radius:16px;padding:12px 16px">
+    <div>
+      <div style="font-weight:600;font-size:14px">Remind me if unpaid</div>
+      <div style="font-size:12px;color:rgba(20,18,24,.5)">Day 3, 7, 10 · one‑tap nudge</div>
+    </div>
+    <div class="toggle"></div>
+  </div>
+  <div class="wa-cta" style="margin-top:auto">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
+    Open WhatsApp
+  </div>
+</div>

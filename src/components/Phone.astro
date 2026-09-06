@@ -1,0 +1,13 @@
+---
+/* iPhone 16 Pro canvas (402x874) scaled down. Screen content is a slot. */
+interface Props { scale?: number; class?: string }
+const { scale = 0.66, class: cls = "" } = Astro.props;
+---
+<div class:list={["phone", cls]} style={`--scale:${scale}`} aria-hidden="true">
+  <div class="phone__frame">
+    <div class="phone__screen">
+      <div class="phone__notch"></div>
+      <slot />
+    </div>
+  </div>
+</div>

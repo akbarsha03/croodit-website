@@ -1,0 +1,43 @@
+---
+import Mark from "./Mark.astro";
+---
+<div class="phone__app" style="background:#E5DDD5">
+  <div style="background:#075E54;color:#fff;padding:58px 16px 12px;display:flex;align-items:center;gap:12px">
+    <span style="font-size:18px">←</span>
+    <div class="avatar" style="width:36px;height:36px;border-radius:50%;background:#FFE8D6;color:#B3541E;font-size:13px">RK</div>
+    <div>
+      <div style="font-weight:700;font-size:15px">Rahul Khanna</div>
+      <div style="font-size:11px;opacity:.8">online</div>
+    </div>
+  </div>
+  <div class="chat" style="flex:1;padding:18px 14px;justify-content:flex-end">
+    <div style="align-self:center;padding:4px 10px;border-radius:8px;background:rgba(255,255,255,.7);font-size:11px;color:#555">Today</div>
+    <div class="bubble" style="max-width:88%;padding:8px">
+      <div class="linkcard">
+        <div class="linkcard__tile"><Mark id="w1" /></div>
+        <div>
+          <div style="font-size:13px;font-weight:600;color:#111">Invoice CR‑0143 · ₹4,000</div>
+          <div style="font-size:11px;color:#666">croodit.com · View PDF &amp; pay via UPI</div>
+        </div>
+      </div>
+    </div>
+    <div class="bubble" style="max-width:88%">
+      Hey Rahul! 👋 Here's your invoice for <b>Sep — Monthly Unlimited + 2 privates: ₹4,000</b>. Due 10 Sep.<br /><br />
+      Pay in one tap 👉 <span style="color:#0b7bd6;text-decoration:underline">croodit.com/pay/0143</span><br /><br />
+      See you at 7am! 💃
+      <div class="bubble__time">9:41 ✓✓</div>
+    </div>
+    <div class="bubble bubble--in" style="max-width:70%">Done! 🙌<div class="bubble__time">9:47</div></div>
+    <div class="bubble bubble--in" style="max-width:88%;border-radius:14px;display:flex;align-items:center;gap:10px">
+      <div class="avatar" style="width:34px;height:34px;border-radius:50%;background:#E9FBEF;font-size:16px">✓</div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#111">₹4,000 received</div>
+        <div style="font-size:11px;color:#666">UPI · Ref 4271…</div>
+      </div>
+    </div>
+  </div>
+  <div style="padding:10px 14px 36px;display:flex;gap:8px;align-items:center">
+    <div style="flex:1;height:40px;border-radius:20px;background:#fff;display:flex;align-items:center;padding:0 14px;font-size:13px;color:#999">Message</div>
+    <div style="width:40px;height:40px;border-radius:50%;background:#25D366"></div>
+  </div>
+</div>
