@@ -10,7 +10,11 @@ export const faq = [
   },
   {
     q: "How much does Croodit cost?",
-    a: "Your first 20 invoices are free — no card, no GST registration needed. After that, Croodit Pro is ₹199 per month or ₹1,599 per year, with a 14-day free trial. Pro adds unlimited nudges, monthly GST reports for your CA, your own pay-link domain and attendance QR check-in.",
+    a: "Croodit is free forever for up to 7 clients — unlimited invoices to them, unlimited reminders, no card and no GST registration needed. Croodit Pro lifts the limit to unlimited clients at ₹199 per month or ₹1,599 per year, after a 14-day free trial. Pro also adds monthly GST reports for your CA, your own pay-link domain and attendance QR check-in.",
+  },
+  {
+    q: "What happens when I get my 8th client?",
+    a: "Nothing breaks. The 7 clients you already have keep working exactly as before — their invoices, history and reminders are untouched. Adding an 8th client is what starts your 14-day Pro trial, and Pro is ₹199 per month or ₹1,599 per year for unlimited clients. If you never go past 7 clients, you never pay anything.",
   },
   {
     q: "Do I need GST registration to use Croodit?",

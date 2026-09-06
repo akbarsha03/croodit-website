@@ -8,7 +8,7 @@ export const context =
 export const facts = [
   "Product: Croodit (mobile app, iPhone first; Android on a waitlist).",
   "Made for: India. Currency INR. Languages: English, Hindi, Hinglish.",
-  "Price: first 20 invoices free, no card required. Croodit Pro is Rs 199/month or Rs 1,599/year after a 14-day free trial.",
+  "Price: free forever for up to 7 clients, with unlimited invoices and unlimited reminders to them, and no card required. Croodit Pro lifts the limit to unlimited clients for Rs 199/month or Rs 1,599/year, after a 14-day free trial.",
   "Typical time to send an invoice: about 30 seconds.",
   "Payments: a standard UPI intent, so Google Pay, PhonePe, Paytm, BHIM and bank apps all work. A QR code and the UPI ID also appear on the invoice.",
   "Reminders: local notifications to the user on day 3, 7 and 10. The user taps and sends; Croodit never messages a client by itself.",

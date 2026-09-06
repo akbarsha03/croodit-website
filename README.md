@@ -30,7 +30,7 @@ npm run build    # -> dist/
 
 ## Rules that matter
 
-- **Claims must be true.** Prices, the free-invoice count and feature claims live in `src/site.ts` and
+- **Claims must be true.** Prices, the free-client limit and feature claims live in `src/site.ts` and
   `src/data/facts.ts`. Change them there, never inline in a page, and never state something the product
   doesn't do.
 - **Croodit never messages a client by itself.** This is the product's core promise. Don't write copy that
