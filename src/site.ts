@@ -7,8 +7,8 @@ export const SITE = {
   appStoreUrl: null as string | null,
   /** Set once the Android app is live. */
   playStoreUrl: null as string | null,
-  /** Free tier, as promised on the landing page. */
-  freeInvoices: 20,
+  /** Free-forever tier: unlimited invoices, capped on clients. */
+  freeClients: 7,
   pro: { monthly: 199, yearly: 1599, trialDays: 14 },
 };
 

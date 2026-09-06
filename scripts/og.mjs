@@ -32,8 +32,8 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" v
 
   <text x="80" y="440" font-family="Bricolage Grotesque" font-weight="500" font-size="31" fill="#FFFFFF" opacity="0.72">Invoices on WhatsApp with a UPI pay link — in 30 seconds.</text>
 
-  <rect x="80" y="492" width="470" height="66" rx="20" fill="#D9FF4A"/>
-  <text x="315" y="535" text-anchor="middle" font-family="Bricolage Grotesque" font-weight="800" font-size="27" fill="#141218">Free for your first 20 invoices</text>
+  <rect x="80" y="492" width="486" height="66" rx="20" fill="#D9FF4A"/>
+  <text x="323" y="535" text-anchor="middle" font-family="Bricolage Grotesque" font-weight="800" font-size="27" fill="#141218">Free forever for up to 7 clients</text>
 
   <text x="1120" y="535" text-anchor="end" font-family="Bricolage Grotesque" font-weight="500" font-size="24" fill="#FFFFFF" opacity="0.5">croodit.com · Made in India</text>
 </svg>`;
