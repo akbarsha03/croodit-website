@@ -20,4 +20,5 @@ export const pages = [
   ["/", "Home", "what Croodit does, how it works in three steps, who it is for, FAQ."],
   ["/privacy", "Privacy Policy", "what is collected; Croodit cannot read WhatsApp chats."],
   ["/terms", "Terms of Use", "free tier, subscriptions, responsibilities."],
+  ["/answers/how-to-send-an-invoice-on-whatsapp", "How to send an invoice on WhatsApp with a UPI payment link", "the free manual method, the upi:// link field by field, why WhatsApp Business API and payment gateways are overkill for one person, and when an app helps."],
 ];

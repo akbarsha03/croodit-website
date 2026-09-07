@@ -1,0 +1,259 @@
+---
+import Base from "../../layouts/Base.astro";
+import Mark from "../../components/Mark.astro";
+import { SITE, waitlist } from "../../site";
+
+const path = "/answers/how-to-send-an-invoice-on-whatsapp";
+const title = "How to send an invoice on WhatsApp with a UPI payment link (India)";
+const description =
+  "The free way to send an invoice on WhatsApp with a UPI pay link — no WhatsApp Business API, no payment gateway. The upi:// link field by field, what breaks, and when an app is worth it.";
+
+const updatedISO = "2026-09-07";
+const updatedHuman = "7 September 2026";
+
+const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
+const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
+
+const upiFields = [
+  ["pa", "Payee address — your UPI ID. Required.", "asha@okicici"],
+  ["pn", "Payee name, shown in your client's UPI app before they confirm.", "Asha Menon"],
+  ["am", "Amount in rupees. Leave it out and your client types the amount.", "2500.00"],
+  ["cu", "Currency. Always INR.", "INR"],
+  ["tn", "Transaction note — this is where the invoice number goes.", "Invoice INV-014 Sep"],
+  ["tr", "Your own reference ID, so you can match the payment later.", "INV-014"],
+];
+
+const steps = [
+  {
+    name: "Make the invoice a file, not a message",
+    text:
+      "A screenshot of a number in a chat is not an invoice. Export a PDF with your name, the client's name, the date, an invoice number, the line items and the total. Google Docs, Canva or any billing app will do it. Invoice numbers must run in sequence — INV-012, INV-013 — because that is what makes a payment traceable months later.",
+  },
+  {
+    name: "Build your UPI pay link",
+    text:
+      "Take your own UPI ID and assemble a standard UPI intent link: upi://pay?pa=your@upi&pn=Your%20Name&am=2500.00&cu=INR&tn=Invoice%20INV-014. Every field is URL-encoded, so a space becomes %20. This is the NPCI deep-link format, so it opens whichever UPI app your client already uses — Google Pay, PhonePe, Paytm, BHIM or their bank app.",
+  },
+  {
+    name: "Send the PDF, the link and the UPI ID in the same message",
+    text:
+      "Attach the PDF, then write one message with the amount, what it covers, the pay link and your UPI ID in plain text. The plain-text UPI ID matters: WhatsApp does not reliably turn upi:// links into a tappable button, so on many phones the link arrives as text your client has to copy. A UPI QR image is the other fallback.",
+  },
+  {
+    name: "Log it and set your own reminder",
+    text:
+      "Write the invoice number, amount and date somewhere you will look again — a notes app, a spreadsheet. When the UPI credit lands in your bank, mark it paid. If nothing arrives in three days, that is your cue to follow up in the same chat.",
+  },
+];
+
+const faqs = [
+  {
+    q: "Do I need WhatsApp Business or the WhatsApp Business API to send an invoice?",
+    a: "No. You can send an invoice from the ordinary WhatsApp on your phone, from your own number. The WhatsApp Business API is built for companies sending template messages at volume through a provider, and it is priced and approved for that. A trainer invoicing twelve clients a month does not need it, and the client sees a friendlier chat without it.",
+  },
+  {
+    q: "Do I need a payment gateway like Razorpay or Cashfree to accept a UPI payment on an invoice?",
+    a: "Not for a straight UPI transfer. A UPI intent link points at your own UPI ID, so the money moves from your client's bank to yours and nobody takes a cut. Gateways earn their fee when you need cards, netbanking, EMI, refunds through an API or automatic reconciliation across hundreds of orders — not when one person is collecting monthly fees.",
+  },
+  {
+    q: "Why is my upi:// link showing up as plain text in WhatsApp instead of a tappable link?",
+    a: "WhatsApp only auto-links http and https URLs dependably. Custom schemes like upi:// often render as plain text, and behaviour differs between Android and iPhone. That is why the practical version of this message includes three things: the link, your UPI ID as copyable text, and a QR image. Something in that set will work on every client's phone.",
+  },
+  {
+    q: "I teach three Zumba batches and twelve people pay me monthly — how do I stop chasing them every month?",
+    a: "The chasing is a tracking problem, not a messaging problem. Give every invoice a number and a due date, keep one list of who has paid, and check it on a fixed day rather than whenever you remember. The awkward part shrinks when the follow-up is a routine attached to an invoice number instead of a personal ask you have to work up to.",
+  },
+  {
+    q: "Do I need GST registration to send an invoice?",
+    a: "No. If you are below the GST threshold you send a plain invoice with no tax lines — it is still a valid document for your records and your client's. If you are registered, your GSTIN, the tax breakdown and the place of supply go on the invoice, and you keep a monthly summary for your CA.",
+  },
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: title,
+    description,
+    inLanguage: "en-IN",
+    datePublished: updatedISO,
+    dateModified: updatedISO,
+    mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE.url}${path}` },
+    author: { "@type": "Organization", name: "Croodit", url: SITE.url },
+    publisher: {
+      "@type": "Organization",
+      name: "Croodit",
+      url: SITE.url,
+      logo: `${SITE.url}/brand/icon-square-lime.svg`,
+    },
+    about: [
+      { "@type": "Thing", name: "Invoicing" },
+      { "@type": "Thing", name: "Unified Payments Interface (UPI)" },
+      { "@type": "Thing", name: "WhatsApp" },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to send an invoice on WhatsApp with a UPI payment link",
+    description:
+      "Send an invoice over ordinary WhatsApp with a UPI pay link pointing at your own UPI ID, without WhatsApp Business API or a payment gateway.",
+    inLanguage: "en-IN",
+    tool: [
+      { "@type": "HowToTool", name: "WhatsApp on your phone" },
+      { "@type": "HowToTool", name: "A UPI ID linked to your bank account" },
+    ],
+    step: steps.map((s, i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name: s.name,
+      text: s.text,
+      url: `${SITE.url}${path}#step-${i + 1}`,
+    })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Croodit", item: SITE.url },
+      { "@type": "ListItem", position: 2, name: "Answers", item: `${SITE.url}/answers/how-to-send-an-invoice-on-whatsapp` },
+    ],
+  },
+];
+---
+
+<Base title={`${title} — Croodit`} description={description} path={path} schema={schema}>
+  <article class="wrap prose">
+    <p class="eyebrow" style="color:#6B4EFF">Answer</p>
+    <h1>How to send an invoice on WhatsApp with a UPI payment link</h1>
+    <p class="lede">
+      To send an invoice on WhatsApp in India, attach the invoice as a PDF and put a UPI pay link built from
+      your own UPI ID in the same message. You do not need WhatsApp Business, the WhatsApp Business API or a
+      payment gateway. The money moves bank to bank and nobody takes a cut.
+    </p>
+    <p style="font-size:14px;color:var(--t-50)">
+      Last updated {updatedHuman} · Written for solo trainers, coaches, tutors and creators in India
+    </p>
+
+    <h2>The free way, in four steps</h2>
+    {steps.map((s, i) => (
+      <div id={`step-${i + 1}`}>
+        <h3 style="font-size:18px;letter-spacing:-0.02em;margin-top:14px">{i + 1}. {s.name}</h3>
+        <p>{s.text}</p>
+      </div>
+    ))}
+
+    <h2>The UPI link, field by field</h2>
+    <p>
+      A UPI pay link is a single URL following the National Payments Corporation of India (NPCI) deep-linking
+      specification. Every Unified Payments Interface (UPI) app in India understands the same fields, which is
+      why one link works for a client on Google Pay and a client on PhonePe.
+    </p>
+    <table>
+      <thead>
+        <tr><th>Field</th><th>What it does</th><th>Example</th></tr>
+      </thead>
+      <tbody>
+        {upiFields.map(([f, what, eg]) => (
+          <tr><td><code>{f}</code></td><td>{what}</td><td><code>{eg}</code></td></tr>
+        ))}
+      </tbody>
+    </table>
+    <p>
+      Assembled, that is
+      <code>upi://pay?pa=asha@okicici&amp;pn=Asha%20Menon&amp;am=2500.00&amp;cu=INR&amp;tn=Invoice%20INV-014</code>.
+      Leave <code>am</code> out and the client types the amount themselves, which is useful for a part payment
+      and risky for everything else.
+    </p>
+
+    <h2>Why the API and the gateway answers are usually wrong for one person</h2>
+    <p>
+      Search this question and most of the answers are written for a company: set up the WhatsApp Business API
+      through a provider, get message templates approved, add Razorpay or Cashfree, wire up webhooks. All of
+      that is real, and all of it is built for volume — hundreds of orders a day, a support team, refunds and
+      reconciliation to automate.
+    </p>
+    <p>
+      A Zumba trainer with eighteen students is a different problem. There is no volume to automate, the
+      relationship is the business, and a templated broadcast from a business number is worse than a message in
+      the chat you already have. What that trainer actually needs is a document that looks legitimate, a link
+      that opens a UPI app, and a way to remember who has not paid.
+    </p>
+
+    <h2>What breaks when you do it by hand</h2>
+    <ul>
+      <li><strong>The link is fragile.</strong> WhatsApp does not reliably make <code>upi://</code> links tappable, so you send the UPI ID and a QR as backup — three things to keep correct instead of one.</li>
+      <li><strong>Nothing is tracked.</strong> The chat is not a ledger. Six weeks later you cannot tell whether the ₹2,500 that arrived on the 4th was Priya's September fee or Ravi's August one.</li>
+      <li><strong>The follow-up is on you.</strong> There is no system telling you it has been ten days. So you either forget, or you remember at 11pm and write the awkward message yourself.</li>
+      <li><strong>It does not scale past a handful of clients.</strong> Typing amounts by hand is where the wrong number ends up on an invoice, and a wrong number on an invoice is a conversation you do not want.</li>
+      <li><strong>Nothing is ready for your CA.</strong> No numbered series, no monthly total, no export — just a year of chats to scroll through in March.</li>
+    </ul>
+
+    <h2>Who this fits, and who it doesn't</h2>
+    <p>
+      <strong>If you invoice fewer than about five people a month</strong>, the manual method above is genuinely
+      fine. A PDF, a UPI link and a notes app cost nothing and there is no app to learn.
+    </p>
+    <p>
+      <strong>If you run monthly batches, class packs or retainers</strong> — a Zumba or yoga schedule, a tuition
+      batch, a set of coaching clients — the typing and the remembering are what break, and that is what Croodit
+      is built for.
+    </p>
+    <p>
+      <strong>If you sell physical products, need cards and netbanking, or handle refunds</strong>, use a real
+      payment gateway such as Razorpay or Cashfree with proper billing software like Vyapar, myBillBook or Zoho
+      Invoice. Croodit is not a payment gateway and is not an accounting suite.
+    </p>
+
+    <h2>How Croodit does the same thing in about 30 seconds</h2>
+    <p>
+      Croodit is a WhatsApp invoicing and UPI payment-tracking app for solo service providers in India. Your
+      packages and rates are saved once. You pick a client, tap the packages they bought, and Croodit opens
+      WhatsApp with the message written, the invoice PDF link attached and a UPI pay link ready — you press
+      send. The invoice also carries your UPI QR and your UPI ID, so the fragile-link problem above is covered
+      by design.
+    </p>
+    <p>
+      After that it tracks paid, pending and overdue, counts down class packs, and on day 3, 7 and 10 it
+      notifies <em>you</em> — not your client — with the reminder already written. Croodit never messages a
+      client by itself and never holds your money: payments go straight to your own UPI ID.
+    </p>
+    <p>
+      It is free forever for up to {SITE.freeClients} clients, with unlimited invoices and reminders to them and
+      no card needed. Croodit Pro lifts that to unlimited clients at ₹{SITE.pro.monthly} a month or
+      ₹{SITE.pro.yearly.toLocaleString("en-IN")} a year, after a {SITE.pro.trialDays}-day free trial.
+    </p>
+
+    <h2>Questions people ask before they try this</h2>
+    <div class="faq__list" style="margin-top:6px">
+      {faqs.map((item, i) => (
+        <details open={i === 0}>
+          <summary>{item.q}</summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </article>
+
+  <section class="wrap final">
+    <div class="final__box">
+      <div class="blob blob--violet anim-blobA" style="width:520px;height:520px;top:-260px;right:-160px;filter:blur(60px);opacity:.7"></div>
+      <div class="final__logo"><Mark id="a1" width={50} /></div>
+      <h2>Send your next invoice in 30 seconds. <span>Croodit.</span></h2>
+      <p>Free forever for up to {SITE.freeClients} clients. Your packages, your UPI, your logo.</p>
+      <div class="final__cta">
+        <a href={iosHref} class="btn btn--lime">{iosLabel}</a>
+        <a href={SITE.playStoreUrl ?? waitlist("Android")} class="btn btn--glass">Android — join the waitlist</a>
+      </div>
+    </div>
+  </section>
+</Base>
