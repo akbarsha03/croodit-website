@@ -2,8 +2,10 @@
 import Base from "../../layouts/Base.astro";
 import Mark from "../../components/Mark.astro";
 import { SITE, waitlist } from "../../site";
+import { breadcrumb, orgRef } from "../../data/schema";
 
 const path = "/answers/how-to-send-an-invoice-on-whatsapp";
+const crumb = "How to send an invoice on WhatsApp";
 const title = "How to send an invoice on WhatsApp with a UPI payment link (India)";
 const description =
   "The free way to send an invoice on WhatsApp with a UPI pay link — no WhatsApp Business API, no payment gateway. The upi:// link field by field, what breaks, and when an app is worth it.";
@@ -79,13 +81,8 @@ const schema = [
     datePublished: updatedISO,
     dateModified: updatedISO,
     mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE.url}${path}` },
-    author: { "@type": "Organization", name: "Croodit", url: SITE.url },
-    publisher: {
-      "@type": "Organization",
-      name: "Croodit",
-      url: SITE.url,
-      logo: `${SITE.url}/brand/icon-square-lime.svg`,
-    },
+    author: orgRef,
+    publisher: orgRef,
     about: [
       { "@type": "Thing", name: "Invoicing" },
       { "@type": "Thing", name: "Unified Payments Interface (UPI)" },
@@ -120,20 +117,20 @@ const schema = [
       acceptedAnswer: { "@type": "Answer", text: f.a },
     })),
   },
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Croodit", item: SITE.url },
-      { "@type": "ListItem", position: 2, name: "Answers", item: `${SITE.url}/answers/how-to-send-an-invoice-on-whatsapp` },
-    ],
-  },
+  breadcrumb([
+    ["Croodit", "/"],
+    [crumb, path],
+  ]),
 ];
 ---
 
 <Base title={`${title} — Croodit`} description={description} path={path} schema={schema}>
   <article class="wrap prose">
-    <p class="eyebrow" style="color:#6B4EFF">Answer</p>
+    <nav class="eyebrow" aria-label="Breadcrumb" style="color:#6B4EFF">
+      <a href="/" style="color:inherit">Croodit</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <span>{crumb}</span>
+    </nav>
     <h1>How to send an invoice on WhatsApp with a UPI payment link</h1>
     <p class="lede">
       To send an invoice on WhatsApp in India, attach the invoice as a PDF and put a UPI pay link built from
