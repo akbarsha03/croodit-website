@@ -8,6 +8,7 @@ import ScreenWhatsApp from "../components/ScreenWhatsApp.astro";
 import ScreenHome from "../components/ScreenHome.astro";
 import { SITE, waitlist } from "../site";
 import { faq } from "../data/faq";
+import { orgRef } from "../data/schema";
 
 const title = "Croodit — WhatsApp invoice app with a UPI pay link (India)";
 const description =
@@ -49,17 +50,7 @@ const schema = [
       { "@type": "Offer", name: "Croodit Pro (yearly)", price: String(SITE.pro.yearly), priceCurrency: "INR" },
     ],
     audience: { "@type": "Audience", audienceType: "Fitness trainers, coaches, tutors and creators in India", geographicArea: { "@type": "Country", name: "India" } },
-    publisher: { "@type": "Organization", name: "Croodit", url: SITE.url },
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "Croodit",
-    url: SITE.url,
-    logo: `${SITE.url}/brand/icon-square-lime.svg`,
-    email: SITE.email,
-    areaServed: { "@type": "Country", name: "India" },
-    description: "Croodit makes WhatsApp invoicing and UPI payment tracking simple for solo service providers in India.",
+    publisher: orgRef,
   },
   {
     "@context": "https://schema.org",
