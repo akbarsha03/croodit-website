@@ -1,0 +1,280 @@
+---
+import Base from "../layouts/Base.astro";
+import Mark from "../components/Mark.astro";
+import { SITE, waitlist } from "../site";
+import { breadcrumb, orgRef } from "../data/schema";
+
+const path = "/vyapar-alternative-for-trainers-and-coaches";
+const crumb = "Vyapar alternative for trainers and coaches";
+const title = "Vyapar alternative for trainers and coaches in India";
+const description =
+  "An honest comparison of Vyapar and Croodit for fitness trainers, yoga and dance coaches and tutors. Vyapar's real 2026 prices, where it genuinely wins, and where a class-pack app fits better.";
+
+const updatedISO = "2026-09-09";
+const updatedHuman = "9 September 2026";
+
+const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
+const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
+
+const yearly = SITE.pro.yearly.toLocaleString("en-IN");
+
+/**
+ * Every Vyapar figure below was read on 2026-09-09 from Vyapar's own live plans
+ * endpoint (api1.vyaparapp.in) and vyaparapp.in itself — not from a review site.
+ * Re-verify before editing; omit anything that no longer checks out.
+ */
+const vyaparPlans = [
+  ["Silver, 1 year, Android", "₹1,199", "₹699"],
+  ["Gold, 1 year, Android", "₹1,399", "₹799"],
+  ["Silver, 1 year, Desktop", "₹6,399", "₹3,799"],
+  ["Gold, 1 year, Desktop", "₹7,699", "₹4,099"],
+  ["Silver, 1 year, Desktop + Mobile", "₹7,499", "₹4,399"],
+  ["Gold, 1 year, Desktop + Mobile", "₹9,099", "₹4,799"],
+];
+
+const rows = [
+  [
+    "Who it is built for",
+    "Retailers, kirana stores, wholesalers, distributors, manufacturers, restaurants and pharmacies — businesses that sell goods.",
+    "One person selling their own time — Zumba and fitness trainers, yoga and dance coaches, tutors, nutritionists, photographers, makeup artists.",
+  ],
+  [
+    "What it counts",
+    "Items and stock. Quantities in, quantities out, low-stock alerts, barcodes.",
+    "Class packs and attendance. Ten sessions bought, six used, four left, renewal due.",
+  ],
+  [
+    "GST",
+    "The centre of the product — GST-compliant billing, e-invoices, e-way bills, GSTR-ready reports.",
+    "Optional and off by default. Turn it on and you get GST invoices with monthly CA-ready exports in Excel, PDF and Tally format.",
+  ],
+  [
+    "Reminders to clients",
+    "Automated payment reminders, sent to customers on WhatsApp through the app. Also WhatsApp marketing and promotional messages.",
+    "Croodit never messages a client by itself. On day 3, 7 and 10 it notifies you with the reminder already written; you read it, edit it, press send.",
+  ],
+  [
+    "Where the money lands",
+    "Payment tracking against your ledger; collection through the payment options you set up.",
+    "Straight into your own UPI ID. Croodit is not a payment gateway, holds nothing and takes no cut.",
+  ],
+  [
+    "Platform",
+    "Android, iOS, Windows and Mac, offline and cloud.",
+    `iPhone first. ${SITE.appStoreUrl ? "Available on the App Store." : "Not on the App Store yet — early access; Android is a waitlist."}`,
+  ],
+  [
+    "Entry price",
+    "Free trial, then paid plans from ₹699 a year on Android.",
+    `Free forever for up to ${SITE.freeClients} clients with unlimited invoices, then ₹${SITE.pro.monthly} a month or ₹${yearly} a year after a ${SITE.pro.trialDays}-day trial.`,
+  ],
+];
+
+const faqs = [
+  {
+    q: "I'm a Zumba trainer with about 20 students paying monthly. Is Vyapar overkill for me?",
+    a: "Probably, but not because it is a bad product. Vyapar is built around items and stock — you create products, track quantities, and bill them with GST. A trainer has no stock. What you actually track is who is on a ten-class pack, how many sessions they have left, and who has not paid for September. That model is not what Vyapar's data structure is shaped around, so you end up entering your batches as inventory items and ignoring most of the app.",
+  },
+  {
+    q: "Is Croodit cheaper than Vyapar?",
+    a: `Not on a straight annual comparison, and it would be dishonest to pretend otherwise. Vyapar's Android Gold plan was ₹799 a year on 9 September 2026; Croodit Pro is ₹${yearly} a year. Croodit is free forever for up to ${SITE.freeClients} clients, so a coach with a small roster pays nothing at all, and Vyapar's free tier is a trial rather than a permanent plan. But if you have 30 clients and price is the only thing you care about, Vyapar's Android plan costs less.`,
+  },
+  {
+    q: "Vyapar already sends WhatsApp payment reminders. Why would I want an app that makes me press send myself?",
+    a: "Because of who is on the other end. Vyapar's automated reminders are built for a shop chasing a distributor's outstanding balance, where nobody minds a system message. You see your students on Monday morning. An automated dunning message to someone who is in your 7am class is worse than no message — it reads as a collections notice from a stranger. Croodit writes the reminder and hands it to you so the words are still yours.",
+  },
+  {
+    q: "Is Vyapar free?",
+    a: "Vyapar's own FAQ says it is \"free to use on mobile and desktop with a free trial\" — so the free access is a trial, not a permanent free plan. Paid Android plans started at ₹699 a year when we checked on 9 September 2026, and desktop plans at ₹3,799. Check vyaparapp.in for today's numbers before you buy; Indian billing software discounts move often.",
+  },
+  {
+    q: "I need GST invoices and my CA wants proper reports. Can Croodit do that or should I stay with Vyapar?",
+    a: "Croodit does GST invoices — it is optional and off by default, and when you switch it on you get monthly exports your CA can open in Excel, PDF or Tally. What it does not do is e-way bills, e-invoicing against the IRP, stock valuation or a full ledger. If your CA needs those, Vyapar is the right tool and you should stay with it.",
+  },
+  {
+    q: "Can I run both?",
+    a: "Some people do, and it is a reasonable answer while you decide. Croodit handles the day-to-day — sending the invoice on WhatsApp, seeing who has paid, counting down class packs — and you keep whatever your accountant already has for the year-end filing. Croodit does not import from or sync with Vyapar, so this only makes sense if your volume is low enough that a monthly export is not a chore.",
+  },
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: title,
+    description,
+    inLanguage: "en-IN",
+    datePublished: updatedISO,
+    dateModified: updatedISO,
+    mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE.url}${path}` },
+    author: orgRef,
+    publisher: orgRef,
+    about: [
+      { "@type": "SoftwareApplication", name: "Vyapar", applicationCategory: "BusinessApplication" },
+      { "@type": "Thing", name: "Invoicing" },
+      { "@type": "Thing", name: "Unified Payments Interface (UPI)" },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  },
+  breadcrumb([
+    ["Croodit", "/"],
+    [crumb, path],
+  ]),
+];
+---
+
+<Base title={`${title} — Croodit`} description={description} path={path} schema={schema}>
+  <article class="wrap prose">
+    <nav class="eyebrow" aria-label="Breadcrumb" style="color:#6B4EFF">
+      <a href="/" style="color:inherit">Croodit</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <span>{crumb}</span>
+    </nav>
+    <h1>Vyapar alternative for trainers and coaches</h1>
+    <p class="lede">
+      Vyapar is GST billing and inventory software for businesses that sell goods. If you teach classes, the
+      part that does not fit is stock — you track class packs and attendance, not quantities. Croodit is the
+      alternative built for that: invoice on WhatsApp, get paid by Unified Payments Interface (UPI), track who
+      still owes you.
+    </p>
+    <p style="font-size:14px;color:var(--t-50)">
+      Last updated {updatedHuman} · All Vyapar figures below were read from vyaparapp.in and Vyapar's own
+      live plans endpoint on that date
+    </p>
+
+    <h2>What Vyapar actually is</h2>
+    <p>
+      Vyapar calls itself the "Best GST Billing Software for Small Businesses" and claims 1.5 crore-plus Indian
+      businesses. Its own site lists the industries it serves: retailers, kirana store owners, wholesalers,
+      distributors, manufacturers, restaurants and pharmacies. The feature set follows from that — GST-compliant
+      billing, inventory and stock tracking, e-invoices and e-way bills, point-of-sale billing, barcode
+      scanning, accounting reports, and WhatsApp billing with automated payment reminders.
+    </p>
+    <p>
+      It is a genuinely good product for the business it was built for. The mismatch for a trainer is not
+      quality, it is shape.
+    </p>
+
+    <h2>What Vyapar costs</h2>
+    <p>
+      Vyapar's own FAQ answers the free question this way: it is "free to use on mobile and desktop with a free
+      trial". That is a trial, not a permanent free plan. These were the live 1-year prices on {updatedHuman}:
+    </p>
+    <table>
+      <thead>
+        <tr><th>Plan</th><th>List price</th><th>Selling price</th></tr>
+      </thead>
+      <tbody>
+        {vyaparPlans.map(([plan, mrp, sp]) => (
+          <tr><td>{plan}</td><td>{mrp}</td><td><strong>{sp}</strong></td></tr>
+        ))}
+      </tbody>
+    </table>
+    <p>
+      Vyapar discounts heavily and often, so treat these as a snapshot rather than a fixed rate card — check
+      vyaparapp.in before you buy. Croodit Pro is ₹{SITE.pro.monthly} a month or ₹{yearly} a year, after a{" "}
+      {SITE.pro.trialDays}-day free trial, and free forever for up to {SITE.freeClients} clients.
+    </p>
+    <p>
+      <strong>Which means Vyapar's Android plan is cheaper per year than Croodit Pro.</strong> ₹799 against
+      ₹{yearly}. If annual price is the only thing deciding this, that is your answer and you should stop
+      reading. The rest of this page is about the cases where it is not.
+    </p>
+
+    <h2>Vyapar and Croodit, side by side</h2>
+    <table>
+      <thead>
+        <tr><th>&nbsp;</th><th>Vyapar</th><th>Croodit</th></tr>
+      </thead>
+      <tbody>
+        {rows.map(([label, v, c]) => (
+          <tr><td><strong>{label}</strong></td><td>{v}</td><td>{c}</td></tr>
+        ))}
+      </tbody>
+    </table>
+
+    <h2>Where Vyapar is the better choice — honestly</h2>
+    <ul>
+      <li><strong>You sell physical things.</strong> A supplement counter at your studio, merchandise, equipment. Stock is a real problem and Croodit does not solve it at all.</li>
+      <li><strong>You need e-way bills or e-invoicing against the IRP.</strong> Croodit does neither.</li>
+      <li><strong>You want one system for billing and full accounting.</strong> Vyapar is a billing and accounting suite; Croodit is deliberately not one.</li>
+      <li><strong>You bill from a desktop, or a staff member bills for you.</strong> Vyapar runs on Windows and Mac with multi-device sync. Croodit is a phone app, iPhone first.</li>
+      <li><strong>You want it today on Android.</strong> Vyapar ships on Android now. Croodit's Android version is a waitlist.</li>
+    </ul>
+
+    <h2>Where Croodit fits instead</h2>
+    <p>
+      The buyer this page is written for gets paid by people, not by payroll, and has the same twelve to thirty
+      names coming back every month. A Zumba trainer with three batches. A yoga teacher selling ten-class packs
+      at ₹2,500. A tutor with eight students on monthly fees. A photographer with an advance and a balance.
+    </p>
+    <p>
+      For that person the work is not billing. It is remembering that Priya's pack ran out on the 4th, that
+      Ravi's September fee never arrived, and that the ₹2,500 credit on Tuesday could have been either of them.
+      Then it is writing the message — the one you draft at 11pm to someone you will see at 7am.
+    </p>
+    <p>
+      Croodit saves your packages and rates once. You pick a client, tap what they bought, and it opens WhatsApp
+      with the message written, the invoice PDF attached and a UPI pay link ready. You press send. It then tracks
+      paid, pending and overdue, counts down class packs, and on day 3, 7 and 10 notifies <em>you</em> with the
+      follow-up already drafted. Nothing reaches a client until you send it, and payments go straight to your own
+      UPI ID.
+    </p>
+
+    <h2>Who should switch, and who shouldn't</h2>
+    <p>
+      <strong>If you run classes, batches, packs or retainers and Vyapar feels like it is asking you questions
+      about inventory you do not have</strong>, Croodit fits because it models the thing you actually sell —
+      sessions against a pack, on a recurring roster — instead of asking you to call it stock.
+    </p>
+    <p>
+      <strong>If Vyapar is working and your complaint is only the price</strong>, stay. ₹799 a year on Android is
+      less than Croodit Pro, and switching software to save nothing is a bad trade.
+    </p>
+    <p>
+      <strong>If you sell goods, need GST filing support, e-way bills or a real ledger</strong>, stay with Vyapar,
+      or look at myBillBook or Zoho Invoice. Croodit is not an accounting suite and will not become one.
+    </p>
+    <p>
+      <strong>If you invoice fewer than about five people a month</strong>, you may not need either. A PDF, a UPI
+      link and a notes app cost nothing — we wrote up{" "}
+      <a href="/answers/how-to-send-an-invoice-on-whatsapp">the free manual method, step by step</a>.
+    </p>
+
+    <h2>Questions people ask before they switch</h2>
+    <div class="faq__list" style="margin-top:6px">
+      {faqs.map((item, i) => (
+        <details open={i === 0}>
+          <summary>{item.q}</summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+
+    <p style="font-size:14px;color:var(--t-50)">
+      Vyapar is a trademark of its owner and is not affiliated with Croodit. Everything above was taken from
+      Vyapar's public site on {updatedHuman} and may have changed since.
+    </p>
+  </article>
+
+  <section class="wrap final">
+    <div class="final__box">
+      <div class="blob blob--violet anim-blobA" style="width:520px;height:520px;top:-260px;right:-160px;filter:blur(60px);opacity:.7"></div>
+      <div class="final__logo"><Mark id="a1" width={50} /></div>
+      <h2>Built for the roster, not the stockroom. <span>Croodit.</span></h2>
+      <p>Free forever for up to {SITE.freeClients} clients. Your packages, your UPI, your logo.</p>
+      <div class="final__cta">
+        <a href={iosHref} class="btn btn--lime">{iosLabel}</a>
+        <a href={SITE.playStoreUrl ?? waitlist("Android")} class="btn btn--glass">Android — join the waitlist</a>
+      </div>
+    </div>
+  </section>
+</Base>
