@@ -1,0 +1,308 @@
+---
+import Base from "../../layouts/Base.astro";
+import Mark from "../../components/Mark.astro";
+import { SITE, waitlist } from "../../site";
+import { breadcrumb, orgRef } from "../../data/schema";
+
+const path = "/answers/how-to-ask-a-client-for-payment-politely";
+const crumb = "How to ask a client for payment politely";
+const title = "How to ask a client for payment politely — WhatsApp scripts for Indian trainers and coaches";
+const description =
+  "Copy-paste WhatsApp messages to chase a fee without making it awkward — day 3, day 7, day 10 and the firm one. Written for trainers, coaches and tutors who see the client every morning.";
+
+const updatedISO = "2026-09-10";
+const updatedHuman = "10 September 2026";
+
+const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
+const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
+
+const steps = [
+  {
+    name: "Day 0 — send an invoice, not a number",
+    text:
+      "Politeness starts before the chase. A message saying \"2500 for September\" is a personal request and feels like one. An invoice with a number, a date, the line items and a pay link is a document, and a document can be late without anyone being rude. Send it on the first day of the batch or the pack, not at the end.",
+    script:
+      "Hi Priya! September's invoice is attached — INV-041, ₹2,500 for the 12-class pack. Pay link is below, or my UPI ID is asha@okicici. See you Monday!",
+  },
+  {
+    name: "Day 3 — resend the invoice, don't repeat the ask",
+    text:
+      "Three days in, assume nothing is wrong. Most unpaid invoices at this stage are simply unread. Send the same invoice again with one line of context and no new request — you are re-delivering a document, not asking twice.",
+    script:
+      "Hi Priya, popping INV-041 back up here so it doesn't get lost in the chat — ₹2,500 for September. No rush!",
+  },
+  {
+    name: "Day 7 — give them the face-saving exit",
+    text:
+      "This is the single most useful move in the whole sequence. Instead of asking whether they have paid, say your records show it pending and ask for a screenshot if they have. Someone who forgot gets a graceful way back in, someone who paid can prove it, and you get an answer either way — without a single accusing word.",
+    script:
+      "Hi Priya, INV-041 (₹2,500, September) is still showing pending on my side. If you've already sent it, could you share a screenshot so I can match it? Otherwise here's the link again.",
+  },
+  {
+    name: "Day 10 — name the number, offer a way out",
+    text:
+      "Ten days in, stop softening the amount and start solving their problem instead. Ask for a date rather than the money, and offer to split it. A person who is short this month will answer a question about timing when they will not answer a request for ₹2,500.",
+    script:
+      "Hi Priya, ₹2,500 against INV-041 is now ten days overdue. Could you tell me a date that works to clear it? Happy to take it in two parts if that's easier.",
+  },
+  {
+    name: "Day 21 — a boundary with a date, not an ultimatum",
+    text:
+      "If it has gone this far, the polite thing is to be clear. State the fact, state what changes, and give a specific date. No emotion, no apology, no threat — the message is short because it is a decision, not a negotiation. Send it in writing, never in person and never in the batch group.",
+    script:
+      "Hi Priya, I still haven't received ₹2,500 against INV-041 from September. I'll be holding your spot until Monday the 22nd and then opening it up — let me know if that date is a problem. Link is here if you'd like to clear it before then.",
+  },
+];
+
+const rules = [
+  [
+    "Chase the invoice, never the person",
+    "\"INV-041 is showing pending\" lands completely differently from \"you haven't paid me\". The first is a status; the second is a character note. Every script above names a document.",
+  ],
+  [
+    "Never in the group, never in person first",
+    "A message in the batch WhatsApp group is a public shaming whether you meant it that way or not. And an in-person ask ambushes someone with no time to check their bank — they get defensive, you get an excuse. Ask in the one-to-one chat, in writing, always.",
+  ],
+  [
+    "Don't apologise for invoicing",
+    "\"So sorry to bother you about this\" tells the reader the request is an imposition, which makes the next one harder to send. \"Just checking\" or nothing at all is warmer and firmer at the same time.",
+  ],
+  [
+    "Make paying take one tap",
+    "Half of what looks like avoidance is friction. Put the UPI pay link, your UPI ID as copyable text and a QR in the same message, because WhatsApp does not reliably make upi:// links tappable. Never make someone ask you for your UPI ID twice.",
+  ],
+  [
+    "Fix the day, not the mood",
+    "Deciding to chase someone is the hard part, so remove the decision. Pick a fixed day — every Monday, or day 3, 7 and 10 after each invoice — and send whatever the list says. The message stops being personal once it is a routine.",
+  ],
+  [
+    "Set the terms once, at the start",
+    "\"Packs are paid before the first class of the month\" said in week one prevents almost every awkward conversation in month six. The rule that exists before the money is due never feels like a complaint.",
+  ],
+];
+
+const hinglish = [
+  [
+    "Day 3",
+    "Hi Priya! September ka invoice INV-041 dobara bhej rahi hoon — ₹2,500, 12-class pack. Link neeche hai, ya UPI ID asha@okicici. Koi jaldi nahi!",
+  ],
+  [
+    "Day 7",
+    "Hi Priya, INV-041 (₹2,500) abhi bhi pending dikha raha hai mere side pe. Agar aapne bhej diya hai to screenshot share kar dijiye, main match kar loongi. Warna link yahi hai.",
+  ],
+  [
+    "Day 10",
+    "Hi Priya, INV-041 ka ₹2,500 ab 10 din late ho gaya hai. Kaunsi date tak clear kar paayenge, bata dijiye? Do parts mein bhi chalega agar aasan ho.",
+  ],
+];
+
+const faqs = [
+  {
+    q: "I see my Zumba client at 6am every morning and she still hasn't paid for September — how do I bring it up without making it weird?",
+    a: "Don't bring it up at 6am. Send the day-7 script in your one-to-one WhatsApp chat later that day: say the invoice is showing pending on your side and ask for a screenshot if she has already sent it. Doing it in writing means neither of you has to hold a face while it happens, and by the next class it is either paid or already a normal thing you have discussed. The morning stays about the class.",
+  },
+  {
+    q: "Is it rude to send a payment reminder on WhatsApp in India?",
+    a: "No — WhatsApp is where the relationship already lives, and a reminder there is far less formal than an email demand. What reads as rude is the shape of the message, not the channel: an amount with no invoice, a reminder in the batch group, a message at 11pm, or three chasers in one week. One reminder, in the private chat, attached to a numbered invoice, during working hours, is normal business.",
+  },
+  {
+    q: "Should I ask for the class-pack fee before the pack starts or after it finishes?",
+    a: "Before, and say so on day one. Payment in advance is standard for class packs, batches and retainers in India, and collecting up front removes the chase entirely — there is nothing to ask for later because it was a condition of starting. If you are switching an existing client over, apply it from their next pack rather than the current one and tell them a month ahead.",
+  },
+  {
+    q: "My client says they've already paid but nothing has come into my account — what do I say?",
+    a: "Ask for the UPI reference number and the date, not for the money. \"Could you send me the UPI reference and the date? I'll check with my bank and come back to you\" moves the problem to a transaction you can both look up, and it costs them nothing to answer. Genuine failed UPI payments do happen and usually reverse in a few days. If no reference exists, they know that themselves, and you have not called anyone a liar.",
+  },
+  {
+    q: "How many times can I remind someone before I stop?",
+    a: "Three nudges and then a decision. Day 3, day 7 and day 10 covers the forgetful ones without becoming noise. If day 10 gets no reply, the next message is not a fourth reminder — it is the day-21 script, which states what will change and when. Reminding someone a fifth time teaches them that your reminders do not mean anything.",
+  },
+  {
+    q: "Should I charge a late fee to a coaching or tuition client?",
+    a: "Usually not for individual clients you see weekly — a late fee turns a relationship into a contract dispute over a few hundred rupees, and most people simply stop coming instead of paying it. What works better for solo trainers and tutors is a start condition: the next pack begins when the previous one is cleared. That is the same pressure without a penalty, and nobody has to feel punished.",
+  },
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: "How to ask a client for payment politely",
+    description,
+    inLanguage: "en-IN",
+    datePublished: updatedISO,
+    dateModified: updatedISO,
+    mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE.url}${path}` },
+    author: orgRef,
+    publisher: orgRef,
+    about: [
+      { "@type": "Thing", name: "Payment reminders" },
+      { "@type": "Thing", name: "Invoicing" },
+      { "@type": "Thing", name: "WhatsApp" },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to ask a client for payment politely over WhatsApp",
+    description:
+      "A five-stage reminder sequence — day 0, 3, 7, 10 and 21 — with the exact WhatsApp message to send at each stage, written for solo trainers, coaches and tutors in India.",
+    inLanguage: "en-IN",
+    step: steps.map((s, i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name: s.name,
+      text: s.text,
+      url: `${SITE.url}${path}#step-${i + 1}`,
+    })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  },
+  breadcrumb([
+    ["Croodit", "/"],
+    [crumb, path],
+  ]),
+];
+---
+
+<Base title={`${title} — Croodit`} description={description} path={path} schema={schema}>
+  <article class="wrap prose">
+    <nav class="eyebrow" aria-label="Breadcrumb" style="color:#6B4EFF">
+      <a href="/" style="color:inherit">Croodit</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <span>{crumb}</span>
+    </nav>
+    <h1>How to ask a client for payment politely</h1>
+    <p class="lede">
+      Ask in writing, in the one-to-one chat, and chase the invoice rather than the person. Resend the invoice
+      on day 3, on day 7 say it is showing pending and offer to check a screenshot, and on day 10 ask for a
+      date instead of the money. Never in the group, never in person first, and never apologise for invoicing.
+    </p>
+    <p style="font-size:14px;color:var(--t-50)">
+      Last updated {updatedHuman} · Written for solo trainers, coaches, tutors and creators in India
+    </p>
+
+    <h2>Why this is hard, and what actually fixes it</h2>
+    <p>
+      Chasing a stranger for money is admin. Chasing someone you will see at 6am tomorrow, in the class you
+      teach, is something else — and that is the real problem for a Zumba trainer, a yoga teacher or a tutor.
+      The message is not difficult to write. Deciding to send it is.
+    </p>
+    <p>
+      So the fix is not a better sentence. It is removing the decision: a numbered invoice sent on day one, a
+      fixed schedule for follow-ups, and a message you are not composing from scratch while your feelings are
+      involved. The scripts below exist so you never have to word one at 11pm.
+    </p>
+
+    <h2>The five messages, in order</h2>
+    {steps.map((s, i) => (
+      <div id={`step-${i + 1}`}>
+        <h3 style="font-size:18px;letter-spacing:-0.02em;margin-top:18px">{s.name}</h3>
+        <p>{s.text}</p>
+        <blockquote style="margin:0;padding:12px 16px;border-left:3px solid var(--lime);background:rgba(0,0,0,0.04);border-radius:0 10px 10px 0">
+          <p style="margin:0"><em>{s.script}</em></p>
+        </blockquote>
+      </div>
+    ))}
+    <p style="font-size:14px;color:var(--t-50)">
+      Names, amounts and invoice numbers above are examples — swap in your own.
+    </p>
+
+    <h2>The same nudges in Hinglish</h2>
+    <p>
+      Most Indian trainers and their clients chat in a mix of Hindi and English, and a reminder that switches
+      into stiff formal English is the one that reads as a warning. Keep the register you already use.
+    </p>
+    <table>
+      <thead>
+        <tr><th>Stage</th><th>Message</th></tr>
+      </thead>
+      <tbody>
+        {hinglish.map(([when, msg]) => (
+          <tr><td><strong>{when}</strong></td><td><em>{msg}</em></td></tr>
+        ))}
+      </tbody>
+    </table>
+
+    <h2>Six rules behind every script above</h2>
+    <ul>
+      {rules.map(([rule, why]) => (
+        <li><strong>{rule}.</strong> {why}</li>
+      ))}
+    </ul>
+
+    <h2>Who this fits, and who it doesn't</h2>
+    <p>
+      <strong>If you teach, coach or tutor the person you are chasing</strong> — a Zumba batch, a yoga class, a
+      set of tuition students, a personal-training roster — this sequence is written for exactly that. The
+      relationship is the business, so the goal is getting paid without spending any of it.
+    </p>
+    <p>
+      <strong>If you invoice a company against a signed contract or a purchase order</strong>, use a stricter
+      playbook: quote the payment terms, copy the accounts payable contact, and escalate through email where
+      there is a record. Tools like Refrens or Zoho Invoice are built for that trail. Warmth is not the lever
+      when the person reading your message is not the person who decides.
+    </p>
+    <p>
+      <strong>If the client has been silent for sixty days or more</strong>, this is no longer a politeness
+      problem. Stop the service, put the amount in writing once, and decide whether it is worth pursuing
+      formally. No script recovers a debt from someone who has stopped replying.
+    </p>
+
+    <h2>How Croodit handles the chasing part</h2>
+    <p>
+      Croodit is a WhatsApp invoicing and UPI payment-tracking app for solo service providers in India. It saves
+      your packages and rates once, so an invoice takes about 30 seconds: pick the client, tap what they bought,
+      and WhatsApp opens with the message written, the invoice PDF link attached and a UPI pay link ready — you
+      press send. The invoice also carries your UPI QR and your UPI ID, so paying really is one tap.
+    </p>
+    <p>
+      Then it tracks paid, pending and overdue, and on day 3, 7 and 10 it notifies <em>you</em> — not your
+      client — with the reminder already drafted. That is the deliberate design: <strong>Croodit never messages
+      a client by itself.</strong> Nothing leaves your phone until you have read it and pressed send, because an
+      automated chaser to someone you teach every morning is exactly the message you would not have sent. The
+      app removes the deciding and the wording; you keep the relationship.
+    </p>
+    <p>
+      Money goes straight to your own UPI ID — Croodit is not a payment gateway, holds nothing and takes no cut.
+      It is free forever for up to {SITE.freeClients} clients, with unlimited invoices and reminders to them and
+      no card needed. Croodit Pro lifts that to unlimited clients at ₹{SITE.pro.monthly} a month or
+      ₹{SITE.pro.yearly.toLocaleString("en-IN")} a year, after a {SITE.pro.trialDays}-day free trial.
+    </p>
+    <p>
+      Still sending invoices by hand? Read
+      <a href="/answers/how-to-send-an-invoice-on-whatsapp">how to send an invoice on WhatsApp with a UPI payment link</a>
+      for the free method, step by step.
+    </p>
+
+    <h2>Questions people ask about chasing a payment</h2>
+    <div class="faq__list" style="margin-top:6px">
+      {faqs.map((item, i) => (
+        <details open={i === 0}>
+          <summary>{item.q}</summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </article>
+
+  <section class="wrap final">
+    <div class="final__box">
+      <div class="blob blob--violet anim-blobA" style="width:520px;height:520px;top:-260px;right:-160px;filter:blur(60px);opacity:.7"></div>
+      <div class="final__logo"><Mark id="p1" width={50} /></div>
+      <h2>Stop wording the awkward message. <span>Croodit writes it.</span></h2>
+      <p>Free forever for up to {SITE.freeClients} clients. You still press send — always.</p>
+      <div class="final__cta">
+        <a href={iosHref} class="btn btn--lime">{iosLabel}</a>
+        <a href={SITE.playStoreUrl ?? waitlist("Android")} class="btn btn--glass">Android — join the waitlist</a>
+      </div>
+    </div>
+  </section>
+</Base>

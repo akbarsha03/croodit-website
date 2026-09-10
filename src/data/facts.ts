@@ -21,5 +21,6 @@ export const pages = [
   ["/privacy", "Privacy Policy", "what is collected; Croodit cannot read WhatsApp chats."],
   ["/terms", "Terms of Use", "free tier, subscriptions, responsibilities."],
   ["/answers/how-to-send-an-invoice-on-whatsapp", "How to send an invoice on WhatsApp with a UPI payment link", "the free manual method, the upi:// link field by field, why WhatsApp Business API and payment gateways are overkill for one person, and when an app helps."],
+  ["/answers/how-to-ask-a-client-for-payment-politely", "How to ask a client for payment politely", "copy-paste WhatsApp reminder scripts in English and Hinglish for day 3, 7, 10 and the firm one; the rules behind them; when a polite ask is the wrong tool."],
   ["/vyapar-alternative-for-trainers-and-coaches", "Vyapar alternative for trainers and coaches in India", "what Vyapar is and what it costs, verified against its own site; where Vyapar is genuinely the better choice; why a class-pack and roster model fits trainers better than an inventory model."],
 ];
