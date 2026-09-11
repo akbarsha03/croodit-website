@@ -1,0 +1,260 @@
+---
+import Base from "../../layouts/Base.astro";
+import Mark from "../../components/Mark.astro";
+import { SITE, waitlist } from "../../site";
+import { breadcrumb, orgRef } from "../../data/schema";
+import { professions } from "../../data/professions";
+
+const path = "/for/yoga-teachers";
+const crumb = "Yoga teachers";
+const title = "Invoice and fee tracking app for yoga teachers in India — WhatsApp and UPI";
+const description =
+  "Three rate cards for the same hour: home visits, a studio group and a corporate booking. Croodit remembers each client's rate, sends the invoice on WhatsApp with a UPI pay link, and puts GST only on the invoices that need it.";
+
+const updatedISO = "2026-09-11";
+const updatedHuman = "11 September 2026";
+
+const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
+const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
+const others = professions.filter((p) => p.slug !== "yoga-teachers");
+
+const streams = [
+  [
+    "One-to-one at their home",
+    "₹1,200 a session, billed as an 8-session pack",
+    "Your highest rate and your biggest time cost, because the travel is unpaid. Almost always UPI, almost never wants a GST invoice.",
+  ],
+  [
+    "Small group at a studio",
+    "₹2,400 a month, 3 mornings a week",
+    "The steady base. Paid monthly in advance, and the one stream where a whole set of invoices goes out on the same day.",
+  ],
+  [
+    "Prenatal or therapy one-to-one",
+    "₹1,800 a session",
+    "Specialised, referred, and priced accordingly. Often runs for a fixed number of weeks rather than a rolling month.",
+  ],
+  [
+    "Corporate session",
+    "₹6,000 a session, invoiced monthly in arrears",
+    "The one that needs a proper document with your GSTIN, a PO reference and a company name — and the one that pays 30 to 45 days late.",
+  ],
+  [
+    "Online class",
+    "₹900 a month",
+    "Cheapest per head, no travel, no hall. Students who moved cities and stayed with you.",
+  ],
+  [
+    "Weekend workshop",
+    "₹1,500 a seat",
+    "One-off, paid up front, often by people who are not your regular students and whose numbers you will never use again.",
+  ],
+];
+
+const faqs = [
+  {
+    q: "I teach yoga at a studio, at three clients' homes and one corporate batch — how do I keep the fees straight without a spreadsheet?",
+    a: "Save a rate per client rather than one price for yourself. In Croodit each client carries their own package, so a home student's 8-session pack, a studio group's monthly fee and a corporate booking's per-session rate all live on the client instead of in your memory. Invoicing then never involves recalling what you quoted someone in March: you pick the client, tap what they bought, and WhatsApp opens with the message and a UPI pay link ready. The tracking screen shows paid, pending and overdue across all four streams at once.",
+  },
+  {
+    q: "My corporate client needs a GST invoice but my home students don't — can I do both?",
+    a: "Yes, and this is why GST is optional and off by default in Croodit rather than baked in. Turn it on for the invoices that need it and the invoice carries your GSTIN, the tax breakup and a document a company's accounts team will accept; leave it off everywhere else and your home students get a clean invoice with a UPI QR and no tax columns. Monthly exports come out CA-ready in Excel, PDF and Tally formats when you need to hand something over.",
+  },
+  {
+    q: "Some of my students still pay in cash after class — does that break the tracking?",
+    a: "No. Mark the invoice paid yourself and it moves out of pending like any other. Croodit tracks invoices, not your bank account, and it is not a payment gateway — it never sees the money in the first place. That means a cash payment, a UPI transfer to your own ID and a bank transfer are all just an invoice you mark as settled. The one thing worth doing is raising the invoice anyway, even for cash, so the record exists when you look back at the year.",
+  },
+  {
+    q: "How do I invoice a corporate client that takes 45 days to pay without nagging them?",
+    a: "Treat it differently from your individual students, because it is a different problem. Put the PO or booking reference on the invoice, turn GST on, and email it to the accounts contact as well as WhatsApping your day-to-day contact — a company pays what is in its system, not what is in a chat. Croodit's day 3, 7 and 10 nudges are built for individuals who forgot, not for a payables cycle. If corporate work becomes most of your income, a B2B invoicing tool like Refrens or Zoho Invoice, with an email trail and payment terms, is honestly the better fit.",
+  },
+  {
+    q: "Is my students' data safe if I put their names and numbers in an app?",
+    a: "Croodit uses the WhatsApp already on your phone — there is no WhatsApp Business API, no bot and no bulk-messaging layer, and Croodit cannot read your WhatsApp chats. Nothing reaches a student until you have read the draft and pressed send. Payments go directly to your own UPI ID, so no third party sits between you and the money. What is collected and what is not is set out on our privacy page.",
+  },
+  {
+    q: "I'm a solo teacher with about six regular students — is this going to cost me anything?",
+    a: "No. Free forever for up to seven clients covers you outright: unlimited invoices, unlimited reminders to them, no card. The paid tier exists for the eighth client, not for the eighth invoice. If you do cross over, Croodit Pro is ₹199 a month or ₹1,599 a year after a 14-day free trial — roughly one home session a year.",
+  },
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: title,
+    description,
+    url: `${SITE.url}${path}`,
+    inLanguage: "en-IN",
+    datePublished: updatedISO,
+    dateModified: updatedISO,
+    isPartOf: { "@type": "CollectionPage", "@id": `${SITE.url}/for` },
+    about: { "@type": "Thing", name: "Yoga class fee tracking" },
+    audience: {
+      "@type": "Audience",
+      audienceType: "Yoga teachers and instructors in India",
+      geographicArea: { "@type": "Country", name: "India" },
+    },
+    publisher: orgRef,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  },
+  breadcrumb([
+    ["Croodit", "/"],
+    ["Who it's for", "/for"],
+    [crumb, path],
+  ]),
+];
+---
+
+<Base title={`${title} — Croodit`} description={description} path={path} schema={schema}>
+  <article class="wrap prose">
+    <nav class="eyebrow" aria-label="Breadcrumb" style="color:#6B4EFF">
+      <a href="/" style="color:inherit">Croodit</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <a href="/for" style="color:inherit">Who it's for</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <span>{crumb}</span>
+    </nav>
+    <h1>Fee tracking and invoicing for yoga teachers in India</h1>
+    <p class="lede">
+      Croodit saves a different rate for every yoga student — a home one-to-one, a studio group, a
+      corporate batch — and sends each invoice on WhatsApp with a UPI pay link in about 30 seconds. GST
+      goes on only the invoices that need it. It tracks paid, pending and overdue, and writes the reminder
+      for you to press send.
+    </p>
+    <p style="font-size:14px;color:var(--t-50)">
+      Last updated {updatedHuman} · Free forever for up to {SITE.freeClients} clients
+    </p>
+
+    <h2>A yoga teacher's problem is not volume. It's that no two hours are priced the same.</h2>
+    <p>
+      A Zumba trainer sells one thing to thirty people. A yoga teacher sells six different things to twelve
+      people, and the same sixty minutes is worth ₹900 online, ₹2,400 a month in a studio group, ₹1,200 at
+      somebody's flat in Indiranagar and ₹6,000 to a company. The rate is attached to the relationship, not
+      to the class — and it was agreed in a conversation months ago that only one of you remembers.
+    </p>
+    <p>
+      So the real cost is not typing. It is <em>recall</em>. Every invoice starts with "what did I quote
+      her?", and the honest answer for most solo teachers is: scroll back through WhatsApp and hope. That
+      is also why so many teachers quietly undercharge long-standing students — the old number is the one
+      that gets remembered.
+    </p>
+
+    <h2>The six streams, and how each one pays</h2>
+    <table>
+      <thead>
+        <tr><th>Stream</th><th>Worked example</th><th>What's different about it</th></tr>
+      </thead>
+      <tbody>
+        {streams.map(([name, price, what]) => (
+          <tr><td><strong>{name}</strong></td><td>{price}</td><td>{what}</td></tr>
+        ))}
+      </tbody>
+    </table>
+    <p style="font-size:14px;color:var(--t-50)">
+      Amounts are an illustration of the shape, not a recommended rate card. Set your own.
+    </p>
+
+    <h2>What Croodit does about it</h2>
+    <ul>
+      <li>
+        <strong>The rate lives on the client, not in your head.</strong> Each student carries their own
+        package, so invoicing never begins with remembering. Change a rate once and it applies from the
+        next invoice, not retrospectively.
+      </li>
+      <li>
+        <strong>GST is a per-invoice switch, not a mode.</strong> On for the corporate booking with your
+        GSTIN and the tax breakup; off, and invisible, for everyone paying you personally. Monthly summaries
+        export CA-ready in Excel, PDF or Tally when your accountant asks.
+      </li>
+      <li>
+        <strong>Session packs count down.</strong> An 8-session home pack drops as you mark attendance and
+        prompts a renewal before it runs out — which matters more for one-to-one work than group classes,
+        because a missed home session is a rescheduled one, not a lost one.
+      </li>
+      <li>
+        <strong>Cash still works.</strong> Mark it paid and it leaves the pending list. Croodit tracks
+        invoices, not your bank balance, and never touches the money.
+      </li>
+      <li>
+        <strong>The nudge is yours to send.</strong> Day 3, 7 and 10, Croodit notifies <em>you</em> with the
+        message already drafted. <strong>Croodit never messages a student by itself</strong> — for a
+        practice built on trust and a fair amount of silence, an automated chaser is the wrong artefact
+        entirely.
+      </li>
+    </ul>
+
+    <h2>Who this fits, and who it doesn't</h2>
+    <p>
+      <strong>If you teach on your own</strong> — your own students, your own rates, paid to your own UPI ID
+      — this is the shape Croodit assumes. It works the same whether you have four students or forty, and
+      whether you teach in a rented hall, in homes or over a video call.
+    </p>
+    <p>
+      <strong>If you run a studio where students book classes themselves</strong>, you want a booking
+      platform, not an invoicing app. Momoyoga and Bookee handle timetables, online class booking,
+      memberships and multiple teachers; Croodit has no booking calendar and no concept of staff.
+    </p>
+    <p>
+      <strong>If most of your income is corporate wellness contracts</strong>, use a B2B invoicing tool with
+      email delivery, payment terms and a proper audit trail — Refrens or Zoho Invoice. WhatsApp is the
+      wrong channel when the person reading your message is not the person who approves the payment.
+    </p>
+
+    <h2>What it costs</h2>
+    <p>
+      Free forever for up to {SITE.freeClients} clients, with unlimited invoices and unlimited reminders to
+      them and no card required — which covers a genuinely small teaching practice for good. Croodit Pro
+      removes the client limit at ₹{SITE.pro.monthly} a month or
+      ₹{SITE.pro.yearly.toLocaleString("en-IN")} a year, after a {SITE.pro.trialDays}-day free trial.
+      Payments go straight to your own UPI ID — Croodit is not a payment gateway and takes no cut.
+    </p>
+    <p>
+      The iPhone app is in early access and Android is on a waitlist. Until then, the free manual route is
+      written up step by step: <a href="/answers/how-to-send-an-invoice-on-whatsapp">how to send an invoice
+      on WhatsApp with a UPI payment link</a>. And if the hard part is the follow-up rather than the
+      invoice, read <a href="/answers/how-to-ask-a-client-for-payment-politely">how to ask a client for
+      payment politely</a>.
+    </p>
+
+    <h2>Questions yoga teachers ask</h2>
+    <div class="faq__list" style="margin-top:6px">
+      {faqs.map((item, i) => (
+        <details open={i === 0}>
+          <summary>{item.q}</summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+
+    <h2>Not a yoga teacher?</h2>
+    <p>
+      The app is the same; the packages and the awkwardness differ.
+      {others.map((p, i) => (
+        <span>{i > 0 ? " " : ""}<a href={`/for/${p.slug}`}>{p.label}</a>{i < others.length - 1 ? ", " : ". "}</span>
+      ))}
+      Or see <a href="/for">everyone Croodit is built for</a>.
+    </p>
+  </article>
+
+  <section class="wrap final">
+    <div class="final__box">
+      <div class="blob blob--violet anim-blobA" style="width:520px;height:520px;top:-260px;right:-160px;filter:blur(60px);opacity:.7"></div>
+      <div class="final__logo"><Mark id="p1" width={50} /></div>
+      <h2>Six rates, twelve students. <span>None of it in your head.</span></h2>
+      <p>Free forever for up to {SITE.freeClients} clients. You still press send — always.</p>
+      <div class="final__cta">
+        <a href={iosHref} class="btn btn--lime">{iosLabel}</a>
+        <a href={SITE.playStoreUrl ?? waitlist("Android")} class="btn btn--glass">Android — join the waitlist</a>
+      </div>
+    </div>
+  </section>
+</Base>
