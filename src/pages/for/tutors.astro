@@ -1,0 +1,259 @@
+---
+import Base from "../../layouts/Base.astro";
+import Mark from "../../components/Mark.astro";
+import { SITE, waitlist } from "../../site";
+import { breadcrumb, orgRef } from "../../data/schema";
+import { professions } from "../../data/professions";
+
+const path = "/for/tutors";
+const crumb = "Tutors and tuition teachers";
+const title = "Tuition fee collection app for tutors in India — invoice the parent on WhatsApp";
+const description =
+  "You teach the student and invoice the parent, per subject, on a term cycle. Croodit sends the fee invoice to the parent's WhatsApp with a UPI pay link, tracks who has paid, and writes the reminder for you to press send.";
+
+const updatedISO = "2026-09-11";
+const updatedHuman = "11 September 2026";
+
+const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
+const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
+const others = professions.filter((p) => p.slug !== "tutors");
+
+const cycles = [
+  [
+    "Monthly, per subject",
+    "₹1,500 a subject",
+    "The commonest shape. A Class 9 student taking Maths and Science is two lines on one invoice, not two invoices.",
+  ],
+  [
+    "Quarterly in advance",
+    "₹4,500 a term",
+    "Fewer collections, fewer chases, and a discount worth offering. One invoice in April, July, October and January beats twelve.",
+  ],
+  [
+    "Board-year batch",
+    "₹3,500 a month",
+    "Class 10 and 12. Higher rate, shorter season, and a hard stop in February — so the last month's fee is the one that goes missing.",
+  ],
+  [
+    "One-to-one at home",
+    "₹800 an hour",
+    "Billed on sessions actually taught, which means the invoice amount changes every month and has to be calculated rather than repeated.",
+  ],
+  [
+    "Sibling rate",
+    "₹2,700 for two",
+    "One parent, one payment, two students. The invoice has to name both children or it gets queried.",
+  ],
+  [
+    "Crash course / exam revision",
+    "₹6,000 for six weeks",
+    "Paid up front by parents you may never teach again. Worth invoicing properly precisely because the relationship is short.",
+  ],
+];
+
+const faqs = [
+  {
+    q: "I teach 18 tuition students and the parents pay, not the students — how do I send the fee reminder to the right person?",
+    a: "Invoice the payer and keep the student as the subject line. In Croodit the client is the parent, with their own WhatsApp number, and the invoice names the student and the subjects — so a reminder always goes to the phone that can actually pay, and never into a student's chat. That one separation removes most of the awkwardness in tuition: you are never asking a fourteen-year-old about money, and the parent gets a document rather than a message from their child.",
+  },
+  {
+    q: "How do I handle a student taking three subjects — is that three invoices?",
+    a: "One invoice with three lines. Each subject is a saved package, so a Class 9 student on Maths, Science and English becomes one document showing ₹1,500 + ₹1,500 + ₹1,200 and a single total with one UPI pay link. That matters more than it sounds: a parent paying one amount pays once, while three separate requests get part-paid and then reconciled by you, by hand, at the end of the month.",
+  },
+  {
+    q: "Should I collect tuition fees monthly or quarterly?",
+    a: "Quarterly in advance if your parents will take it, monthly if they won't. Quarterly cuts your collections from twelve a year to four per family, and it aligns with how school fees already work in India, so it reads as normal rather than demanding. The way to make it land is a small discount for the term — a ₹4,500 quarter against ₹1,500 a month is the same money, and the parent experiences it as a saving while you experience it as eight fewer chases. Say it at admission, not in month five.",
+  },
+  {
+    q: "A parent hasn't paid February's fee and the board exam is over — how do I ask now?",
+    a: "Quickly, in writing, and without the relationship framing. The last month of a board year is the fee most often lost, because the teaching has ended and the leverage has gone with it. Send the invoice with the number, the month and the subjects, say it is showing pending on your side, and ask for a screenshot if it has already been sent — that gives a parent who genuinely forgot a graceful way back. Our page on how to ask a client for payment politely has the exact wording for day 3, day 7 and day 10. Next year, invoice the board batch quarterly in advance and the problem disappears.",
+  },
+  {
+    q: "Can I keep a record of which classes a student attended, not just what they paid?",
+    a: "Yes — mark attendance after each class and it sits alongside that student's fee record. For hourly one-to-one tuition that is also how the invoice gets calculated, because you are billing sessions actually taught rather than a flat month. For batch tuition it is mostly evidence: when a parent asks why this month is the same as last month despite two missed classes, the answer is a list rather than an argument.",
+  },
+  {
+    q: "Do I need GST on tuition fees?",
+    a: "For most individual tutors, no, and Croodit leaves GST off by default for exactly that reason — it is a switch you turn on per invoice, not a mode the app forces you into. If you are registered, or a coaching institute asks you for a tax invoice, turn it on for that invoice and it carries your GSTIN and the breakup. This is not tax advice; whether you need to register depends on your turnover and your own accountant's reading of it.",
+  },
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: title,
+    description,
+    url: `${SITE.url}${path}`,
+    inLanguage: "en-IN",
+    datePublished: updatedISO,
+    dateModified: updatedISO,
+    isPartOf: { "@type": "CollectionPage", "@id": `${SITE.url}/for` },
+    about: { "@type": "Thing", name: "Tuition fee collection" },
+    audience: {
+      "@type": "Audience",
+      audienceType: "Private tutors and tuition teachers in India",
+      geographicArea: { "@type": "Country", name: "India" },
+    },
+    publisher: orgRef,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  },
+  breadcrumb([
+    ["Croodit", "/"],
+    ["Who it's for", "/for"],
+    [crumb, path],
+  ]),
+];
+---
+
+<Base title={`${title} — Croodit`} description={description} path={path} schema={schema}>
+  <article class="wrap prose">
+    <nav class="eyebrow" aria-label="Breadcrumb" style="color:#6B4EFF">
+      <a href="/" style="color:inherit">Croodit</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <a href="/for" style="color:inherit">Who it's for</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <span>{crumb}</span>
+    </nav>
+    <h1>Tuition fee collection app for tutors in India</h1>
+    <p class="lede">
+      Croodit sends a tuition fee invoice to the parent's WhatsApp with a UPI pay link, naming the student
+      and every subject on one document. Subjects are saved as packages, so an invoice takes about 30
+      seconds. It tracks paid, pending and overdue per family and writes the reminder for you to press send.
+    </p>
+    <p style="font-size:14px;color:var(--t-50)">
+      Last updated {updatedHuman} · Free forever for up to {SITE.freeClients} clients
+    </p>
+
+    <h2>In tuition, the person you teach is not the person who pays</h2>
+    <p>
+      Every other solo service provider chases the person in front of them. A tutor does not. You spend an
+      hour a day with a fifteen-year-old and then have to raise money with a parent you may have met twice,
+      about a service they cannot see, in a chat that is otherwise used for "he'll be ten minutes late".
+      That split is the whole difference — and it is why a tuition fee reminder is harder to word than a
+      gym one, not easier.
+    </p>
+    <p>
+      Two more things make tuition its own shape. Fees are <strong>per subject</strong>, so one student can
+      be three line items; and the cycle follows the school year, not the calendar — terms, board seasons,
+      a hard stop in February, a fresh intake in June. Billing software built around a monthly subscription
+      or a stock ledger models neither.
+    </p>
+
+    <h2>The fee shapes, and what each one costs you</h2>
+    <table>
+      <thead>
+        <tr><th>Cycle</th><th>Worked example</th><th>What's different about it</th></tr>
+      </thead>
+      <tbody>
+        {cycles.map(([name, price, what]) => (
+          <tr><td><strong>{name}</strong></td><td>{price}</td><td>{what}</td></tr>
+        ))}
+      </tbody>
+    </table>
+    <p style="font-size:14px;color:var(--t-50)">
+      Amounts are an illustration of the shape, not a recommended rate card. Set your own.
+    </p>
+
+    <h2>What Croodit does about it</h2>
+    <ul>
+      <li>
+        <strong>The parent is the client; the student is on the invoice.</strong> One WhatsApp number to
+        invoice and remind, one document naming the child and the subjects. Siblings sit on one invoice at
+        one total, which is the only way a sibling rate survives contact with a real family.
+      </li>
+      <li>
+        <strong>Subjects are saved packages.</strong> Maths, Science, English, each at its own rate. Adding
+        a subject mid-year is a tap, and the next invoice is right without anyone recalculating.
+      </li>
+      <li>
+        <strong>Any cycle you like.</strong> Monthly, quarterly in advance, a six-week crash course, or
+        hourly against sessions taught. Croodit does not assume a subscription month.
+      </li>
+      <li>
+        <strong>Attendance is the evidence.</strong> Tick who came. When a parent asks why the fee is the
+        same despite two missed classes, you are looking at a list rather than having an argument.
+      </li>
+      <li>
+        <strong>The reminder goes to you first.</strong> Day 3, 7 and 10, Croodit notifies <em>you</em> with
+        the nudge already drafted for the parent's chat. <strong>Croodit never messages anyone by
+        itself</strong> — an automatic fee chaser landing in a parent's WhatsApp, unread by you, is exactly
+        how a tutor loses a student.
+      </li>
+    </ul>
+
+    <h2>Who this fits, and who it doesn't</h2>
+    <p>
+      <strong>If you tutor privately</strong> — at home, at students' homes, online, or a batch of fifteen in
+      a rented room — and parents pay you directly by UPI, this is built for you. It assumes one teacher
+      doing the teaching and the collecting.
+    </p>
+    <p>
+      <strong>If you run a coaching institute with several teachers, admissions and a front desk</strong>,
+      you want a school or coaching ERP: enquiry-to-admission flow, teacher payouts, batch timetables and
+      report cards. Croodit has no staff, no timetable and no admissions module.
+    </p>
+    <p>
+      <strong>If you are contracted by an ed-tech platform or a school</strong> and invoice the organisation
+      rather than parents, use a B2B invoicing tool with email delivery and payment terms — Refrens or Zoho
+      Invoice. WhatsApp nudges do not move an accounts payable cycle.
+    </p>
+
+    <h2>What it costs</h2>
+    <p>
+      Free forever for up to {SITE.freeClients} clients — and remember the client is the family, not the
+      student, so a tutor with seven families and eleven children pays nothing. Unlimited invoices,
+      unlimited reminders, no card. Croodit Pro removes the limit at ₹{SITE.pro.monthly} a month or
+      ₹{SITE.pro.yearly.toLocaleString("en-IN")} a year after a {SITE.pro.trialDays}-day free trial — about
+      one month of one subject for one student. Money goes straight to your own UPI ID; Croodit is not a
+      payment gateway and takes no cut. GST is optional and off by default.
+    </p>
+    <p>
+      The iPhone app is in early access and Android is on a waitlist. Until it ships, the manual route is
+      written up in full: <a href="/answers/how-to-send-an-invoice-on-whatsapp">how to send an invoice on
+      WhatsApp with a UPI payment link</a>. For the February fee that never came, read
+      <a href="/answers/how-to-ask-a-client-for-payment-politely">how to ask a client for payment
+      politely</a>.
+    </p>
+
+    <h2>Questions tutors ask</h2>
+    <div class="faq__list" style="margin-top:6px">
+      {faqs.map((item, i) => (
+        <details open={i === 0}>
+          <summary>{item.q}</summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+
+    <h2>Not a tutor?</h2>
+    <p>
+      The app is the same; the packages and the awkwardness differ.
+      {others.map((p, i) => (
+        <span>{i > 0 ? " " : ""}<a href={`/for/${p.slug}`}>{p.label}</a>{i < others.length - 1 ? ", " : ". "}</span>
+      ))}
+      Or see <a href="/for">everyone Croodit is built for</a>.
+    </p>
+  </article>
+
+  <section class="wrap final">
+    <div class="final__box">
+      <div class="blob blob--violet anim-blobA" style="width:520px;height:520px;top:-260px;right:-160px;filter:blur(60px);opacity:.7"></div>
+      <div class="final__logo"><Mark id="p1" width={50} /></div>
+      <h2>Teach the student. <span>Invoice the parent, properly.</span></h2>
+      <p>Free forever for up to {SITE.freeClients} families. You still press send — always.</p>
+      <div class="final__cta">
+        <a href={iosHref} class="btn btn--lime">{iosLabel}</a>
+        <a href={SITE.playStoreUrl ?? waitlist("Android")} class="btn btn--glass">Android — join the waitlist</a>
+      </div>
+    </div>
+  </section>
+</Base>

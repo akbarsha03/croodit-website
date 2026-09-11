@@ -1,0 +1,277 @@
+---
+import Base from "../../layouts/Base.astro";
+import Mark from "../../components/Mark.astro";
+import { SITE, waitlist } from "../../site";
+import { breadcrumb, orgRef } from "../../data/schema";
+import { professions } from "../../data/professions";
+
+const path = "/for/zumba-trainers";
+const crumb = "Zumba trainers";
+const title = "Fee collection app for Zumba trainers in India — invoice a batch on WhatsApp";
+const description =
+  "Collect monthly class-pack fees from two Zumba batches without chasing 24 people one by one. Invoices on WhatsApp with a UPI pay link, pack countdowns, and reminders you approve before they send.";
+
+const updatedISO = "2026-09-11";
+const updatedHuman = "11 September 2026";
+
+const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
+const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
+const others = professions.filter((p) => p.slug !== "zumba-trainers");
+
+const packages = [
+  ["12-class monthly pack", "₹2,000", "The default. Twelve classes inside one calendar month, paid before the first class."],
+  ["8-class monthly pack", "₹1,500", "For the three-mornings-a-week regulars. Cheaper per month, dearer per class — and that is the point."],
+  ["Drop-in", "₹300", "The friend someone brings on a Saturday. No pack, no roster entry, still an invoice."],
+  ["Couple / buddy pack", "₹3,600", "Two people, one payment, one invoice, two attendance rows. The payer is one of them."],
+  ["Private session at home", "₹1,200", "Bridal batches and one-offs before a wedding. Charged per session, invoiced the same day."],
+];
+
+const month = [
+  [
+    "The 1st",
+    "Twenty-four invoices have to go out — twelve in the 6am batch, twelve in the 7pm one. Typed by hand in WhatsApp that is an hour of copy-paste and two amounts you get wrong.",
+  ],
+  [
+    "The 3rd to the 6th",
+    "Fourteen people have paid. You now hold ten names in your head while teaching, and you re-count them every time you open your bank app.",
+  ],
+  [
+    "The 8th",
+    "Someone asks whether the four classes they missed in August carry forward. You are not sure, because attendance lives in a notebook and the pack lives in the chat.",
+  ],
+  [
+    "The 12th",
+    "Four people still haven't paid. Three of them will pay the moment you remind them. You don't remind them, because you will see all four at 6am tomorrow.",
+  ],
+  [
+    "The 28th",
+    "Two packs have quietly run out mid-month and nobody noticed — so two people have been dancing free for a week and you have to raise it now, which is the worst possible time.",
+  ],
+];
+
+const faqs = [
+  {
+    q: "I run two Zumba batches and about 24 people pay me monthly — how do I stop chasing them one by one?",
+    a: "Send a real invoice on day one instead of a number in the chat, then let a status list do the remembering. In Croodit your packs are saved once, so each invoice is pick-the-client, tap 12-class pack, press send in WhatsApp — about 30 seconds each rather than an hour of copy-paste. After that every client shows as paid, pending or overdue, so you stop holding ten names in your head. On day 3, 7 and 10 Croodit notifies you with the reminder already written; you read it and press send. It never messages anyone on its own.",
+  },
+  {
+    q: "How do I track who has classes left in their 12-class pack?",
+    a: "Tick attendance at the end of each class and let the pack count itself down. That is the difference between a pack and a subscription: a 12-class pack that someone attends nine times leaves three classes you both need to agree about. Croodit counts down each client's pack as you mark attendance and prompts you to renew before it hits zero, which is what stops the awkward late-month conversation about someone who has been dancing free for a week.",
+  },
+  {
+    q: "Should I ask for the class-pack fee before the month starts or after?",
+    a: "Before, and say it on the day someone joins. Payment in advance is normal for class packs in India, and it removes the chase entirely — there is nothing to ask for later because it was a condition of starting. If you are moving an existing batch over, apply it from their next pack rather than the current one, tell them a month ahead, and put it in the invoice as a line rather than in the group chat as a rule.",
+  },
+  {
+    q: "Can I send the fee reminder in the batch WhatsApp group instead of messaging each person?",
+    a: "Don't. A reminder in the batch group is a public shaming whether you meant it that way or not, and the people who have paid read it as being lumped in with the people who haven't. It also stops working after the second time, because everyone learns it isn't aimed at them. Send it in the one-to-one chat, attached to a numbered invoice. Croodit's reminders are per-client for exactly this reason.",
+  },
+  {
+    q: "Does Croodit handle the money, or does it go straight to my UPI?",
+    a: "Straight to your own UPI ID. Croodit is not a payment gateway, holds nothing, settles nothing and takes no cut — it puts a standard UPI pay link, your UPI QR and your UPI ID on the invoice, and your client's Google Pay, PhonePe, Paytm, BHIM or bank app does the rest. Money moves between their bank and yours exactly as it does today.",
+  },
+  {
+    q: "I also pay hall rent and a music subscription — can I track what a batch actually earns me?",
+    a: "Yes. Log the hall rent, the sound system, the licensing and certification fees you carry as expenses, and the earnings summary shows what each month cleared rather than what it collected. For a lot of trainers that is the first time the evening batch and the morning batch get compared honestly. GST is optional and off by default, so none of this drags you into filing unless you want it.",
+  },
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: title,
+    description,
+    url: `${SITE.url}${path}`,
+    inLanguage: "en-IN",
+    datePublished: updatedISO,
+    dateModified: updatedISO,
+    isPartOf: { "@type": "CollectionPage", "@id": `${SITE.url}/for` },
+    about: { "@type": "Thing", name: "Zumba class fee collection" },
+    audience: {
+      "@type": "Audience",
+      audienceType: "Zumba and dance fitness instructors in India",
+      geographicArea: { "@type": "Country", name: "India" },
+    },
+    publisher: orgRef,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  },
+  breadcrumb([
+    ["Croodit", "/"],
+    ["Who it's for", "/for"],
+    [crumb, path],
+  ]),
+];
+---
+
+<Base title={`${title} — Croodit`} description={description} path={path} schema={schema}>
+  <article class="wrap prose">
+    <nav class="eyebrow" aria-label="Breadcrumb" style="color:#6B4EFF">
+      <a href="/" style="color:inherit">Croodit</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <a href="/for" style="color:inherit">Who it's for</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <span>{crumb}</span>
+    </nav>
+    <h1>Fee collection app for Zumba trainers in India</h1>
+    <p class="lede">
+      Croodit lets a Zumba trainer invoice a whole batch on WhatsApp instead of chasing it. Save your
+      12-class and 8-class packs once, pick a client, and WhatsApp opens with the invoice and a UPI pay
+      link ready in about 30 seconds. It then counts each pack down, marks who is pending, and writes the
+      reminder for you to press send.
+    </p>
+    <p style="font-size:14px;color:var(--t-50)">
+      Last updated {updatedHuman} · Free forever for up to {SITE.freeClients} clients
+    </p>
+
+    <h2>The problem is not the invoice. It's twenty-four of them on the same morning.</h2>
+    <p>
+      A Zumba trainer's business has a shape no billing app was designed for. You do not sell items out of
+      stock and you do not raise one invoice a month against a purchase order. You sell a <em>pack</em> — a
+      fixed number of classes inside a calendar month — to fifteen or thirty individual people who all pay
+      you personally, on their own schedule, into your own UPI ID, and who you then stand in front of at
+      6am the next morning.
+    </p>
+    <p>
+      That is why GST billing software feels wrong here even when it works. Vyapar, myBillBook and Zoho
+      Invoice are built around items, stock and a GST return. Your inventory is a room and an hour, and the
+      thing you actually need to know at any moment is which eight of your twenty-four people haven't paid
+      yet — and whether anyone's pack has quietly run out.
+    </p>
+
+    <h2>What a month actually looks like</h2>
+    <table>
+      <thead>
+        <tr><th>When</th><th>What happens</th></tr>
+      </thead>
+      <tbody>
+        {month.map(([when, what]) => (
+          <tr><td><strong>{when}</strong></td><td>{what}</td></tr>
+        ))}
+      </tbody>
+    </table>
+    <p>
+      None of that is a software problem until you notice what it costs: an hour of typing on the 1st, a
+      running count you can never put down, and four conversations you avoid because the person owing you
+      ₹2,000 is the person you greet by name tomorrow.
+    </p>
+
+    <h2>Your menu, saved once</h2>
+    <p>
+      Croodit pre-fills a package menu for the way class-based work is actually priced, and you edit it to
+      your own rates. A worked example for a two-batch trainer — swap in your numbers:
+    </p>
+    <table>
+      <thead>
+        <tr><th>Package</th><th>Price</th><th>What it's for</th></tr>
+      </thead>
+      <tbody>
+        {packages.map(([name, price, what]) => (
+          <tr><td><strong>{name}</strong></td><td>{price}</td><td>{what}</td></tr>
+        ))}
+      </tbody>
+    </table>
+    <p style="font-size:14px;color:var(--t-50)">
+      Amounts above are an illustration, not a rate card. Set your own — Croodit has no opinion about what
+      you charge.
+    </p>
+    <p>
+      Once that menu exists, the 1st of the month stops being an hour. You pick a client, tap the pack they
+      bought, and WhatsApp opens with the message written, the invoice PDF link attached and a UPI pay link
+      ready. You press send. There is no amount to type, so there is no amount to get wrong.
+    </p>
+
+    <h2>The three things that matter for a batch</h2>
+    <ul>
+      <li>
+        <strong>The pack counts itself down.</strong> Tick attendance after class and each client's 12-pack
+        drops to 11, 10, 9. Croodit prompts you to renew before it hits zero, so nobody spends a week
+        dancing on a pack that ended and you never have to raise it retrospectively.
+      </li>
+      <li>
+        <strong>Every client has a status, so you stop counting.</strong> Paid, pending, overdue — on one
+        screen, per batch. The ledger leaves your head, which is the actual relief.
+      </li>
+      <li>
+        <strong>The reminder is written, but you send it.</strong> On day 3, 7 and 10 Croodit notifies
+        <em>you</em> with a drafted nudge in the one-to-one chat. Never the batch group, never automatically.
+        <strong>Croodit never messages a client by itself.</strong> An automated chaser to someone you teach
+        every morning is exactly the message you would not have sent.
+      </li>
+    </ul>
+
+    <h2>Who this fits, and who it doesn't</h2>
+    <p>
+      <strong>If you teach your own batches and people pay you directly</strong> — one studio or a rented
+      hall, monthly packs, drop-ins, the occasional bridal batch — Croodit is built for precisely that. It
+      assumes one person doing the teaching and the invoicing, and it assumes a phone rather than a desk.
+    </p>
+    <p>
+      <strong>If you run a studio with several instructors on payroll</strong>, this is the wrong shape.
+      You need instructor payouts, a class timetable other people book into, and roster management. Look at
+      a studio management platform such as Momoyoga or Bookee instead — Croodit has no concept of staff.
+    </p>
+    <p>
+      <strong>If you sell branded merchandise, supplements or equipment alongside classes</strong>, you have
+      stock, and stock is exactly what an inventory-first billing app does well. Vyapar's Android plan is
+      cheaper per year than Croodit Pro and handles items properly; we say so on our
+      <a href="/vyapar-alternative-for-trainers-and-coaches">Vyapar alternative page</a>. Buy the tool that
+      matches the shape of your business, not the cheaper one.
+    </p>
+
+    <h2>What it costs</h2>
+    <p>
+      Free forever for up to {SITE.freeClients} clients — unlimited invoices and unlimited reminders to
+      them, no card. That covers a small private batch outright. Croodit Pro lifts the limit to unlimited
+      clients for ₹{SITE.pro.monthly} a month or ₹{SITE.pro.yearly.toLocaleString("en-IN")} a year, after a
+      {" "}{SITE.pro.trialDays}-day free trial — which for a two-batch trainer is less than one person's
+      monthly pack. Money goes straight to your own UPI ID; Croodit is not a payment gateway and takes no
+      cut. GST is optional and off by default.
+    </p>
+    <p>
+      The iPhone app is in early access and Android is on a waitlist. In the meantime, the manual method
+      works: here is <a href="/answers/how-to-send-an-invoice-on-whatsapp">how to send an invoice on
+      WhatsApp with a UPI payment link</a>, by hand, for free.
+    </p>
+
+    <h2>Questions Zumba trainers ask</h2>
+    <div class="faq__list" style="margin-top:6px">
+      {faqs.map((item, i) => (
+        <details open={i === 0}>
+          <summary>{item.q}</summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+
+    <h2>Not a Zumba trainer?</h2>
+    <p>
+      The app is the same; the packages and the awkwardness differ.
+      {others.map((p, i) => (
+        <span>{i > 0 ? " " : ""}<a href={`/for/${p.slug}`}>{p.label}</a>{i < others.length - 1 ? ", " : ". "}</span>
+      ))}
+      Or see <a href="/for">everyone Croodit is built for</a>.
+    </p>
+  </article>
+
+  <section class="wrap final">
+    <div class="final__box">
+      <div class="blob blob--violet anim-blobA" style="width:520px;height:520px;top:-260px;right:-160px;filter:blur(60px);opacity:.7"></div>
+      <div class="final__logo"><Mark id="p1" width={50} /></div>
+      <h2>Teach the class. <span>Let the ledger keep itself.</span></h2>
+      <p>Free forever for up to {SITE.freeClients} clients. You still press send — always.</p>
+      <div class="final__cta">
+        <a href={iosHref} class="btn btn--lime">{iosLabel}</a>
+        <a href={SITE.playStoreUrl ?? waitlist("Android")} class="btn btn--glass">Android — join the waitlist</a>
+      </div>
+    </div>
+  </section>
+</Base>

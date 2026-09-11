@@ -1,0 +1,204 @@
+---
+import Base from "../layouts/Base.astro";
+import Mark from "../components/Mark.astro";
+import { SITE, waitlist } from "../site";
+import { breadcrumb, orgRef } from "../data/schema";
+import { professions } from "../data/professions";
+
+const path = "/for";
+const crumb = "Who it's for";
+const title = "Invoice and fee collection app for trainers, coaches and tutors in India";
+const description =
+  "Croodit is built for the solo service provider who gets paid by people, not payroll. Pages for Zumba trainers, yoga teachers and tutors, plus how it works for photographers, nutritionists and creators.";
+
+const updatedISO = "2026-09-11";
+const updatedHuman = "11 September 2026";
+
+const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
+const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
+
+/** No dedicated page yet — listed honestly rather than turned into thin duplicates. */
+const alsoFor = [
+  ["Personal trainers", "Session packs and monthly PT retainers, invoiced per client at the rate you actually agreed."],
+  ["Dance and fitness coaches", "Batches, drop-ins and workshop seats — the same class-pack shape as Zumba."],
+  ["Pilates instructors", "Small-group and one-to-one rates side by side, with the pack counting itself down."],
+  ["Nutritionists and dietitians", "Consultation plus a follow-up plan, billed as a programme rather than an hour."],
+  ["Photographers", "One-off shoots with an advance and a balance — two invoices against one booking."],
+  ["Makeup artists", "Bridal packages and trials, usually booked months ahead and paid in two parts."],
+  ["Content creators", "Brand deliverables and retainers invoiced to a person who pays by UPI, not a procurement system."],
+];
+
+const shared = [
+  ["You get paid by people, not payroll", "There is no HR system, no salary date and no finance team on the other side. Someone owes you money personally, which is why chasing it feels personal."],
+  ["Money goes to your own UPI ID", "Croodit puts a standard UPI pay link, your QR and your UPI ID on the invoice. It is not a payment gateway, holds nothing, and takes no cut."],
+  ["WhatsApp is already the channel", "Your clients are in your chats, not your inbox. Croodit uses the WhatsApp on your phone — no Business API, no bot, no bulk sending."],
+  ["Nothing sends without you", "Reminders on day 3, 7 and 10 are notifications to you, with the message written. You read it and press send. Croodit never messages a client by itself."],
+];
+
+const faqs = [
+  {
+    q: "I'm a solo trainer in India and my clients pay me by UPI — is Croodit the right kind of app for me, or do I need billing software?",
+    a: "If your clients are individuals who pay you personally, Croodit is the closer fit. GST billing software — Vyapar, myBillBook, Zoho Invoice — is built around items, stock and a tax return, which suits a shop or a small business with a back office. Croodit is built around a roster of people, packages of sessions and a WhatsApp message. If you also sell products out of stock, buy the billing software instead; the shape of your business should decide, not the price.",
+  },
+  {
+    q: "My profession isn't listed here — does that mean Croodit won't work for me?",
+    a: "No. The pages above exist because those three have genuinely different economics worth writing about, not because the app behaves differently. Croodit works for anyone who sells their own time or packages to individuals who pay by UPI: personal trainers, pilates instructors, nutritionists, photographers, makeup artists, dance coaches and creators all use the same packages, invoices, tracking and reminders. You set your own menu, so the profession is mostly a matter of what you name things.",
+  },
+  {
+    q: "Does Croodit send messages to my clients automatically?",
+    a: "Never, and this is deliberate rather than a limitation. On day 3, 7 and 10 after an unpaid invoice, Croodit sends a notification to you with the reminder already drafted for that client's chat. You read it, edit it if you want, and press send from your own WhatsApp. Nothing reaches a client without you — because an automated chaser to someone you teach at 6am tomorrow is exactly the message you would not have sent.",
+  },
+  {
+    q: "What does Croodit cost, and is there a free plan?",
+    a: "Free forever for up to seven clients, with unlimited invoices and unlimited reminders to them and no card required. Croodit Pro lifts the limit to unlimited clients at ₹199 a month or ₹1,599 a year, after a 14-day free trial. The paid tier is triggered by an eighth client, not by an invoice count — you will never hit a wall mid-month for sending too many invoices.",
+  },
+  {
+    q: "Can I use Croodit today?",
+    a: "Not yet. The iPhone app is in early access and Android is on a waitlist, so the honest answer is that you can put your name down but not download it. In the meantime the manual method genuinely works and we have written it up for free: how to send an invoice on WhatsApp with a UPI payment link, and how to ask a client for payment politely.",
+  },
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${SITE.url}${path}`,
+    name: title,
+    description,
+    url: `${SITE.url}${path}`,
+    inLanguage: "en-IN",
+    datePublished: updatedISO,
+    dateModified: updatedISO,
+    publisher: orgRef,
+    mainEntity: {
+      "@type": "ItemList",
+      name: "Croodit by profession",
+      itemListElement: professions.map((p, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: p.headline,
+        url: `${SITE.url}/for/${p.slug}`,
+      })),
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  },
+  breadcrumb([
+    ["Croodit", "/"],
+    [crumb, path],
+  ]),
+];
+---
+
+<Base title={`${title} — Croodit`} description={description} path={path} schema={schema}>
+  <article class="wrap prose">
+    <nav class="eyebrow" aria-label="Breadcrumb" style="color:#6B4EFF">
+      <a href="/" style="color:inherit">Croodit</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <span>{crumb}</span>
+    </nav>
+    <h1>Who Croodit is built for</h1>
+    <p class="lede">
+      Croodit is an invoicing and fee-tracking app for solo service providers in India — trainers, coaches,
+      tutors and creators who get paid by people rather than payroll. You save your packages once, send the
+      invoice on WhatsApp with a UPI pay link in about 30 seconds, and Croodit tracks who paid and drafts
+      the reminder for you to send.
+    </p>
+    <p style="font-size:14px;color:var(--t-50)">
+      Last updated {updatedHuman} · Free forever for up to {SITE.freeClients} clients
+    </p>
+
+    <h2>Pick the one that sounds like your month</h2>
+    <p>
+      The app is the same in all three. What differs is the money's shape — a class pack is not a rate card
+      is not a term fee — and the exact conversation you are avoiding.
+    </p>
+    <ul>
+      {professions.map((p) => (
+        <li>
+          <strong>{p.emoji} <a href={`/for/${p.slug}`}>{p.headline}</a>.</strong> {p.blurb}
+        </li>
+      ))}
+    </ul>
+
+    <h2>What all of them have in common</h2>
+    <table>
+      <thead>
+        <tr><th>The thing</th><th>Why it matters</th></tr>
+      </thead>
+      <tbody>
+        {shared.map(([what, why]) => (
+          <tr><td><strong>{what}</strong></td><td>{why}</td></tr>
+        ))}
+      </tbody>
+    </table>
+
+    <h2>Also built for, without a page of its own yet</h2>
+    <p>
+      These work the same way today — we simply haven't written the profession-specific version. If you are
+      one of them and your month looks different from what is above, tell us at
+      <a href={`mailto:${SITE.email}`}>{SITE.email}</a> and it will probably become the next page.
+    </p>
+    <ul>
+      {alsoFor.map(([who, how]) => (
+        <li><strong>{who}.</strong> {how}</li>
+      ))}
+    </ul>
+
+    <h2>Who Croodit is not for</h2>
+    <p>
+      <strong>A shop, a kirana store or anyone selling from stock.</strong> You need items, purchase entries
+      and a stock ledger, and an inventory-first billing app does that far better. We say so plainly on our
+      <a href="/vyapar-alternative-for-trainers-and-coaches">Vyapar alternative page</a>, including the part
+      where Vyapar's Android plan is cheaper per year than Croodit Pro.
+    </p>
+    <p>
+      <strong>A studio or institute with staff.</strong> Instructor payouts, class booking, timetables and
+      admissions are a different product — look at a studio or coaching management platform such as
+      Momoyoga or Bookee. Croodit has no concept of staff.
+    </p>
+    <p>
+      <strong>Anyone invoicing companies against purchase orders.</strong> You want email delivery, payment
+      terms and an audit trail: Refrens or Zoho Invoice. A WhatsApp nudge does not move an accounts payable
+      cycle.
+    </p>
+
+    <h2>Common questions before you pick a page</h2>
+    <div class="faq__list" style="margin-top:6px">
+      {faqs.map((item, i) => (
+        <details open={i === 0}>
+          <summary>{item.q}</summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+
+    <h2>Doing it by hand right now?</h2>
+    <p>
+      Both guides are free and need no app:
+      <a href="/answers/how-to-send-an-invoice-on-whatsapp">how to send an invoice on WhatsApp with a UPI
+      payment link</a>, and <a href="/answers/how-to-ask-a-client-for-payment-politely">how to ask a client
+      for payment politely</a> — the exact words for day 3, day 7 and day 10.
+    </p>
+  </article>
+
+  <section class="wrap final">
+    <div class="final__box">
+      <div class="blob blob--violet anim-blobA" style="width:520px;height:520px;top:-260px;right:-160px;filter:blur(60px);opacity:.7"></div>
+      <div class="final__logo"><Mark id="p1" width={50} /></div>
+      <h2>Get paid by people, not payroll? <span>This one's yours.</span></h2>
+      <p>Free forever for up to {SITE.freeClients} clients. You still press send — always.</p>
+      <div class="final__cta">
+        <a href={iosHref} class="btn btn--lime">{iosLabel}</a>
+        <a href={SITE.playStoreUrl ?? waitlist("Android")} class="btn btn--glass">Android — join the waitlist</a>
+      </div>
+    </div>
+  </section>
+</Base>
