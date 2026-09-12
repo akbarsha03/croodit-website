@@ -1,0 +1,294 @@
+---
+import Base from "../../layouts/Base.astro";
+import Mark from "../../components/Mark.astro";
+import { SITE, waitlist } from "../../site";
+import { breadcrumb, orgRef } from "../../data/schema";
+
+const path = "/answers/will-i-get-a-gst-notice-for-taking-fees-on-upi";
+const crumb = "Will I get a GST notice for taking fees on UPI?";
+const title = "Will I get a GST or income tax notice if I take class fees on UPI?";
+const description =
+  "The threshold that actually applies to a trainer, coach or tutor is ₹20 lakh of service receipts a year — not the ₹40 lakh everyone quotes. What the Karnataka notices were really about, and why cash is taxed harder than UPI.";
+
+const updatedISO = "2026-09-12";
+const updatedHuman = "12 September 2026";
+
+const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
+const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
+
+/** Worked example only — a plausible roster, not a claim about any real user. */
+const example = [
+  ["3 Zumba batches, 24 clients", "₹2,500 a month each", "₹7,20,000 a year"],
+  ["6 personal-training clients", "₹6,000 a month each", "₹4,32,000 a year"],
+  ["Both together", "30 clients", "₹11,52,000 a year"],
+];
+
+const thresholds = [
+  [
+    "Services — most states",
+    "₹20 lakh",
+    "Coaching, training, tuition, photography, consulting. This is the line that applies to a trainer.",
+  ],
+  [
+    "Services — Manipur, Mizoram, Nagaland, Tripura",
+    "₹10 lakh",
+    "The four states that stayed on the special-category threshold for services.",
+  ],
+  [
+    "Goods — most states",
+    "₹40 lakh",
+    "Shops, kirana stores, vegetable vendors. This is the number in every headline, and it is not yours.",
+  ],
+];
+
+const faqs = [
+  {
+    q: "I teach 3 Zumba batches and about 24 people pay me around ₹2,500 a month — if I collect all of that on UPI instead of cash, will the GST department send me a notice?",
+    a: "On those numbers, no. Twenty-four clients at ₹2,500 a month is roughly ₹7.2 lakh of receipts a year, which is about a third of the ₹20 lakh threshold at which GST registration becomes compulsory for a service provider. The Karnataka notices in 2025 went to unregistered businesses whose digital receipts had crossed the registration threshold — ₹40 lakh for goods, ₹20 lakh for services — not to everyone using UPI. Collecting the same ₹7.2 lakh in cash would not change what you owe; it would only make it harder to prove what you earned.",
+  },
+  {
+    q: "Everyone keeps saying the limit is ₹40 lakh. Why do you say ₹20 lakh?",
+    a: "Because ₹40 lakh is the limit for supplying goods, and you supply a service. Notification No. 10/2019-Central Tax, effective 1 April 2019, raised the registration threshold to ₹40 lakh only for businesses exclusively supplying goods. The services threshold was left where it was: ₹20 lakh in most states, ₹10 lakh in Manipur, Mizoram, Nagaland and Tripura. Newspaper coverage of the Karnataka notices quoted the ₹40 lakh figure because the vendors involved were selling goods, and the wrong number stuck. A coaching, training or tuition business sits on the lower line.",
+  },
+  {
+    q: "Is it true that taking payments digitally means I pay more tax than if I take cash?",
+    a: "It is the opposite, for most trainers. Under Section 44AD of the Income Tax Act, a small business can declare a presumptive profit instead of keeping full books — and the deemed profit is 6% on the part of turnover received through banking or prescribed electronic modes, against 8% on the rest. On ₹10 lakh of receipts, that is ₹60,000 of deemed income if it came in digitally and ₹80,000 if it came in as cash. The scheme's turnover ceiling is also higher when your receipts are digital: ₹3 crore where cash is no more than 5% of receipts, ₹2 crore otherwise.",
+  },
+  {
+    q: "Does the income tax department see every UPI payment my students send me?",
+    a: "Not as a per-transaction feed. UPI credits land in your bank account and are therefore in your bank statement, which the department can ask for. Separately, banks file a Statement of Financial Transactions under Rule 114E for specified items — aggregate cash deposits of ₹10 lakh or more in savings accounts in a year is one of them, and those appear in your Annual Information Statement. Worth noticing which way that cuts: depositing a year of cash fees into your savings account is itself a reported event, while the same money arriving by UPI is not.",
+  },
+  {
+    q: "I'm a yoga teacher — I heard yoga is exempt from GST. Is that true for me?",
+    a: "Only in a narrow case that probably is not yours. The exemption for the advancement of yoga applies to entities registered as charitable under Section 12AA or 12AB of the Income Tax Act. An individual teacher or a private studio running classes commercially is not covered by it, and the same logic applies to sports coaching: exempt when a registered charitable trust provides it, not exempt when an individual or a company does. Below the ₹20 lakh registration threshold the question is academic anyway, because you are not required to register.",
+  },
+  {
+    q: "If I start sending proper invoices, am I creating a paper trail that gets me in trouble?",
+    a: "You are creating a paper trail, and for a small practice that usually works in your favour. An invoice is what lets you file a return that matches your bank account, claim your real expenses, and answer a query with documents instead of memory. The risk small service providers actually run is not being asked about receipts they can explain; it is being asked about deposits they cannot. If you are near the ₹20 lakh line or already past it, this is the point to spend an hour with a chartered accountant rather than guess.",
+  },
+  {
+    q: "Do I have to put GST on my invoices if I use Croodit?",
+    a: "No. GST in Croodit is optional and off by default, because most solo trainers and tutors are below the registration threshold and have nothing to charge. If you are registered, you can turn it on — including on some invoices and not others, which is the common case for a teacher who bills a company for corporate sessions and individuals for everything else. Croodit also exports a monthly summary in Excel, PDF and Tally formats so your CA gets a file rather than a screenshot folder.",
+  },
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: "Will I get a GST or income tax notice if I take class fees on UPI?",
+    description,
+    inLanguage: "en-IN",
+    datePublished: updatedISO,
+    dateModified: updatedISO,
+    mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE.url}${path}` },
+    author: orgRef,
+    publisher: orgRef,
+    about: [
+      { "@type": "Thing", name: "Goods and Services Tax (GST)" },
+      { "@type": "Thing", name: "Unified Payments Interface (UPI)" },
+      { "@type": "Thing", name: "Presumptive taxation" },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  },
+  breadcrumb([
+    ["Croodit", "/"],
+    [crumb, path],
+  ]),
+];
+---
+
+<Base title={`${title} — Croodit`} description={description} path={path} schema={schema}>
+  <article class="wrap prose">
+    <nav class="eyebrow" aria-label="Breadcrumb" style="color:#6B4EFF">
+      <a href="/" style="color:inherit">Croodit</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <span>{crumb}</span>
+    </nav>
+    <h1>Will I get a GST or income tax notice if I take class fees on UPI?</h1>
+    <p class="lede">
+      Almost certainly not, if you are a solo trainer or tutor. GST registration becomes compulsory for a
+      service provider only above ₹20 lakh of receipts in a financial year — ₹10 lakh in four states. The
+      ₹40 lakh figure in the news is the limit for selling goods, not for coaching. And under Section 44AD,
+      fees received digitally carry a lower deemed profit than the same fees in cash.
+    </p>
+    <p style="font-size:14px;color:var(--t-50)">
+      Last updated {updatedHuman} · Written for solo trainers, coaches, tutors and creators in India ·
+      General information, not tax advice
+    </p>
+
+    <h2>Where this fear came from</h2>
+    <p>
+      In July 2025 the Karnataka Commercial Taxes Department issued thousands of notices to unregistered
+      businesses after matching four years of Unified Payments Interface (UPI) receipts — pulled from the
+      payment apps themselves — against its list of registered taxpayers. Vendors across Bengaluru put up
+      handwritten signs saying "no UPI, only cash", trade bodies called a bandh, and the story ran for weeks.
+      Anyone who earns a living from a few dozen people paying monthly read it and drew the obvious
+      conclusion: <em>if I stop taking cash, they will find me.</em>
+    </p>
+    <p>
+      That conclusion is wrong in a specific and checkable way. The notices were not triggered by using UPI.
+      They were triggered by digital receipts crossing the threshold at which registration was already
+      compulsory, in businesses that had not registered. The department's own line at the time was that the
+      notices were proposals based on preliminary data, and would be dropped where the recipient could show
+      the supply was exempt or below the limit.
+    </p>
+
+    <h2>The number everyone repeats is the wrong one for you</h2>
+    <p>
+      Almost every account of the Karnataka notices — including the most-upvoted comments arguing that the
+      vendors had no case — used ₹40 lakh as the threshold. That figure comes from Notification No.
+      10/2019-Central Tax, effective 1 April 2019, which raised the registration limit to ₹40 lakh
+      <strong>only for businesses exclusively supplying goods</strong>. The services threshold was not
+      touched.
+    </p>
+    <table>
+      <thead>
+        <tr><th>What you supply</th><th>Registration threshold</th><th>Who that means</th></tr>
+      </thead>
+      <tbody>
+        {thresholds.map(([what, limit, who]) => (
+          <tr><td><strong>{what}</strong></td><td><strong>{limit}</strong></td><td>{who}</td></tr>
+        ))}
+      </tbody>
+    </table>
+    <p>
+      So the honest version cuts both ways. Your threshold is half the one in the headlines — and it is still
+      a long way above what a solo practice takes in. Here is what a full roster actually looks like against
+      that ₹20 lakh line:
+    </p>
+    <table>
+      <thead>
+        <tr><th>A worked example</th><th>Rate</th><th>Yearly receipts</th></tr>
+      </thead>
+      <tbody>
+        {example.map(([who, rate, year]) => (
+          <tr><td>{who}</td><td>{rate}</td><td><strong>{year}</strong></td></tr>
+        ))}
+      </tbody>
+    </table>
+    <p style="font-size:14px;color:var(--t-50)">
+      Illustration only — swap in your own batches and rates. A trainer running both of the above is at
+      roughly 58% of the services threshold with thirty paying clients.
+    </p>
+
+    <h2>Cash is taxed harder than UPI, not more lightly</h2>
+    <p>
+      This is the part that almost nobody mentions in the "back to cash" coverage. Section 44AD of the Income
+      Tax Act lets a small business declare a presumptive profit instead of keeping full books — and the rate
+      depends on how the money arrived. Turnover received through banking channels or prescribed electronic
+      modes is deemed to be <strong>6% profit</strong>. Everything else is deemed to be <strong>8%</strong>.
+    </p>
+    <p>
+      On ₹10 lakh of fees, that is ₹60,000 of deemed income if your clients paid by UPI and ₹80,000 if they
+      paid in notes — on identical earnings. The scheme's ceiling moves the same way: ₹3 crore of turnover
+      where cash is no more than 5% of receipts, ₹2 crore where it is not. Going digital is the cheaper of the
+      two options inside the law, before you count the hours you stop spending reconstructing who paid.
+    </p>
+    <p>
+      One caveat worth stating plainly: Section 44ADA, the 50%-of-receipts scheme, applies to a listed set of
+      professions — legal, medical, engineering, architecture, accountancy, technical consultancy, interior
+      decoration and others notified by the CBDT. Fitness training, dance and tuition are generally not on that
+      list, which usually puts a trainer under 44AD rather than 44ADA. Which one applies to you is a question
+      for a chartered accountant, not for a website.
+    </p>
+
+    <h2>What is actually visible, and to whom</h2>
+    <p>
+      There is no per-transaction feed of your UPI payments to the income tax department. What exists is
+      narrower and more boring: UPI credits land in your bank account, so they are in a bank statement that can
+      be called for; and banks file a Statement of Financial Transactions under Rule 114E for specified items,
+      which then show up in your Annual Information Statement.
+    </p>
+    <p>
+      Aggregate cash deposits of ₹10 lakh or more into savings accounts in a financial year is one of those
+      reported items. Read that again in the context of the question on this page: <strong>taking a year of
+      fees in cash and depositing it is itself a reportable event, while the same money arriving by UPI is
+      not.</strong> Cash does not make you invisible. It makes you visible in a lump, with no record of your
+      own to explain it.
+    </p>
+
+    <h2>Who this applies to, and who it doesn't</h2>
+    <p>
+      <strong>If you are a trainer, coach, tutor, photographer or creator invoicing a few dozen individuals
+      and taking well under ₹20 lakh a year</strong>, nothing on this page requires you to do anything.
+      Register nothing, charge no GST, and keep records good enough to file a return that matches your bank
+      account. Moving those clients from cash to UPI does not create a liability you did not already have.
+    </p>
+    <p>
+      <strong>If you are near ₹20 lakh, or crossed it this year</strong>, stop reading websites. Registration
+      is compulsory above the line and the cost of getting the timing wrong is larger than an hour of a CA's
+      fee. The same applies if you supply both services and goods — retailing supplements alongside training,
+      for instance — because mixed supply changes which threshold you are tested against.
+    </p>
+    <p>
+      <strong>If you are registered in a special-category state — Manipur, Mizoram, Nagaland or Tripura —</strong>
+      your services threshold is ₹10 lakh, not ₹20 lakh, and a full roster can reach it. Thresholds also change;
+      the figures here are current as of {updatedHuman} and are general information rather than advice on your
+      situation.
+    </p>
+
+    <h2>What Croodit does, and deliberately does not do, here</h2>
+    <p>
+      Croodit is a WhatsApp invoicing and UPI payment-tracking app for solo service providers in India. It is
+      <strong>not a payment gateway</strong>. Money goes straight from your client to your own UPI ID — Croodit
+      never holds it, never routes it, takes no cut, and has no settlement account to report from. It files
+      nothing with anyone on your behalf and has no relationship with any tax authority.
+    </p>
+    <p>
+      GST is optional and off by default, because most of the people this app is built for are below the
+      registration threshold and have nothing to charge. If you are registered you can turn it on per invoice —
+      the ordinary case for a yoga teacher who bills a company for corporate sessions and individuals for
+      everything else. What the app does give you is the thing that actually helps if a question ever arrives:
+      a numbered invoice for every payment, a record of what was paid and when, and a monthly export in Excel,
+      PDF and Tally formats that your CA can open.
+    </p>
+    <p>
+      It is free forever for up to {SITE.freeClients} clients, with unlimited invoices and unlimited reminders
+      to them and no card needed. Croodit Pro lifts that to unlimited clients at ₹{SITE.pro.monthly} a month or
+      ₹{SITE.pro.yearly.toLocaleString("en-IN")} a year, after a {SITE.pro.trialDays}-day free trial.
+    </p>
+    <p>
+      Next, the practical bit: <a href="/answers/how-to-send-an-invoice-on-whatsapp">how to send an invoice on
+      WhatsApp with a UPI payment link</a>, and when the invoice goes unpaid,
+      <a href="/answers/how-to-ask-a-client-for-payment-politely">how to ask a client for payment politely</a>.
+    </p>
+
+    <h2>Questions people ask about UPI, fees and tax notices</h2>
+    <div class="faq__list" style="margin-top:6px">
+      {faqs.map((item, i) => (
+        <details open={i === 0}>
+          <summary>{item.q}</summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+
+    <p style="font-size:14px;color:var(--t-50);margin-top:28px">
+      This page is general information about Indian tax thresholds as they stood on {updatedHuman}, written to
+      answer a question trainers ask constantly. It is not tax advice, it is not a substitute for a chartered
+      accountant, and thresholds and rates change. Check your own position before acting on it.
+    </p>
+  </article>
+
+  <section class="wrap final">
+    <div class="final__box">
+      <div class="blob blob--violet anim-blobA" style="width:520px;height:520px;top:-260px;right:-160px;filter:blur(60px);opacity:.7"></div>
+      <div class="final__logo"><Mark id="p1" width={50} /></div>
+      <h2>A numbered invoice for every rupee. <span>In about 30 seconds.</span></h2>
+      <p>Free forever for up to {SITE.freeClients} clients. GST optional, off by default.</p>
+      <div class="final__cta">
+        <a href={iosHref} class="btn btn--lime">{iosLabel}</a>
+        <a href={SITE.playStoreUrl ?? waitlist("Android")} class="btn btn--glass">Android — join the waitlist</a>
+      </div>
+    </div>
+  </section>
+</Base>
