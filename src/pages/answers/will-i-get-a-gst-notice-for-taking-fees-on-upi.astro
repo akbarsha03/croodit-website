@@ -101,6 +101,7 @@ const schema = [
   },
   breadcrumb([
     ["Croodit", "/"],
+    ["Answers", "/answers"],
     [crumb, path],
   ]),
 ];
@@ -110,6 +111,8 @@ const schema = [
   <article class="wrap prose">
     <nav class="eyebrow" aria-label="Breadcrumb" style="color:#6B4EFF">
       <a href="/" style="color:inherit">Croodit</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <a href="/answers" style="color:inherit">Answers</a>
       <span aria-hidden="true">&rsaquo;</span>
       <span>{crumb}</span>
     </nav>

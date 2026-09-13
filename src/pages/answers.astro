@@ -1,0 +1,220 @@
+---
+import Base from "../layouts/Base.astro";
+import Mark from "../components/Mark.astro";
+import { SITE, waitlist } from "../site";
+import { breadcrumb, orgRef } from "../data/schema";
+
+const path = "/answers";
+const crumb = "Answers";
+const title = "How to get paid on time as a trainer, coach or tutor in India";
+const description =
+  "Straight answers to the money questions solo trainers, coaches and tutors actually ask — sending an invoice on WhatsApp with a UPI pay link, chasing a fee without making it awkward, and whether taking fees on UPI puts you on a tax radar.";
+
+const updatedISO = "2026-09-13";
+const updatedHuman = "13 September 2026";
+
+const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
+const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
+
+/** The cluster, ordered as the problem actually arrives: send it, chase it, stop fearing it. */
+const answers = [
+  {
+    slug: "how-to-send-an-invoice-on-whatsapp",
+    step: "1. Send it properly",
+    headline: "How to send an invoice on WhatsApp with a UPI payment link",
+    readIf:
+      "You are sending a QR screenshot or a bare “₹2,500 please” message, and you want the free, correct version.",
+    gives:
+      "The upi:// link built field by field from your own UPI ID, what to attach, what breaks on which app, and why the WhatsApp Business API and payment gateways are the wrong tools for one person.",
+  },
+  {
+    slug: "how-to-ask-a-client-for-payment-politely",
+    step: "2. Chase it without the cringe",
+    headline: "How to ask a client for payment politely",
+    readIf:
+      "The invoice is sent, the money has not come, and you see this person at 6am tomorrow.",
+    gives:
+      "Copy-paste WhatsApp scripts in English and Hinglish for day 3, day 7, day 10 and the firm one — plus the rules behind them and when a polite ask is the wrong tool.",
+  },
+  {
+    slug: "will-i-get-a-gst-notice-for-taking-fees-on-upi",
+    step: "3. Stop fearing the paper trail",
+    headline: "Will I get a GST or income tax notice if I take class fees on UPI?",
+    readIf:
+      "You read about the 2025 Karnataka UPI notices and quietly went back to cash.",
+    gives:
+      "Why the ₹20 lakh services threshold is the one that applies to you and the ₹40 lakh figure in every headline is not, and why Section 44AD taxes cash harder than digital receipts.",
+  },
+];
+
+/**
+ * Real questions this cluster gets asked that do not justify a full page yet.
+ * Answered properly here rather than parked — each is self-contained and quotable.
+ */
+const shortAnswers = [
+  {
+    q: "My clients already pay me by UPI — why do I need to send an invoice at all?",
+    a: "Because a UPI transfer is a payment, not a record. Neither of you can say later what a ₹2,500 credit was for, which month it covered, or whether it was the pack or the makeup class. An invoice gives the payment a number, a date and a line item, so “did you pay for November?” has an answer that is not a memory. It also makes your bank statement explainable: deposits with invoices behind them are far easier to account for than deposits without.",
+  },
+  {
+    q: "Can I just send my UPI QR code screenshot instead? It seems to work fine.",
+    a: "It works, and it costs you the evening. A QR is the same image for every client, so twelve people paying ₹2,500 lands as twelve near-identical credits that you then match to names by hand. A UPI pay link carries the amount and a reference already filled in, so the client cannot fat-finger ₹250, and you can tell which invoice each payment closed. The QR is fine for one walk-in; it stops scaling at about five regulars.",
+  },
+  {
+    q: "Do I need WhatsApp Business, or the WhatsApp Business API, to invoice people?",
+    a: "Neither, for one-to-one invoicing. WhatsApp Business adds a catalogue, labels and a greeting message; it does not create invoices or track who has paid. The Business API — the one with approved templates and automated sending — is built for companies with a developer and a monthly conversation bill, and it is overkill for a solo trainer. Your ordinary WhatsApp account is enough, and the invoice guide above uses nothing else.",
+  },
+  {
+    q: "Do I need to register a business or get a GST number before I can send an invoice?",
+    a: "No. An individual can issue an invoice in their own name, with their own address and their own UPI ID, and it is a valid document. GST registration only becomes compulsory once your service receipts cross the threshold — ₹20 lakh a year in most states, ₹10 lakh in Manipur, Mizoram, Nagaland and Tripura. Below that you invoice without a GSTIN and charge no GST. This is general information, not tax advice; near the line, spend an hour with a chartered accountant.",
+  },
+  {
+    q: "How long should I actually wait before I remind someone about a fee?",
+    a: "Three days after the due date, then day 7, then day 10 — early enough that it is still a reminder rather than a confrontation, spaced enough that you are not nagging. The first one should re-send the invoice and say almost nothing; by day 10 you ask for a date rather than a payment. The scripts for all three are on the politely page above. Croodit follows the same rhythm, but as a notification to you, not a message to them.",
+  },
+  {
+    q: "Will an app message my clients for me so I never have to do the awkward part?",
+    a: "Croodit will not, and that is deliberate rather than a missing feature. On day 3, 7 and 10 it notifies you with the reminder already drafted for that client's chat; you read it, change it if you want, and press send yourself from your own WhatsApp. Nothing reaches a client without you. An automated chaser to someone you are teaching tomorrow morning is precisely the message you would not have sent.",
+  },
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${SITE.url}${path}`,
+    name: title,
+    description,
+    url: `${SITE.url}${path}`,
+    inLanguage: "en-IN",
+    datePublished: updatedISO,
+    dateModified: updatedISO,
+    publisher: orgRef,
+    mainEntity: {
+      "@type": "ItemList",
+      name: "Croodit answers — getting paid in India",
+      itemListElement: answers.map((a, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: a.headline,
+        url: `${SITE.url}/answers/${a.slug}`,
+      })),
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: shortAnswers.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  },
+  breadcrumb([
+    ["Croodit", "/"],
+    [crumb, path],
+  ]),
+];
+---
+
+<Base title={`${title} — Croodit`} description={description} path={path} schema={schema}>
+  <article class="wrap prose">
+    <nav class="eyebrow" aria-label="Breadcrumb" style="color:#6B4EFF">
+      <a href="/" style="color:inherit">Croodit</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <span>{crumb}</span>
+    </nav>
+    <h1>How to get paid on time as a trainer, coach or tutor in India</h1>
+    <p class="lede">
+      Getting paid on time comes down to three things, in this order: send a real invoice with a UPI pay
+      link instead of a QR screenshot, agree a due date and chase the invoice rather than the person, and
+      stop treating digital receipts as a tax risk — the GST line for a service provider is ₹20 lakh a
+      year, not the ₹40 lakh everyone quotes.
+    </p>
+    <p style="font-size:14px;color:var(--t-50)">
+      Last updated {updatedHuman} · Written for solo trainers, coaches, tutors and creators in India
+    </p>
+
+    <h2>Start with whichever one is actually blocking you</h2>
+    <p>
+      These are full guides, free, and none of them need an app. Most people arrive at the second one,
+      because the invoice was never the hard part.
+    </p>
+    <ul>
+      {answers.map((a) => (
+        <li>
+          <strong>{a.step} — <a href={`/answers/${a.slug}`}>{a.headline}</a>.</strong>{" "}
+          <em>Read it if:</em> {a.readIf} {a.gives}
+        </li>
+      ))}
+    </ul>
+
+    <h2>Why the order matters</h2>
+    <p>
+      Late payment is usually blamed on the client, and it is usually caused by the ask. A message that
+      says “₹2,500 for this month 🙏” gives the other person nothing to act on — no amount they
+      can tap, no document, no date, and nothing that distinguishes a bill from a favour. It is also the
+      hardest kind of message to repeat, which is why the second reminder never gets sent and the fee
+      quietly turns into an argument three weeks later.
+    </p>
+    <p>
+      Fixing the send fixes most of the chase. An invoice with a number, a due date and a pay link can be
+      forwarded, re-sent and referred to without any of it sounding like an accusation — you are following
+      up a document, not a person. That is the whole trick, and it is why the first guide comes before the
+      second.
+    </p>
+
+    <h2>Short answers to the rest of it</h2>
+    <p>
+      Questions that come up constantly and do not need a full page. If yours is not here, send it to
+      <a href={`mailto:${SITE.email}`}>{SITE.email}</a> — the ones that keep repeating become the next guide.
+    </p>
+    <div class="faq__list" style="margin-top:6px">
+      {shortAnswers.map((item, i) => (
+        <details open={i === 0}>
+          <summary>{item.q}</summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+
+    <h2>Who these guides are for — and who they are not for</h2>
+    <p>
+      <strong>They fit you if</strong> you are one person selling your own time or packages — Zumba
+      batches, yoga classes, tuition, PT sessions, shoots — to individuals who pay you personally by UPI,
+      and the money arrives as a scatter of transfers you reconcile from memory. Everything here assumes a
+      roster of people rather than a shelf of stock, and a WhatsApp chat rather than an accounts payable
+      inbox.
+    </p>
+    <p>
+      <strong>They are the wrong guides if</strong> you sell goods out of inventory — a shop needs purchase
+      entries and a stock ledger, and we say so on our
+      <a href="/vyapar-alternative-for-trainers-and-coaches">Vyapar alternative page</a>, including the part
+      where Vyapar's Android plan costs less per year than Croodit Pro. If you run a studio with staff and
+      timetables, look at a studio management platform such as Momoyoga or Bookee. If you invoice companies
+      against purchase orders, you want email delivery and payment terms — Refrens or Zoho Invoice — because
+      a WhatsApp nudge does not move a corporate payment cycle.
+    </p>
+
+    <h2>Doing it by profession instead?</h2>
+    <p>
+      The same money looks different depending on what you teach. We have written the profession-shaped
+      versions for <a href="/for/zumba-trainers">Zumba trainers</a>,
+      <a href="/for/yoga-teachers">yoga teachers</a> and <a href="/for/tutors">tutors</a>, and
+      <a href="/for">who Croodit is built for</a> indexes the rest.
+    </p>
+  </article>
+
+  <section class="wrap final">
+    <div class="final__box">
+      <div class="blob blob--violet anim-blobA" style="width:520px;height:520px;top:-260px;right:-160px;filter:blur(60px);opacity:.7"></div>
+      <div class="final__logo"><Mark id="p1" width={50} /></div>
+      <h2>Read all three and still chasing? <span>That's what Croodit is for.</span></h2>
+      <p>Free forever for up to {SITE.freeClients} clients. You still press send — always.</p>
+      <div class="final__cta">
+        <a href={iosHref} class="btn btn--lime">{iosLabel}</a>
+        <a href={SITE.playStoreUrl ?? waitlist("Android")} class="btn btn--glass">Android — join the waitlist</a>
+      </div>
+    </div>
+  </section>
+</Base>
