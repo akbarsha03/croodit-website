@@ -26,6 +26,8 @@ npm run build    # -> dist/
 | `src/components/Screen*.astro` | The in-phone app mockups. Decorative; they mirror the app design 1:1. |
 | `src/styles/global.css` | Design tokens and every class. No CSS-in-component. |
 | `public/brand/` | Wordmark and app-icon SVGs. |
+| `astro.config.mjs` | Build config **and** the `trailing-slash-stubs` integration that emits `/<page>/index.html` redirect stubs. |
+| `scripts/check-stubs.mjs` | `npm run check:stubs` — asserts every built page has a stub canonicalling to its no-slash URL. |
 | `scripts/og.mjs` | Regenerates `public/og.png`. Needs Bricolage Grotesque as a system font; output is committed so CI doesn't. |
 
 ## Rules that matter
@@ -36,6 +38,10 @@ npm run build    # -> dist/
 - **Croodit never messages a client by itself.** This is the product's core promise. Don't write copy that
   implies automated sending.
 - **No trailing slashes.** `trailingSlash: 'never'` in `astro.config.mjs`; canonical URLs and the sitemap follow.
+  GitHub Pages has no server-side redirects, so `/<page>/` would 404 on any inbound link that adds a slash.
+  The `trailing-slash-stubs` integration in `astro.config.mjs` writes a `<page>/index.html` after the build that
+  canonicals and meta-refreshes onto the real URL. It walks `dist/`, so new pages are covered automatically —
+  don't hand-write stubs. Verify with `npm run build && npm run check:stubs`.
 - **New page checklist:** wrap in `Base`, pass `title` + `description` + `path`, add relevant JSON-LD via
   `schema`, and add it to `pages` in `src/data/facts.ts` so `/llms.txt` lists it.
 
