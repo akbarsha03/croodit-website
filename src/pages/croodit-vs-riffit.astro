@@ -1,0 +1,356 @@
+---
+import Base from "../layouts/Base.astro";
+import Mark from "../components/Mark.astro";
+import { SITE, waitlist } from "../site";
+import { breadcrumb, orgRef } from "../data/schema";
+
+const path = "/croodit-vs-riffit";
+const crumb = "Croodit vs Riffit";
+const title = "Croodit vs Riffit: WhatsApp invoicing for trainers and coaches";
+const description =
+  "Riffit and Croodit both put an invoice and a UPI link into WhatsApp. Riffit's real 2026 prices, what it does that Croodit doesn't, and why a class-pack roster is a different shape from freelance project work.";
+
+const updatedISO = "2026-09-15";
+const updatedHuman = "15 September 2026";
+
+const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
+const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
+
+const yearly = SITE.pro.yearly.toLocaleString("en-IN");
+/** Riffit Pro billed annually, read from riffit.in/pricing on 2026-09-15. */
+const riffitYearly = 2388;
+const riffitSaving = (riffitYearly - SITE.pro.yearly).toLocaleString("en-IN");
+
+/**
+ * Every Riffit figure and feature line below was read on 2026-09-15 from riffit.in
+ * and riffit.in/pricing — Riffit's own surfaces, not a review site or a directory.
+ * Note: Riffit's own blog still quotes Pro at ₹249/month. The pricing page is the
+ * newer surface and says ₹199, so that is what is used here.
+ * Re-verify before editing; omit anything that no longer checks out.
+ */
+const riffitFree = [
+  "5 invoices a month",
+  "5 active clients in total",
+  "WhatsApp invoice creation",
+  "PDF invoices, with a Riffit watermark",
+  "3 contracts lifetime, with e-signature and an audit trail",
+  "Email reminders, on the due date only",
+];
+
+const riffitPro = [
+  "Unlimited invoices, clients and reminders",
+  "AI natural-language invoicing — describe the job in a sentence",
+  "No watermark, plus custom invoice branding",
+  "WhatsApp reminders and notifications, and automatic payment triggers",
+  "Unlimited quotations and contracts",
+];
+
+const rows = [
+  [
+    "Who it names as its buyer",
+    "Indian freelancers — its own examples are designers, illustrators and marketing professionals billing project work.",
+    "One person selling their own time on a repeating roster — Zumba and fitness trainers, yoga and dance coaches, tutors, nutritionists, photographers, makeup artists.",
+  ],
+  [
+    "The invoice it is shaped around",
+    "One job, one number. \"Bill Priya 40K for branding\" — described in a sentence, turned into a PDF with a Unified Payments Interface (UPI) link.",
+    "The same twelve to thirty names every month at ₹2,000–₹2,500 each. Packages and rates saved once, then tapped.",
+  ],
+  [
+    "What it counts between invoices",
+    "Quotations and contracts — quote, sign, convert to invoice.",
+    "Class packs and attendance. Ten sessions bought, six used, four left, renewal due.",
+  ],
+  [
+    "Contracts and e-signatures",
+    "Yes — OTP-verified e-signatures with an audit-trail certificate.",
+    "No. Croodit does not do contracts or e-signatures at all.",
+  ],
+  [
+    "Reminders to clients",
+    "Sent by Riffit. Email on the due date on the free plan; WhatsApp reminders and automatic payment triggers on Pro.",
+    `Croodit never messages a client by itself. On day 3, 7 and 10 it notifies you with the reminder already written; you read it, edit it, press send.`,
+  ],
+  [
+    "Where the money lands",
+    "Straight to you by UPI. Riffit says it is not a payment gateway, does not hold your money and takes no cut.",
+    "Straight into your own UPI ID. Croodit is not a payment gateway, holds nothing and takes no cut.",
+  ],
+  [
+    "Platform",
+    "A web app at app.riffit.in, plus WhatsApp. Working today; no mobile app listed.",
+    `iPhone first. ${SITE.appStoreUrl ? "Available on the App Store." : "Not on the App Store yet — early access; Android is a waitlist."}`,
+  ],
+  [
+    "Free plan",
+    "₹0 forever: 5 invoices a month, 5 active clients, watermarked PDFs.",
+    `Free forever for up to ${SITE.freeClients} clients, with unlimited invoices and unlimited reminders to them.`,
+  ],
+  [
+    "Paid plan",
+    `₹199 a month, or ₹${riffitYearly.toLocaleString("en-IN")} billed annually. 14-day Pro trial, no card.`,
+    `₹${SITE.pro.monthly} a month, or ₹${yearly} a year. ${SITE.pro.trialDays}-day free trial, no card.`,
+  ],
+];
+
+const faqs = [
+  {
+    q: "Riffit works today and Croodit doesn't. Why would I wait?",
+    a: `You shouldn't, if you need to invoice someone this week. Riffit is a live web app — you can sign up at riffit.in right now and send an invoice this afternoon. Croodit's iPhone app is early access and not on the App Store yet, and Android is a waitlist. That is the honest state of things on ${updatedHuman}, and no comparison table changes it. The reason to join the Croodit waitlist anyway is if what you invoice is a recurring class roster rather than project work — that is the part Riffit is not built around, and it is what the rest of this page is about.`,
+  },
+  {
+    q: "I teach 3 Zumba batches and about 24 people pay me monthly. Would Riffit's free plan cover me?",
+    a: `No — you would run out in the first week of the first month. Riffit's free plan is 5 invoices a month and 5 active clients, read from riffit.in/pricing on ${updatedHuman}. With 24 people paying monthly you need 24 invoices a month, every month, so you would be on Riffit Pro from day one at ₹199 a month. Croodit's free tier is shaped the other way round — up to ${SITE.freeClients} clients with unlimited invoices to them — which covers a small roster forever but does nothing for you at 24 clients either. At your size both of these are paid products, and the honest comparison is ₹${riffitYearly.toLocaleString("en-IN")} a year against ₹${yearly}.`,
+  },
+  {
+    q: "Is Croodit cheaper than Riffit?",
+    a: `Monthly, no — both are ₹199 a month. Annually, yes: Riffit Pro billed annually was ₹${riffitYearly.toLocaleString("en-IN")} on ${updatedHuman} and Croodit Pro is ₹${yearly} a year, so Croodit is ₹${riffitSaving} less over twelve months. That is a real difference but a small one, and it is the weakest reason on this page to choose either. Pick on whether you bill projects or a roster; the ₹${riffitSaving} follows from that, it shouldn't lead it.`,
+  },
+  {
+    q: "Riffit sends the payment reminder for me. Croodit makes me press send myself. Isn't that worse?",
+    a: "It is slower, and for some people it is genuinely worse — if you are billing a client you have never met for a one-off project, an automatic reminder on the due date is exactly right, and Riffit's automatic payment triggers do that well. The case for pressing send yourself is about who is on the other end. You see your students on Monday morning. A system-generated reminder to someone who is in your 7am class reads as a collections notice from a stranger. Croodit writes the message and hands it to you so the words are still yours. It is a deliberate constraint, not a missing feature, and if you would rather it were automatic then Riffit is the better fit for you.",
+  },
+  {
+    q: "I'm a photographer taking an advance and a balance for each shoot. Which one is that?",
+    a: "Closer to Riffit, on the shape of the work — a booking is a project, with a quote, a contract and two payments against one job, and Riffit does quotations and OTP-verified e-signature contracts that Croodit does not do at all. Croodit fits the part of your month that repeats: a retainer, a monthly content client, a recurring session block. If contracts and signatures are central to how you sell, take Riffit. Croodit has no answer there and is not pretending to.",
+  },
+  {
+    q: "What does Riffit's AI invoicing actually do, and does Croodit have anything like it?",
+    a: "You type a description of the job in a WhatsApp message — Riffit's own example is \"Bill Priya 40K for branding\" — and it produces a formatted PDF invoice with a UPI payment link. It is on the Pro plan. Croodit has nothing equivalent and works the opposite way: instead of describing the job in words each time, you save your packages and rates once, then pick a client and tap what they bought. Typing a sentence wins when every job is different. Tapping a saved package wins when the same ₹2,500 monthly pack goes to eighteen people.",
+  },
+  {
+    q: "Can I use both?",
+    a: "There is no integration between them, so this only makes sense if the two halves of your work are genuinely separate — Riffit for the project work with contracts and quotations, Croodit for the repeating class roster. Two apps for one stream of income is a worse answer than picking one. Neither imports from the other.",
+  },
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: title,
+    description,
+    inLanguage: "en-IN",
+    datePublished: updatedISO,
+    dateModified: updatedISO,
+    mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE.url}${path}` },
+    author: orgRef,
+    publisher: orgRef,
+    about: [
+      { "@type": "SoftwareApplication", name: "Riffit", applicationCategory: "BusinessApplication" },
+      { "@type": "Thing", name: "Invoicing" },
+      { "@type": "Thing", name: "Unified Payments Interface (UPI)" },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  },
+  breadcrumb([
+    ["Croodit", "/"],
+    [crumb, path],
+  ]),
+];
+---
+
+<Base title={`${title} — Croodit`} description={description} path={path} schema={schema}>
+  <article class="wrap prose">
+    <nav class="eyebrow" aria-label="Breadcrumb" style="color:#6B4EFF">
+      <a href="/" style="color:inherit">Croodit</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <span>{crumb}</span>
+    </nav>
+    <h1>Croodit vs Riffit</h1>
+    <p class="lede">
+      Riffit and Croodit both turn a WhatsApp message into a PDF invoice with a Unified Payments Interface (UPI)
+      pay link. Riffit is built for Indian freelancers billing project work, and it is live today. Croodit is
+      built for a repeating class roster — packs, attendance and the same names every month — and its iPhone app
+      is still early access.
+    </p>
+    <p style="font-size:14px;color:var(--t-50)">
+      Last updated {updatedHuman} · Every Riffit figure below was read from riffit.in and riffit.in/pricing on
+      that date
+    </p>
+
+    <h2>Start with the part that isn't close</h2>
+    <p>
+      <strong>Riffit works today. Croodit does not.</strong> Riffit is a web app at app.riffit.in with a WhatsApp
+      front end — you can sign up this afternoon and send an invoice before dinner. Croodit is an iPhone app that
+      is not on the App Store yet; the only thing you can do here today is join the early-access list, and the
+      Android version is a waitlist behind that.
+    </p>
+    <p>
+      If you need to invoice someone this week, that is the whole decision and the rest of this page is not for
+      you. Everything below is about which of the two is shaped like your month, for a reader who has time to
+      choose.
+    </p>
+
+    <h2>What Riffit is</h2>
+    <p>
+      Riffit calls itself "WhatsApp Invoicing for Indian Freelancers" — "the invoicing tool for Indian
+      freelancers. Invoices and quotes from a WhatsApp message, contracts on the dashboard." You describe a job
+      in a sentence, and it produces a branded PDF invoice with a UPI payment link. Its own worked example is
+      "Bill Priya 40K for branding", and the buyers it names are designers, illustrators and marketing
+      professionals.
+    </p>
+    <p>
+      It also does two things Croodit does not do at all: <strong>quotations</strong> that convert into invoices,
+      and <strong>contracts with OTP-verified e-signatures</strong> and an audit-trail certificate. If a signed
+      document is part of how you close work, that is a real gap on Croodit's side and it is not on a roadmap
+      this page can promise you.
+    </p>
+
+    <h2>What Riffit costs</h2>
+    <p>These were the plans on riffit.in/pricing on {updatedHuman}:</p>
+    <table>
+      <thead>
+        <tr><th>Free — ₹0 forever</th><th>Pro — ₹199/month or ₹{riffitYearly.toLocaleString("en-IN")}/year</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <ul style="margin:0;padding-left:18px">
+              {riffitFree.map((f) => <li>{f}</li>)}
+            </ul>
+          </td>
+          <td>
+            <ul style="margin:0;padding-left:18px">
+              {riffitPro.map((f) => <li>{f}</li>)}
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      <strong>The monthly price is identical.</strong> Riffit Pro is ₹199 a month and Croodit Pro is ₹{SITE.pro.monthly}{" "}
+      a month. Annually they separate: Riffit is ₹{riffitYearly.toLocaleString("en-IN")} billed yearly against
+      Croodit's ₹{yearly}, so Croodit is ₹{riffitSaving} less over twelve months. Both start with a 14-day trial
+      and neither asks for a card. A ₹{riffitSaving} gap across a year is not a reason to pick a tool, and this
+      page is not going to pretend it is.
+    </p>
+    <p style="font-size:14px;color:var(--t-50)">
+      One note on sourcing: Riffit's own blog still quotes Pro at ₹249 a month. The pricing page says ₹199, and
+      that is the figure used above — but check riffit.in/pricing yourself before you pay, because the two
+      disagree.
+    </p>
+
+    <h2>The free plans are shaped differently, and that is the real fork</h2>
+    <p>
+      Riffit's free plan caps <em>invoices</em>: 5 a month, plus 5 active clients. Croodit's caps{" "}
+      <em>clients</em>: up to {SITE.freeClients} of them, with unlimited invoices to those people.
+    </p>
+    <p>
+      That difference is the whole buyer distinction in one line. A freelancer who sends four invoices in a good
+      month and none in a bad one fits Riffit's free plan for years. A yoga teacher with {SITE.freeClients} regulars
+      on monthly packs sends {SITE.freeClients} invoices every single month, forever — she is over Riffit's free
+      line in the first week and under Croodit's free line indefinitely. Neither cap is more generous than the
+      other. They are counting different things because they expect different work.
+    </p>
+    <p>
+      Above about a dozen clients both are paid products and the free tier stops being part of the argument.
+    </p>
+
+    <h2>Riffit and Croodit, side by side</h2>
+    <table>
+      <thead>
+        <tr><th>&nbsp;</th><th>Riffit</th><th>Croodit</th></tr>
+      </thead>
+      <tbody>
+        {rows.map(([label, r, c]) => (
+          <tr><td><strong>{label}</strong></td><td>{r}</td><td>{c}</td></tr>
+        ))}
+      </tbody>
+    </table>
+
+    <h2>Where Riffit is the better choice — honestly</h2>
+    <ul>
+      <li><strong>You need to invoice someone this week.</strong> Riffit is live; Croodit is not. Nothing else on this page outranks that.</li>
+      <li><strong>Every job is a different job.</strong> A branding project, a shoot, a campaign — different scope and a different number each time. Describing it in a sentence beats maintaining a package list you never reuse.</li>
+      <li><strong>You need quotations or signed contracts.</strong> Quote, e-signature, audit trail, convert to invoice. Croodit does none of this.</li>
+      <li><strong>You want the chasing to be automatic.</strong> Riffit's WhatsApp reminders and automatic payment triggers send on their own. Croodit deliberately will not.</li>
+      <li><strong>You bill from a laptop.</strong> Riffit is a web dashboard. Croodit is a phone app, iPhone first.</li>
+    </ul>
+
+    <h2>Where Croodit fits instead</h2>
+    <p>
+      The buyer this page is written for does not have projects. She has a roster. Three Zumba batches, 24 people,
+      a ₹2,000 monthly pack each. A yoga teacher with ten-class packs at ₹2,500 and one corporate booking that
+      needs GST on it. A tutor with eight students where the parent pays, quarterly, per subject.
+    </p>
+    <p>
+      For that person the invoice is the easy part. The hard part is remembering that Priya's ten-class pack ran
+      out on the 4th, that Ravi's September fee never arrived, and that the ₹2,500 credit that landed on Tuesday
+      could have been either of them. Then it is writing the message — the one you draft at 11pm to someone you
+      will see at 7am.
+    </p>
+    <p>
+      Croodit saves your packages and rates once. You pick a client, tap what they bought, and it opens WhatsApp
+      with the message written, the invoice PDF attached and a UPI pay link ready. You press send. It tracks paid,
+      pending and overdue, counts down class packs, and on day 3, 7 and 10 notifies <em>you</em> with the
+      follow-up already drafted. Nothing reaches a client until you send it, and payments go straight to your own
+      UPI ID — Croodit is not a payment gateway, holds nothing and takes no cut.
+    </p>
+
+    <h2>Who should pick which</h2>
+    <p>
+      <strong>If you run classes, batches, packs or retainers and the same names come back every month</strong>,
+      Croodit fits because it models sessions against a pack on a repeating roster, which is the thing you
+      actually sell. Riffit would have you re-describe the same ₹2,500 pack eighteen times a month.
+    </p>
+    <p>
+      <strong>If you bill project work — design, film, campaigns, shoots — and every invoice is a different
+      number</strong>, take Riffit. Describing the job in a sentence is faster than maintaining packages you will
+      never reuse, and the quotation-to-contract flow is a real advantage Croodit has no version of.
+    </p>
+    <p>
+      <strong>If you need it working today</strong>, take Riffit. Croodit is early access on iPhone and a waitlist
+      on Android, and "it will be better for you later" is not a reason to stay unpaid now.
+    </p>
+    <p>
+      <strong>If you invoice fewer than about five people a month</strong>, you may not need either one. A PDF, a
+      UPI link and a notes app cost nothing — we wrote up{" "}
+      <a href="/answers/how-to-send-an-invoice-on-whatsapp">the free manual method, step by step</a>. And if the
+      problem is not the invoice but the asking, that has{" "}
+      <a href="/answers/how-to-ask-a-client-for-payment-politely">its own page</a>.
+    </p>
+    <p>
+      <strong>If you sell physical goods or need GST filing support, e-way bills or a real ledger</strong>,
+      neither of these is your tool. Look at Vyapar — we compared it{" "}
+      <a href="/vyapar-alternative-for-trainers-and-coaches">for trainers and coaches here</a> — or myBillBook or
+      Zoho Invoice.
+    </p>
+
+    <h2>Questions people ask before they choose</h2>
+    <div class="faq__list" style="margin-top:6px">
+      {faqs.map((item, i) => (
+        <details open={i === 0}>
+          <summary>{item.q}</summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+
+    <p style="font-size:14px;color:var(--t-50)">
+      Riffit is a trademark of its owner and is not affiliated with Croodit. Everything above was taken from
+      Riffit's public site on {updatedHuman} and may have changed since.
+    </p>
+  </article>
+
+  <section class="wrap final">
+    <div class="final__box">
+      <div class="blob blob--violet anim-blobA" style="width:520px;height:520px;top:-260px;right:-160px;filter:blur(60px);opacity:.7"></div>
+      <div class="final__logo"><Mark id="a1" width={50} /></div>
+      <h2>Built for the roster, not the one-off brief. <span>Croodit.</span></h2>
+      <p>Free forever for up to {SITE.freeClients} clients. Your packages, your UPI, your logo.</p>
+      <div class="final__cta">
+        <a href={iosHref} class="btn btn--lime">{iosLabel}</a>
+        <a href={SITE.playStoreUrl ?? waitlist("Android")} class="btn btn--glass">Android — join the waitlist</a>
+      </div>
+    </div>
+  </section>
+</Base>
