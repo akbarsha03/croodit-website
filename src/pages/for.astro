@@ -9,10 +9,10 @@ const path = "/for";
 const crumb = "Who it's for";
 const title = "Invoice and fee collection app for trainers, coaches and tutors in India";
 const description =
-  "Croodit is built for the solo service provider who gets paid by people, not payroll. Pages for Zumba trainers, yoga teachers and tutors, plus how it works for photographers, nutritionists and creators.";
+  "Croodit is built for the solo service provider who gets paid by people, not payroll. Pages for Zumba trainers, yoga teachers, tutors and photographers, plus how it works for personal trainers, nutritionists and creators.";
 
-const updatedISO = "2026-09-11";
-const updatedHuman = "11 September 2026";
+const updatedISO = "2026-09-16";
+const updatedHuman = "16 September 2026";
 
 const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
 const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
@@ -23,7 +23,6 @@ const alsoFor = [
   ["Dance and fitness coaches", "Batches, drop-ins and workshop seats — the same class-pack shape as Zumba."],
   ["Pilates instructors", "Small-group and one-to-one rates side by side, with the pack counting itself down."],
   ["Nutritionists and dietitians", "Consultation plus a follow-up plan, billed as a programme rather than an hour."],
-  ["Photographers", "One-off shoots with an advance and a balance — two invoices against one booking."],
   ["Makeup artists", "Bridal packages and trials, usually booked months ahead and paid in two parts."],
   ["Content creators", "Brand deliverables and retainers invoiced to a person who pays by UPI, not a procurement system."],
 ];
@@ -42,7 +41,7 @@ const faqs = [
   },
   {
     q: "My profession isn't listed here — does that mean Croodit won't work for me?",
-    a: "No. The pages above exist because those three have genuinely different economics worth writing about, not because the app behaves differently. Croodit works for anyone who sells their own time or packages to individuals who pay by UPI: personal trainers, pilates instructors, nutritionists, photographers, makeup artists, dance coaches and creators all use the same packages, invoices, tracking and reminders. You set your own menu, so the profession is mostly a matter of what you name things.",
+    a: "No. The pages above exist because those four have genuinely different economics worth writing about, not because the app behaves differently. Croodit works for anyone who sells their own time or packages to individuals who pay by UPI: personal trainers, pilates instructors, nutritionists, makeup artists, dance coaches and creators all use the same packages, invoices, tracking and reminders. You set your own menu, so the profession is mostly a matter of what you name things.",
   },
   {
     q: "Does Croodit send messages to my clients automatically?",
@@ -117,8 +116,8 @@ const schema = [
 
     <h2>Pick the one that sounds like your month</h2>
     <p>
-      The app is the same in all three. What differs is the money's shape — a class pack is not a rate card
-      is not a term fee — and the exact conversation you are avoiding.
+      The app is the same in all four. What differs is the money's shape — a class pack is not a rate card is
+      not a term fee is not a booking advance — and the exact conversation you are avoiding.
     </p>
     <ul>
       {professions.map((p) => (

@@ -1,0 +1,291 @@
+---
+import Base from "../../layouts/Base.astro";
+import Mark from "../../components/Mark.astro";
+import { SITE, waitlist } from "../../site";
+import { breadcrumb, orgRef } from "../../data/schema";
+import { professions } from "../../data/professions";
+
+const path = "/for/photographers";
+const crumb = "Photographers";
+const title = "Invoicing app for photographers in India — advance and balance on WhatsApp";
+const description =
+  "A booking advance blocks the date and the balance lands months later before delivery. Croodit sends both invoices to the same client on WhatsApp with a UPI pay link, tracks what is still outstanding on each booking, and writes the reminder for you to press send.";
+
+const updatedISO = "2026-09-16";
+const updatedHuman = "16 September 2026";
+
+const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
+const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
+const others = professions.filter((p) => p.slug !== "photographers");
+
+const bookings = [
+  [
+    "Wedding, two days",
+    "₹85,000 — ₹25,000 advance, ₹60,000 before delivery",
+    "Booked six to ten months ahead. The advance and the balance can land in different financial years, and nothing about the job is monthly.",
+  ],
+  [
+    "Pre-wedding shoot",
+    "₹25,000 — half at booking",
+    "Often a second booking from the same couple, and sometimes a different payer inside the same family. Two bookings, one client record.",
+  ],
+  [
+    "Newborn or maternity session",
+    "₹12,000, paid on the day",
+    "Short lead time, one payment, and frequently a client you will never invoice again. Worth invoicing properly precisely because the relationship is short.",
+  ],
+  [
+    "Birthday or event, half day",
+    "₹15,000 — ₹5,000 to block the date",
+    "The date is the product. If you hold a Saturday in December and they cancel in November, the advance is the only thing you kept.",
+  ],
+  [
+    "Album, reprints or extra hours after delivery",
+    "₹6,000",
+    "Arrives weeks after the balance was paid and the booking felt finished. This is the money most often never invoiced at all.",
+  ],
+  [
+    "Corporate headshots",
+    "₹1,500 a head for 20 people",
+    "The payer is a company with a purchase order, not a person with a UPI app — the one shape on this list Croodit is the wrong tool for. See below.",
+  ],
+];
+
+const faqs = [
+  {
+    q: "I shoot weddings and take a 30% advance to block the date — how do I invoice that on WhatsApp without it looking casual?",
+    a: "Send the advance as its own invoice, not as a number in a chat message. In Croodit the booking is a saved package, so a two-day wedding at ₹85,000 with a ₹25,000 advance becomes a proper document with your name on it, the shoot dates, the amount due now and a UPI pay link — sent into the couple's WhatsApp in about 30 seconds. The reason this matters is not paperwork. An advance asked for in a chat bubble reads as a favour and gets negotiated; the same amount on an invoice reads as the terms of a booking and gets paid.",
+  },
+  {
+    q: "Does Croodit handle part payments — can I put an advance and a balance on one invoice?",
+    a: "No, and you should send two invoices instead. Croodit has no deposit or part-payment field: you invoice the advance when you take the booking and the balance when it falls due, both to the same client, and each one is marked paid on its own. That is closer to what actually happens anyway — the two amounts are due months apart, and a single invoice sitting half-paid for eight months tells you nothing useful. Both invoices stay under that client, so the booking's full history is in one place.",
+  },
+  {
+    q: "A couple booked me for December and paid the advance in April — will Croodit start chasing them for the balance all summer?",
+    a: "Only if you send the balance invoice in April, so don't. Reminders are counted from the day you send an invoice — Croodit notifies you on day 3, day 7 and day 10 after it goes unpaid — which means an invoice raised eight months early starts nagging eight months early. Send the balance invoice when the balance is actually due, usually the week before delivery or on the shoot day if that is your arrangement. And the reminder is a notification to you with the message drafted, never a message to the couple: Croodit does not contact a client by itself, ever.",
+  },
+  {
+    q: "Do I need a contract, or is a WhatsApp invoice enough for a wedding booking?",
+    a: "You need a contract, and Croodit does not give you one. An invoice records money — what is owed, what was paid, on what date. It says nothing about how many hours you shoot, what happens if the date moves, who owns the raw files or when the album is delivered, and a wedding is exactly the job where those get disputed. Croodit has no quotations and no e-signature contracts and does not plan to fake either. If a signed booking agreement is the feature you are shopping for, a tool that does it properly is the right buy — we compare one of them honestly on our Croodit vs Riffit page.",
+  },
+  {
+    q: "I shot about 20 weddings last year at roughly ₹85,000 each — do I need to register for GST?",
+    a: "That is around ₹17 lakh of turnover, which puts you close enough to the line that you should check rather than assume. Photography is a service, so the GST registration threshold that applies is ₹20 lakh, not the ₹40 lakh figure most people repeat — that one is for goods. Photographers are the profession on this site most likely to cross it, and one good season can do it. We wrote up what is actually reported and to whom in will I get a GST notice for taking fees on UPI. It is not tax advice and your accountant's reading wins; Croodit keeps GST off by default and turns it on per invoice if you are registered.",
+  },
+  {
+    q: "The family asked for an extra album three months after I delivered — how do I bill that?",
+    a: "As a fresh invoice to the same client, which takes about as long as replying to the message asking for it. The client record does not close when a booking is paid, so the album, the reprints and the extra hour you shot at the reception all go out as their own documents against the same person. This is worth being deliberate about: post-delivery add-ons are the easiest money you will earn all year and the money solo photographers most often forget to ask for, because the job felt finished and raising it again feels like reopening something.",
+  },
+  {
+    q: "Half my clients pay the balance in cash on the shoot day — does that break the tracking?",
+    a: "No. Mark the invoice paid by hand and it stops showing as pending, so your outstanding list stays true whether the money arrived by UPI or in an envelope. The point of the record is knowing what is still owed across every booking you have taken, not forcing a payment method on a family that brought cash to a wedding.",
+  },
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: title,
+    description,
+    url: `${SITE.url}${path}`,
+    inLanguage: "en-IN",
+    datePublished: updatedISO,
+    dateModified: updatedISO,
+    isPartOf: { "@type": "CollectionPage", "@id": `${SITE.url}/for` },
+    about: { "@type": "Thing", name: "Photography booking advance and balance invoicing" },
+    audience: {
+      "@type": "Audience",
+      audienceType: "Wedding, event and portrait photographers in India",
+      geographicArea: { "@type": "Country", name: "India" },
+    },
+    publisher: orgRef,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  },
+  breadcrumb([
+    ["Croodit", "/"],
+    ["Who it's for", "/for"],
+    [crumb, path],
+  ]),
+];
+---
+
+<Base title={`${title} — Croodit`} description={description} path={path} schema={schema}>
+  <article class="wrap prose">
+    <nav class="eyebrow" aria-label="Breadcrumb" style="color:#6B4EFF">
+      <a href="/" style="color:inherit">Croodit</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <a href="/for" style="color:inherit">Who it's for</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <span>{crumb}</span>
+    </nav>
+    <h1>Invoicing app for photographers in India</h1>
+    <p class="lede">
+      A photography booking is one job paid in two parts, months apart. Croodit sends the advance invoice
+      when you block the date and the balance invoice when it falls due — both to the same client's
+      WhatsApp, each with a UPI pay link — then tracks what is still outstanding and drafts the reminder for
+      you to press send.
+    </p>
+    <p style="font-size:14px;color:var(--t-50)">
+      Last updated {updatedHuman} · Free forever for up to {SITE.freeClients} clients
+    </p>
+
+    <h2>Your money is a booking, not a month</h2>
+    <p>
+      Every other profession on this site bills a repeating cycle. A yoga teacher has a monthly pack, a tutor
+      has a term, a Zumba trainer has a class pack that counts itself down. A photographer has none of that.
+      You have a diary of dates, each one sold to a different family for a different amount, each one paid in
+      at least two pieces separated by anything from a week to ten months.
+    </p>
+    <p>
+      That shape breaks the two tools photographers actually use. A spreadsheet handles the arithmetic but
+      not the asking, so the balance still gets raised as a WhatsApp message you rewrite four times. Billing
+      software built for shops — <strong>Vyapar</strong>, <strong>myBillBook</strong>,
+      <strong>Zoho Invoice</strong> — models items and stock, and wants you to be a business with a back
+      office rather than one person holding a Saturday in December.
+    </p>
+    <p>
+      There is a third problem nobody warns you about: the advance makes you feel paid. You banked ₹25,000
+      in April, the shoot went well in December, and the ₹60,000 that was the actual point of the job is
+      still sitting somewhere in a chat thread in January.
+    </p>
+
+    <h2>The bookings, and what each one does to your cash</h2>
+    <table>
+      <thead>
+        <tr><th>Booking</th><th>Worked example</th><th>What's different about it</th></tr>
+      </thead>
+      <tbody>
+        {bookings.map(([name, price, what]) => (
+          <tr><td><strong>{name}</strong></td><td>{price}</td><td>{what}</td></tr>
+        ))}
+      </tbody>
+    </table>
+    <p style="font-size:14px;color:var(--t-50)">
+      Amounts are an illustration of the shape, not a recommended rate card. Set your own.
+    </p>
+
+    <h2>What Croodit does about it</h2>
+    <ul>
+      <li>
+        <strong>Two invoices, one client, one history.</strong> Croodit has no deposit field — you send the
+        advance as its own invoice and the balance as its own invoice. Both live under the same client, so
+        what a booking has paid and what it still owes is one screen rather than a scroll through a chat.
+      </li>
+      <li>
+        <strong>Bookings are saved packages.</strong> Wedding two-day, pre-wedding, newborn session, event
+        half-day, album reprint. Tap the ones that apply and the invoice is written, which is what turns a
+        ₹6,000 album request into thirty seconds instead of a job for Sunday.
+      </li>
+      <li>
+        <strong>An outstanding list that spans the whole diary.</strong> Paid, pending and overdue across
+        every booking at once — the December balance, the October album and the advance from the couple who
+        booked last week, in one place instead of six.
+      </li>
+      <li>
+        <strong>Cash is a first-class answer.</strong> A balance handed to you at the venue gets marked paid
+        by hand. The record stays true; the payment method stays the family's business.
+      </li>
+      <li>
+        <strong>The reminder goes to you first.</strong> Day 3, 7 and 10 after an unpaid invoice, Croodit
+        notifies <em>you</em> with the nudge already drafted. <strong>Croodit never messages a client by
+        itself</strong> — an automated chaser landing in a bride's WhatsApp two weeks after her wedding is
+        precisely the message that costs you the referral.
+      </li>
+    </ul>
+    <p>
+      Two features on the homepage are not for you, and it is quicker to say so: the class-pack countdown and
+      the attendance register exist for batch businesses. You will never open them.
+    </p>
+
+    <h2>Who this fits, and who it doesn't</h2>
+    <p>
+      <strong>If you are a solo photographer or videographer</strong> — weddings, pre-weddings, events,
+      newborn and portrait work — billing families and individuals who pay you by UPI, this is built for
+      you. It assumes one person shooting, editing and collecting, possibly with an assistant you pay
+      outside the app.
+    </p>
+    <p>
+      <strong>If a signed booking contract is what you actually need</strong>, Croodit does not have one.
+      There are no quotations and no e-signature agreements here, and a wedding is the job where hours,
+      cancellation terms, file ownership and delivery dates get argued about. Buy a tool that does contracts
+      properly — we compare one of them, feature by feature and price by price, on
+      <a href="/croodit-vs-riffit">Croodit vs Riffit</a>.
+    </p>
+    <p>
+      <strong>If you run a studio with several shooters</strong>, you need crew scheduling and payouts.
+      Croodit has no concept of staff at all — there is one user, and everything belongs to them.
+    </p>
+    <p>
+      <strong>If most of your work is corporate</strong> — headshots, product shoots, event coverage
+      invoiced to a company against a purchase order — use a business invoicing tool with email delivery,
+      payment terms and an audit trail, such as <strong>Refrens</strong> or
+      <strong>Zoho Invoice</strong>. A WhatsApp nudge does not move an accounts payable cycle, and the
+      person who receives it is not the person who pays.
+    </p>
+
+    <h2>What it costs, and the honest catch for photographers</h2>
+    <p>
+      Free forever for up to {SITE.freeClients} clients, with unlimited invoices and reminders and no card.
+      Be warned that this tier suits you less well than it suits a yoga teacher: she has the same fifteen
+      regulars all year, while you take a new couple every fortnight. A wedding photographer shooting twenty
+      weddings a season passes seven clients in the first two months, so treat the free tier as a real trial
+      rather than a permanent home.
+    </p>
+    <p>
+      Croodit Pro removes the limit at ₹{SITE.pro.monthly} a month or
+      ₹{SITE.pro.yearly.toLocaleString("en-IN")} a year, after a {SITE.pro.trialDays}-day free trial — under
+      two per cent of a single ₹85,000 wedding booking, and less than one album reprint you forgot to
+      invoice. Money goes straight to your own UPI ID; Croodit is not a payment gateway, holds nothing and
+      takes no cut. GST is optional and off by default.
+    </p>
+    <p>
+      The iPhone app is in early access and Android is on a waitlist, so you cannot download it today. The
+      manual method costs nothing and works now:
+      <a href="/answers/how-to-send-an-invoice-on-whatsapp">how to send an invoice on WhatsApp with a UPI
+      payment link</a>. For the balance that is six weeks late, read
+      <a href="/answers/how-to-ask-a-client-for-payment-politely">how to ask a client for payment
+      politely</a>.
+    </p>
+
+    <h2>Questions photographers ask</h2>
+    <div class="faq__list" style="margin-top:6px">
+      {faqs.map((item, i) => (
+        <details open={i === 0}>
+          <summary>{item.q}</summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+
+    <h2>Not a photographer?</h2>
+    <p>
+      The app is the same; the packages and the awkwardness differ.
+      {others.map((p, i) => (
+        <span>{i > 0 ? " " : ""}<a href={`/for/${p.slug}`}>{p.label}</a>{i < others.length - 1 ? ", " : ". "}</span>
+      ))}
+      Or see <a href="/for">everyone Croodit is built for</a>.
+    </p>
+  </article>
+
+  <section class="wrap final">
+    <div class="final__box">
+      <div class="blob blob--violet anim-blobA" style="width:520px;height:520px;top:-260px;right:-160px;filter:blur(60px);opacity:.7"></div>
+      <div class="final__logo"><Mark id="p1" width={50} /></div>
+      <h2>The advance was the easy half. <span>Get the balance in.</span></h2>
+      <p>Free forever for up to {SITE.freeClients} clients. You still press send — always.</p>
+      <div class="final__cta">
+        <a href={iosHref} class="btn btn--lime">{iosLabel}</a>
+        <a href={SITE.playStoreUrl ?? waitlist("Android")} class="btn btn--glass">Android — join the waitlist</a>
+      </div>
+    </div>
+  </section>
+</Base>
