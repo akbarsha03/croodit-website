@@ -28,4 +28,12 @@ export const professions = [
     blurb:
       "You teach the student and invoice the parent, per subject, on a term cycle. Sibling rates, quarterly-in-advance, and a reminder that goes to the right phone.",
   },
+  {
+    slug: "photographers",
+    emoji: "📸",
+    label: "Photographers",
+    headline: "Invoicing app for photographers in India",
+    blurb:
+      "One booking paid in two parts, months apart. A ₹25,000 advance blocks the date and the ₹60,000 balance falls due before delivery — so your money is a diary of jobs, not a month. Two invoices, one client, one outstanding list.",
+  },
 ] as const;
