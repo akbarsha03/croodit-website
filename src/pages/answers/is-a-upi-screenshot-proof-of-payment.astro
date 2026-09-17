@@ -1,0 +1,369 @@
+---
+import Base from "../../layouts/Base.astro";
+import Mark from "../../components/Mark.astro";
+import { SITE, waitlist } from "../../site";
+import { breadcrumb, orgRef } from "../../data/schema";
+
+const path = "/answers/is-a-upi-screenshot-proof-of-payment";
+const crumb = "Is a UPI screenshot proof of payment?";
+const title = "A client sent me a UPI payment screenshot — is that proof they paid?";
+const description =
+  "No. A screenshot is a picture of the sender's screen, not a credit to your account. The five ways a screenshot and your bank balance disagree, the 30-second check that settles it, and what to say to someone you teach tomorrow morning when it does not match.";
+
+const updatedISO = "2026-09-17";
+const updatedHuman = "17 September 2026";
+
+const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
+const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
+
+/**
+ * Ordered by how often a solo trainer actually meets them — honest mistakes first,
+ * fraud last. Most of this buyer's mismatches are not scams, and saying so is the point.
+ */
+const mismatches = [
+  [
+    "It went to an old or mistyped UPI ID",
+    "Honest",
+    "You changed banks, or they saved your handle two years ago, or they typed one character wrong and it resolved to a real stranger. The screenshot says Successful because it was — to someone else.",
+  ],
+  [
+    "The amount is not the amount",
+    "Honest",
+    "₹250 instead of ₹2,500, or last month's ₹2,000 rate on this month's ₹2,500 pack, or the sibling's fee paid twice and the other one not at all. The screen says paid and the ledger disagrees.",
+  ],
+  [
+    "Debited from them, not credited to you",
+    "Honest",
+    "The money left their account and stalled in the system. Their app shows Successful or Pending, your balance shows nothing. This normally auto-reverses to them within about a day, which means nobody has paid you and both of you think somebody has.",
+  ],
+  [
+    "It is an old screenshot, sent again",
+    "Careless or deliberate",
+    "The same image that closed October gets forwarded for November. The date is in the picture and nobody reads it, because you are reading the green tick, not the timestamp.",
+  ],
+  [
+    "The image was edited, or made by a spoof app",
+    "Fraud",
+    "Amounts, names, timestamps and reference numbers can be edited in a photo app, and there are lookalike apps whose entire purpose is to render a convincing Payment Successful screen. This is the rarest case for a class roster and the only one anybody writes about.",
+  ],
+];
+
+/** The check itself, in the order it is fastest to do. */
+const checks = [
+  [
+    "Open your own app, not their picture",
+    "Your bank app, your UPI app, or the bank SMS on your own phone. This one step ends almost every mismatch on this page, honest or otherwise.",
+  ],
+  [
+    "Look for credited, not pending",
+    "A transaction still showing as pending or processing is not money you have. Wait for it to settle before you treat the fee as closed.",
+  ],
+  [
+    "Match the amount to the invoice",
+    "Not to what you remember the pack costing. ₹2,500 against a ₹2,500 invoice, not ₹2,500 against a vague sense that November was paid.",
+  ],
+  [
+    "If two payments look identical, match the reference",
+    "Every UPI transaction carries a 12-digit reference — labelled UTR, RRN or transaction ID depending on the app. When four people pay ₹2,500 on the same Monday, that number is the only thing that tells the credits apart.",
+  ],
+];
+
+const faqs = [
+  {
+    q: "A student sent me a PhonePe screenshot saying payment successful, but nothing has come into my account. Did they pay or not?",
+    a: "On the evidence so far, no — not to you. A screenshot is a picture of what happened on their phone, and a payment is only complete when the money is credited to your account. Open your own bank or UPI app and look for the credit. If it is not there, the three likely explanations in order are that it went to an old or mistyped UPI ID of yours, that it was debited from them but never credited to you and will auto-reverse, or that the amount or the date is not what you assumed. Ask them for the 12-digit reference number from their transaction — that is the thing that can actually be traced, and asking for it is a bank question rather than an accusation.",
+  },
+  {
+    q: "I teach a 6am batch and I see these people every single day — I can't stand there checking my bank like I don't trust them. What do I do?",
+    a: "You do not check in front of them. That is the whole difference between a trainer and a shopkeeper: a kirana owner can say \"ek minute, dekh leta hoon\" because the customer is a stranger who leaves. You cannot, so do not try. Say thank you, take the screenshot, and check on your own phone at the end of the session or the end of the day. Checking privately within a few hours costs you nothing socially and catches every honest mismatch while it is still fresh. What causes the awkward conversation is not the check — it is finding out at month-end, three weeks later, when raising it sounds like an accusation instead of a correction.",
+  },
+  {
+    q: "Their money left their account but it never reached me. Whose problem is it and how does it get fixed?",
+    a: "It is the sender's to raise, because the debit is on their statement, not yours. A failed UPI transfer is normally reversed to the sender automatically, usually within a day or so. If it does not come back, they open the transaction in their own UPI app and use the Help or Raise dispute option — that files a UDIR ticket that goes to NPCI through their bank, and they will need the 12-digit reference number. If their bank does not resolve it, the escalation path is NPCI's dispute portal and then the RBI Banking Ombudsman. Nothing about this runs through you, and there is nothing you can file on their behalf. Meanwhile the fee is still unpaid, so leave the invoice open rather than marking it closed on goodwill.",
+  },
+  {
+    q: "How do I tell whether a payment screenshot has been faked?",
+    a: "You mostly cannot, and you should stop trying. Edited screenshots and spoof-app screens have got good enough that eyeballing fonts and timestamps is a losing game — which is exactly why the National Payments Corporation of India's advice is to verify the credit in your own bank account or official UPI app rather than to inspect what the payer shows you. The check that works does not depend on how convincing the image is. For a class roster this case is also the rarest one: the people who owe you money are people you see weekly, and the overwhelming majority of mismatches are a wrong handle or a wrong amount, not fraud.",
+  },
+  {
+    q: "Twelve people pay me around ₹2,500 a month and my bank statement is just a wall of identical credits. How am I supposed to know who actually paid?",
+    a: "This is the real version of the problem, and it is a matching problem rather than a trust problem. A QR code is the same image for every client, so twelve people paying the same amount arrive as twelve near-identical lines with nothing to tell them apart. A per-client pay link carries your UPI ID and the exact invoice amount already filled in, so the credit has a number behind it and the client cannot round ₹2,500 down to ₹250. That is what makes a bank statement readable at month-end — invoices, not memory.",
+  },
+  {
+    q: "Should I just go back to taking cash so none of this can happen?",
+    a: "Cash removes the screenshot and adds three worse things: no record at all of who paid for what, a lump of deposits you cannot explain later, and a higher deemed profit under Section 44AD, which taxes cash receipts at 8% against 6% for money received digitally. The mismatch problem on this page is solved by a 30-second check. The cash problem is solved by nothing. If the tax worry is what is actually driving the question, that is answered separately in our guide on whether taking fees on UPI puts you on a tax radar.",
+  },
+  {
+    q: "Does Croodit check my bank account and mark the invoice paid when the money arrives?",
+    a: "No, and this is a real limitation rather than a feature we are saving for later. Croodit is not a payment gateway and has no connection to your bank — money goes straight from your client to your own UPI ID, and the app never sees the credit. You confirm the payment in your bank or UPI app and tap Mark paid, exactly as you would for cash. What Croodit removes is the ambiguity around that decision: one numbered invoice per fee, the exact amount on the pay link, and a client-by-client view of who is paid, pending and overdue — so the check takes seconds and the answer is written down instead of remembered.",
+  },
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: title,
+    description,
+    inLanguage: "en-IN",
+    datePublished: updatedISO,
+    dateModified: updatedISO,
+    mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE.url}${path}` },
+    author: orgRef,
+    publisher: orgRef,
+    about: [
+      { "@type": "Thing", name: "Unified Payments Interface (UPI)" },
+      { "@type": "Thing", name: "Payment verification" },
+      { "@type": "Thing", name: "National Payments Corporation of India (NPCI)" },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to check whether a UPI payment actually reached you",
+    description:
+      "The four-step check a solo trainer, coach or tutor can do on their own phone in about thirty seconds, instead of reading the screenshot a client sent.",
+    totalTime: "PT30S",
+    step: checks.map(([name, text], i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name,
+      text,
+    })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  },
+  breadcrumb([
+    ["Croodit", "/"],
+    ["Answers", "/answers"],
+    [crumb, path],
+  ]),
+];
+---
+
+<Base title={`${title} — Croodit`} description={description} path={path} schema={schema}>
+  <article class="wrap prose">
+    <nav class="eyebrow" aria-label="Breadcrumb" style="color:#6B4EFF">
+      <a href="/" style="color:inherit">Croodit</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <a href="/answers" style="color:inherit">Answers</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <span>{crumb}</span>
+    </nav>
+    <h1>A client sent me a UPI payment screenshot — is that proof they paid?</h1>
+    <p class="lede">
+      No. A screenshot shows what happened on the sender's phone; a payment is complete only when the money is
+      credited to your account. Open your own bank or UPI app and confirm the credit — the right amount,
+      credited rather than pending. That one check, done the same day, settles almost every dispute before it
+      becomes one.
+    </p>
+    <p style="font-size:14px;color:var(--t-50)">
+      Last updated {updatedHuman} · Written for solo trainers, coaches, tutors and creators in India who get
+      paid by the people they teach
+    </p>
+
+    <h2>Why this is a different problem for you than for a shopkeeper</h2>
+    <p>
+      Every guide written about fake payment screenshots is written for a kirana store. The advice is sound and
+      it is always the same: do not hand over the goods until you have seen the credit in your own account. A
+      shopkeeper can act on that, because the customer is a stranger who is about to walk out of the door. Say
+      "one minute, let me check" and nothing is lost.
+    </p>
+    <p>
+      You cannot say that. The person who just sent you a screenshot is in your 6am batch tomorrow, and the
+      batch after that, and they introduced two of your other clients. Asking them to wait while you open your
+      bank app reads as <em>I don't believe you</em> — so you say thank you, you put the phone away, and the
+      question goes unanswered. Three weeks later you are reconciling the month, a ₹2,500 credit is missing,
+      and now raising it sounds like an accusation rather than a correction.
+    </p>
+    <p>
+      The fix is not suspicion. It is <strong>timing</strong>. Take the screenshot, say thank you, and check on
+      your own phone after the session — privately, the same day, costing you nothing socially. Almost every
+      mismatch a trainer meets is honest, and every honest mismatch is trivially fixable on the day it happens
+      and genuinely awkward a month later.
+    </p>
+
+    <h2>The five ways a screenshot and your bank balance disagree</h2>
+    <p>
+      Ordered by how often a class roster actually meets them. Note where fraud sits — last, and rarest, which
+      is the opposite of the impression the coverage gives.
+    </p>
+    <table>
+      <thead>
+        <tr><th>What happened</th><th>Kind</th><th>What it looks like</th></tr>
+      </thead>
+      <tbody>
+        {mismatches.map(([what, kind, looks]) => (
+          <tr><td><strong>{what}</strong></td><td>{kind}</td><td>{looks}</td></tr>
+        ))}
+      </tbody>
+    </table>
+    <p>
+      Four of the five are mistakes, not scams, and the person who sent the screenshot believes they have paid
+      you. That matters for what you say next — the message that works is about the bank, not about them.
+    </p>
+
+    <h2>The check, in about thirty seconds</h2>
+    <table>
+      <thead>
+        <tr><th>Step</th><th>Why</th></tr>
+      </thead>
+      <tbody>
+        {checks.map(([name, why], i) => (
+          <tr><td><strong>{i + 1}. {name}</strong></td><td>{why}</td></tr>
+        ))}
+      </tbody>
+    </table>
+    <p>
+      This is also the National Payments Corporation of India's own advice, and it is worth knowing that it is
+      official rather than defensive: verify an incoming payment in your own bank account or official UPI app
+      rather than relying on a screenshot, a message or a notification shown to you by the payer. PhonePe gives
+      merchants the same five-point version — check your account, check the status is successful, cross-check
+      the reference number, do not rely on screenshots, and match the amount.
+    </p>
+    <p>
+      Nothing in that list involves inspecting the image. That is deliberate. Edited screenshots and spoof-app
+      screens copy real layouts, logos, timestamps and reference numbers, and trying to spot the fake by eye is
+      a game you will eventually lose. The check that works does not care how convincing the picture is.
+    </p>
+
+    <h2>What to say when it does not match</h2>
+    <p>
+      Assume the mistake, not the lie — because four times out of five it is one. Keep the message about the
+      transfer rather than the person, and ask for the reference number, which is the one thing that makes the
+      payment traceable and is a completely normal thing for a bank to want.
+    </p>
+    <ul>
+      <li>
+        <strong>The first message, same day.</strong> "Hi Priya, thank you for sending it. It hasn't shown up
+        in my account yet — could you check whether it went to my UPI ID <code>yourname@bank</code>? Sometimes
+        an old ID is still saved."
+      </li>
+      <li>
+        <strong>If they confirm it left their account.</strong> "It's been debited from your side but not
+        credited to mine, so it's stuck in transit — that usually reverses back to you within a day. Could you
+        send me the 12-digit reference number from the transaction so I can watch for it? If it doesn't come
+        back to you by tomorrow, your UPI app has a 'Raise dispute' option on that payment."
+      </li>
+      <li>
+        <strong>If the amount is short.</strong> "Got ₹250 — looks like a zero went missing somewhere, the pack
+        is ₹2,500. Sending the invoice link again, no rush."
+      </li>
+      <li>
+        <strong>Where the screenshot is from an earlier month.</strong> Do not argue with the image. Re-send
+        the current invoice: "Here's November's — the last one I have marked paid is October, invoice 41."
+        A numbered invoice moves the conversation from memory to paperwork, which is where you want it.
+      </li>
+    </ul>
+    <p>
+      The longer scripts for the fee that is simply late, rather than mis-sent, are on
+      <a href="/answers/how-to-ask-a-client-for-payment-politely">how to ask a client for payment politely</a>.
+    </p>
+
+    <h2>If the money really did leave their account</h2>
+    <p>
+      A debited-but-not-credited transfer is the sender's to chase, not yours, because the debit sits on their
+      statement. In most cases it reverses automatically within about a day. If it does not, they open the
+      transaction in their own UPI app and use the Help or <strong>Raise dispute</strong> option, which files a
+      UDIR ticket that travels through their bank to NPCI; the 12-digit reference number is what identifies it.
+      Unresolved after that, the escalation runs to NPCI's dispute portal and then to the RBI Banking Ombudsman.
+    </p>
+    <p>
+      There is nothing you can file on their behalf, and nothing lands in your account in the meantime. So the
+      practical instruction for you is the unglamorous one: <strong>leave the invoice open.</strong> Marking a
+      fee paid on goodwill is how it disappears from your month entirely — the reminder stops firing, the
+      overdue list looks clean, and in March you are ₹2,500 short with no idea where.
+    </p>
+
+    <h2>Who this applies to, and who it doesn't</h2>
+    <p>
+      <strong>If you run a class roster — a dozen or forty people paying you monthly, in person, by UPI</strong> —
+      this page is written for exactly your situation. Your risk is not fraud, it is drift: honest mismatches
+      that nobody catches on the day and that turn into an uncomfortable conversation at month-end. The answer
+      is a same-day private check and an invoice with a number on it.
+    </p>
+    <p>
+      <strong>If you sell to strangers who take the goods and leave</strong> — a stall, a counter, a delivery
+      handover — follow the shopkeeper advice properly instead. Do not release anything until you have seen the
+      credit in your own app, because for you the fraud case is not rare and you have no relationship to fall
+      back on.
+    </p>
+    <p>
+      <strong>If you need the credit confirmed automatically rather than by hand</strong>, you need a payment
+      gateway or a bank feed, and Croodit is neither. Razorpay, Cashfree and similar services reconcile a
+      payment against an order because the money passes through them — at a per-transaction cut, with a
+      business account and onboarding to match. For a trainer collecting ₹2,500 from fourteen people that is a
+      heavy trade for a check that takes thirty seconds, but it is the honest alternative if manual confirmation
+      is not acceptable to you.
+    </p>
+
+    <h2>What Croodit does, and deliberately does not do, here</h2>
+    <p>
+      Say the limitation first: <strong>Croodit does not verify payments.</strong> It is not a payment gateway
+      and has no connection to your bank. Money goes straight from your client to your own UPI ID — Croodit
+      never holds it, never routes it, takes no cut, and never sees the credit. You confirm it in your own app
+      and tap <strong>Mark paid</strong>, exactly as you would for a fee handed to you in cash.
+    </p>
+    <p>
+      What it removes is the ambiguity around that decision, which is where this problem actually lives. Every
+      fee is a numbered invoice for a named client and a stated amount, so "did Priya pay for November?" has an
+      answer that is not a memory. The pay link carries your UPI ID and the exact amount already filled in, so
+      the two most common honest mismatches — the old handle and the missing zero — mostly stop happening. And
+      the client-by-client view of paid, pending and overdue means the wall of identical ₹2,500 credits in your
+      bank statement has something to be matched against.
+    </p>
+    <p>
+      Reminders follow the same rule as everything else: on day 3, 7 and 10 Croodit notifies <em>you</em> with
+      the message drafted for that client, and you press send from your own WhatsApp. Croodit never messages a
+      client by itself. An unpaid invoice you left open is therefore a fee that comes back to you in three days,
+      rather than one you rediscover in March.
+    </p>
+    <p>
+      It is free forever for up to {SITE.freeClients} clients, with unlimited invoices and unlimited reminders
+      to them and no card needed. Croodit Pro lifts that to unlimited clients at ₹{SITE.pro.monthly} a month or
+      ₹{SITE.pro.yearly.toLocaleString("en-IN")} a year, after a {SITE.pro.trialDays}-day free trial.
+    </p>
+    <p>
+      Related: <a href="/answers/how-to-send-an-invoice-on-whatsapp">how to send an invoice on WhatsApp with a
+      UPI payment link</a>, and if the worry underneath this question is really about tax,
+      <a href="/answers/will-i-get-a-gst-notice-for-taking-fees-on-upi">will I get a GST or income tax notice
+      if I take class fees on UPI?</a>
+    </p>
+
+    <h2>Questions people ask about payment screenshots and UPI proof</h2>
+    <div class="faq__list" style="margin-top:6px">
+      {faqs.map((item, i) => (
+        <details open={i === 0}>
+          <summary>{item.q}</summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+
+    <p style="font-size:14px;color:var(--t-50);margin-top:28px">
+      General information about how UPI payments settle and are disputed, current as of {updatedHuman}. Dispute
+      timelines and escalation routes are set by your bank, NPCI and the RBI and can change — check the current
+      process in your own UPI app before relying on the timings here.
+    </p>
+  </article>
+
+  <section class="wrap final">
+    <div class="final__box">
+      <div class="blob blob--violet anim-blobA" style="width:520px;height:520px;top:-260px;right:-160px;filter:blur(60px);opacity:.7"></div>
+      <div class="final__logo"><Mark id="p1" width={50} /></div>
+      <h2>Stop matching screenshots to memory. <span>Match them to an invoice.</span></h2>
+      <p>Free forever for up to {SITE.freeClients} clients. Paid, pending and overdue, client by client.</p>
+      <div class="final__cta">
+        <a href={iosHref} class="btn btn--lime">{iosLabel}</a>
+        <a href={SITE.playStoreUrl ?? waitlist("Android")} class="btn btn--glass">Android — join the waitlist</a>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -8,15 +8,15 @@ const path = "/answers";
 const crumb = "Answers";
 const title = "How to get paid on time as a trainer, coach or tutor in India";
 const description =
-  "Straight answers to the money questions solo trainers, coaches and tutors actually ask — sending an invoice on WhatsApp with a UPI pay link, chasing a fee without making it awkward, and whether taking fees on UPI puts you on a tax radar.";
+  "Straight answers to the money questions solo trainers, coaches and tutors actually ask — sending an invoice on WhatsApp with a UPI pay link, knowing whether a payment screenshot means you were actually paid, chasing a fee without making it awkward, and whether taking fees on UPI puts you on a tax radar.";
 
-const updatedISO = "2026-09-13";
-const updatedHuman = "13 September 2026";
+const updatedISO = "2026-09-17";
+const updatedHuman = "17 September 2026";
 
 const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
 const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
 
-/** The cluster, ordered as the problem actually arrives: send it, chase it, stop fearing it. */
+/** The cluster, ordered as the problem actually arrives: send it, confirm it, chase it, stop fearing it. */
 const answers = [
   {
     slug: "how-to-send-an-invoice-on-whatsapp",
@@ -28,8 +28,17 @@ const answers = [
       "The upi:// link built field by field from your own UPI ID, what to attach, what breaks on which app, and why the WhatsApp Business API and payment gateways are the wrong tools for one person.",
   },
   {
+    slug: "is-a-upi-screenshot-proof-of-payment",
+    step: "2. Know when you have actually been paid",
+    headline: "A client sent me a UPI payment screenshot — is that proof they paid?",
+    readIf:
+      "Someone showed you a green tick, you said thank you, and you are not sure the money arrived.",
+    gives:
+      "The five ways a screenshot and your bank balance disagree — four of them honest mistakes, not fraud — the thirty-second check that settles it, and what to say to someone you teach at 6am tomorrow when it does not match.",
+  },
+  {
     slug: "how-to-ask-a-client-for-payment-politely",
-    step: "2. Chase it without the cringe",
+    step: "3. Chase it without the cringe",
     headline: "How to ask a client for payment politely",
     readIf:
       "The invoice is sent, the money has not come, and you see this person at 6am tomorrow.",
@@ -38,7 +47,7 @@ const answers = [
   },
   {
     slug: "will-i-get-a-gst-notice-for-taking-fees-on-upi",
-    step: "3. Stop fearing the paper trail",
+    step: "4. Stop fearing the paper trail",
     headline: "Will I get a GST or income tax notice if I take class fees on UPI?",
     readIf:
       "You read about the 2025 Karnataka UPI notices and quietly went back to cash.",
@@ -126,10 +135,11 @@ const schema = [
     </nav>
     <h1>How to get paid on time as a trainer, coach or tutor in India</h1>
     <p class="lede">
-      Getting paid on time comes down to three things, in this order: send a real invoice with a UPI pay
-      link instead of a QR screenshot, agree a due date and chase the invoice rather than the person, and
-      stop treating digital receipts as a tax risk — the GST line for a service provider is ₹20 lakh a
-      year, not the ₹40 lakh everyone quotes.
+      Getting paid on time comes down to four things, in this order: send a real invoice with a UPI pay
+      link instead of a QR screenshot, confirm the money actually landed in your account rather than
+      trusting a screenshot, agree a due date and chase the invoice rather than the person, and stop
+      treating digital receipts as a tax risk — the GST line for a service provider is ₹20 lakh a year,
+      not the ₹40 lakh everyone quotes.
     </p>
     <p style="font-size:14px;color:var(--t-50)">
       Last updated {updatedHuman} · Written for solo trainers, coaches, tutors and creators in India
@@ -137,7 +147,7 @@ const schema = [
 
     <h2>Start with whichever one is actually blocking you</h2>
     <p>
-      These are full guides, free, and none of them need an app. Most people arrive at the second one,
+      These are full guides, free, and none of them need an app. Most people arrive at the third one,
       because the invoice was never the hard part.
     </p>
     <ul>
@@ -160,8 +170,8 @@ const schema = [
     <p>
       Fixing the send fixes most of the chase. An invoice with a number, a due date and a pay link can be
       forwarded, re-sent and referred to without any of it sounding like an accusation — you are following
-      up a document, not a person. That is the whole trick, and it is why the first guide comes before the
-      second.
+      up a document, not a person. That is the whole trick, and it is why the invoice guide comes before the
+      chasing one.
     </p>
 
     <h2>Short answers to the rest of it</h2>
