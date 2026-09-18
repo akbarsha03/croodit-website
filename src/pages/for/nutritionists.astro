@@ -1,0 +1,327 @@
+---
+import Base from "../../layouts/Base.astro";
+import Mark from "../../components/Mark.astro";
+import { SITE, waitlist } from "../../site";
+import { breadcrumb, orgRef } from "../../data/schema";
+import { professions } from "../../data/professions";
+
+const path = "/for/nutritionists";
+const crumb = "Nutritionists and dietitians";
+const title = "Invoicing app for nutritionists and dietitians in India — bill the programme, not the hour";
+const description =
+  "Your clinic is a WhatsApp thread, so the plan, the daily check-ins and the money all live in one chat. Croodit sends the programme invoice with a UPI pay link, counts the programme down to its end date, and drafts the renewal for you to press send.";
+
+const updatedISO = "2026-09-18";
+const updatedHuman = "18 September 2026";
+
+const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
+const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
+const others = professions.filter((p) => p.slug !== "nutritionists");
+
+const packages = [
+  [
+    "First consultation",
+    "₹600 in clinic, ₹900 for 30 minutes online — often free",
+    "Not really the money. It is the conversation that decides whether a programme happens, and plenty of practices give it away to win the programme behind it.",
+  ],
+  [
+    "Diet plan, no follow-up",
+    "₹2,000, one-off",
+    "The only item on this list with a natural moment to collect: before the PDF goes out. Once it has been sent there is nothing left to withhold.",
+  ],
+  [
+    "Monthly customised plan",
+    "₹1,998 a month",
+    "Daily chat support, weight logged every other day, a call or two. It renews silently or lapses silently — there is no door and no register to check anyone at.",
+  ],
+  [
+    "12-week programme",
+    "₹4,999 upfront, fortnightly reviews",
+    "Prepaid, so nothing is ever overdue. The only date that matters is day 84, and absolutely nothing in your phone tells you it has arrived.",
+  ],
+  [
+    "Follow-up consultation between programmes",
+    "₹1,199",
+    "The item that most often goes uninvoiced, because it happens inside a conversation you were already having for free.",
+  ],
+  [
+    "Corporate wellness session or workshop",
+    "₹15,000 against a purchase order",
+    "An HR department, an email trail and payment terms. The one shape on this list Croodit is the wrong tool for — see below.",
+  ],
+];
+
+const faqs = [
+  {
+    q: "I run a 12-week nutrition programme that clients pay for upfront, so nothing is ever overdue — what would an invoicing app actually do for me?",
+    a: "Tell you when the programme ends, which is the only thing you cannot see. Prepaid work has no chase, so the money you lose is not late money — it is the renewal that never got asked for, because week 12 arrived while you were replying to someone's thyroid report. In Croodit a programme is a saved package with a validity, and Croodit counts it down and prompts you before it runs out, so the renewal conversation happens on day 80 rather than three weeks after the client quietly stopped messaging. The invoice itself is a side benefit: a ₹4,999 programme sent as a real document with a UPI pay link gets paid more often than the same amount typed into a chat.",
+  },
+  {
+    q: "My clients are in the same WhatsApp chat I send the diet plan in — won't a payment reminder land in the middle of a health conversation?",
+    a: "It will, and that is exactly why Croodit does not send it. Reminders on day 3, 7 and 10 are notifications to you with the message already drafted; you read the thread, decide whether this is the moment, and press send yourself. Croodit never messages a client by itself. For this profession that is not a nicety — an automated payment chaser arriving under a message where someone just told you their reports came back is the message that ends the relationship, and no rule you could write into an app would know to hold it.",
+  },
+  {
+    q: "A client's month ran out and she is still messaging me every day — how do I bring up money without abandoning her?",
+    a: "Invoice the next month and keep replying. This is the structural trap in nutrition work: a Zumba trainer can let a pack lapse at the studio door and a tutor can stop the class, but you have already sent the plan and you are not going to ignore a health question, so an unpaid month becomes a free month and then a free quarter. Separating the two acts is what makes it survivable — the invoice is a document with a date on it and does the asking, while you carry on being her dietitian. Send it on the day the last one expired, not three weeks later, because the longer the free stretch runs the more the invoice reads as a complaint rather than a renewal.",
+  },
+  {
+    q: "Will my client's medical details end up on the invoice, or anywhere Croodit can see them?",
+    a: "Not unless you type them in, and you should not. Croodit stores the client, the packages and the invoices; it cannot read your WhatsApp chats and it has no health record, no lab report field and no place for a diagnosis. The discipline is in how you name the line item. Call it \"Nutrition programme — 3 months\", never \"PCOS weight-loss plan\", because the invoice is a document that gets forwarded: a husband pays for his wife, a son pays for his mother, and a line item naming the condition tells the payer something your client may not have.",
+  },
+  {
+    q: "I charge different clients different amounts for the same three-month plan — can Croodit handle that?",
+    a: "Yes, and it is worth being deliberate about it. Programme prices in this field are usually quoted one to one rather than published — plenty of dietitians list the consultation fee on their site and put \"get a quote on WhatsApp\" next to the programmes — so the rate is a private agreement per client, not a public price. Croodit saves the package and the rate against the client, so the ₹4,999 you agreed in April is a record rather than something you reconstruct from a chat when she asks to renew. That also protects the price: you are far less likely to quietly undercut yourself on a renewal when the previous figure is on the screen.",
+  },
+  {
+    q: "Can Croodit book the fortnightly follow-up calls my programme includes?",
+    a: "No. Croodit has no calendar, no appointment booking and no reminders to your clients about a call — it handles the money and nothing else. If scheduling is the part eating your week, buy a tool that does it properly: a booking link such as Calendly, or a health-practice platform such as Practo if you want appointments and your practice listing in one place. Croodit sits alongside either of them rather than replacing them.",
+  },
+  {
+    q: "I also sell protein supplements and meal kits to my clients — is Croodit still the right app?",
+    a: "Not for that half of your business. The moment you are selling something you bought in and hold on a shelf, you need items, purchase entries and a stock ledger, and inventory-first billing software does that far better — Vyapar, myBillBook or Zoho Invoice. Croodit has no inventory of any kind because it was built for people selling their own time and expertise. If supplements are a sideline you could run separately, Croodit still fits the consulting; if the product revenue is serious, buy the billing software and let it do both.",
+  },
+  {
+    q: "Do I need GST registration to charge for diet plans and consultations?",
+    a: "Only above the threshold, and for a service practice the figure that applies is ₹20 lakh of turnover, not the ₹40 lakh number most people repeat — that one is for goods. A solo practice on monthly plans usually sits well under it, though selling supplements changes the picture and is worth asking your accountant about. Croodit keeps GST off by default and turns it on per invoice if you are registered, with a monthly summary for your CA. We wrote up what actually gets reported and to whom in will I get a GST notice for taking fees on UPI — it is not tax advice, and your accountant's reading wins.",
+  },
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: title,
+    description,
+    url: `${SITE.url}${path}`,
+    inLanguage: "en-IN",
+    datePublished: updatedISO,
+    dateModified: updatedISO,
+    isPartOf: { "@type": "CollectionPage", "@id": `${SITE.url}/for` },
+    about: { "@type": "Thing", name: "Nutrition programme invoicing and renewal tracking" },
+    audience: {
+      "@type": "Audience",
+      audienceType: "Nutritionists, dietitians and health coaches in private practice in India",
+      geographicArea: { "@type": "Country", name: "India" },
+    },
+    publisher: orgRef,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  },
+  breadcrumb([
+    ["Croodit", "/"],
+    ["Who it's for", "/for"],
+    [crumb, path],
+  ]),
+];
+---
+
+<Base title={`${title} — Croodit`} description={description} path={path} schema={schema}>
+  <article class="wrap prose">
+    <nav class="eyebrow" aria-label="Breadcrumb" style="color:#6B4EFF">
+      <a href="/" style="color:inherit">Croodit</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <a href="/for" style="color:inherit">Who it's for</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <span>{crumb}</span>
+    </nav>
+    <h1>Invoicing app for nutritionists and dietitians in India</h1>
+    <p class="lede">
+      Croodit invoices nutrition programmes inside the same WhatsApp thread you already coach in. Save your
+      consultation, monthly plan and 12-week programme as packages, send a proper invoice with a UPI
+      (Unified Payments Interface) pay link in about 30 seconds, and let Croodit count the programme down
+      and draft the renewal before it quietly expires.
+    </p>
+    <p style="font-size:14px;color:var(--t-50)">
+      Last updated {updatedHuman} · Free forever for up to {SITE.freeClients} clients
+    </p>
+
+    <h2>Your chat is your clinic, and that changes the money</h2>
+    <p>
+      Every other profession on this site works somewhere else and bills on WhatsApp. A Zumba trainer has a
+      hall, a tutor has a dining table, a photographer has a wedding — the chat is only where the invoice
+      goes. For a nutritionist the chat <em>is</em> the practice. The plan arrives there, the weight gets
+      logged there every other day, and the question about whether she can eat the biryani at Sunday's
+      wedding arrives there at 9pm. The work, the relationship and the invoice all share one thread.
+    </p>
+    <p>
+      Two things follow from that, and neither is true for anyone else on this site.
+    </p>
+    <p>
+      <strong>You have no withholding lever.</strong> A class pack lapses at the studio door. A tuition
+      batch stops when the tutor stops turning up. Your deliverable already went out weeks ago as a PDF, and
+      the part that is still running is chat support for someone's health — which you are not going to
+      switch off to make a point about ₹1,998. So an unpaid month does not become an overdue invoice. It
+      becomes a free month, then a free quarter, and it is invisible because nothing in your phone was ever
+      counting.
+    </p>
+    <p>
+      <strong>Your money expires instead of going late.</strong> Programme work is usually prepaid, so a
+      collections tool built around overdue invoices is solving a problem you do not have. What you actually
+      lose is day 84 of a 90-day programme: the renewal that never got asked for, because week 12 arrived
+      while you were reading someone's thyroid report, and by the time you noticed she had stopped messaging
+      three weeks ago and asking now feels like chasing.
+    </p>
+
+    <h2>The packages, and what each one does to your cash</h2>
+    <table>
+      <thead>
+        <tr><th>What you sell</th><th>Worked example</th><th>What's different about it</th></tr>
+      </thead>
+      <tbody>
+        {packages.map(([name, price, what]) => (
+          <tr><td><strong>{name}</strong></td><td>{price}</td><td>{what}</td></tr>
+        ))}
+      </tbody>
+    </table>
+    <p style="font-size:14px;color:var(--t-50)">
+      Amounts are an illustration of the shape, drawn from what Indian practices publish. They are not a
+      recommended rate card — set your own.
+    </p>
+
+    <h2>What Croodit does about it</h2>
+    <ul>
+      <li>
+        <strong>The programme counts itself down to its end date.</strong> Croodit tracks a package's
+        validity and tells you before it runs out, so you send the renewal invoice while she is still
+        messaging you daily rather than a month after she went quiet. For a Zumba trainer that countdown
+        runs on attendance ticks; yours runs on the calendar, because nobody registers at your door.
+      </li>
+      <li>
+        <strong>The rate is saved against the client, not guessed.</strong> Programme prices in this field
+        are quoted privately rather than published, so what you agreed with each person is a fact you have
+        to look up. Croodit keeps it with the client, which is also the thing that stops you renewing at a
+        figure lower than the one you set in April.
+      </li>
+      <li>
+        <strong>A real document instead of a number in a chat.</strong> Pick the client, tap
+        <em>12-week programme</em>, and WhatsApp opens with the invoice PDF and a UPI pay link in about 30
+        seconds. A fee typed as a chat message reads as a suggestion and gets negotiated; the same amount on
+        an invoice reads as the terms of a programme.
+      </li>
+      <li>
+        <strong>One list of who is inside a paid programme and who is not.</strong> Paid, pending, overdue
+        and expiring, across every client at once — which is the only honest answer to the question of how
+        many people you are currently treating for free.
+      </li>
+      <li>
+        <strong>The reminder goes to you first.</strong> Day 3, 7 and 10 after an unpaid invoice, Croodit
+        notifies <em>you</em> with the nudge already written. <strong>Croodit never messages a client by
+        itself</strong> — in a thread that also carries her lab results, you are the only one who can judge
+        whether this is the moment.
+      </li>
+      <li>
+        <strong>Cash and direct transfers still close the invoice.</strong> Someone pays you at the clinic
+        or straight into your account, you tap Mark paid, and the outstanding list stays true.
+      </li>
+    </ul>
+    <p>
+      Two things on the homepage are not for you, and it is quicker to say so: the attendance register and
+      the per-batch rosters exist for class businesses. You will never open them.
+    </p>
+
+    <h2>Who this fits, and who it doesn't</h2>
+    <p>
+      <strong>If you are a dietitian, nutritionist or health coach in solo private practice</strong> —
+      selling consultations, monthly plans and multi-week programmes to individuals who pay you by UPI, and
+      running most of it over WhatsApp — this is built for you. It assumes one practitioner doing the
+      consults, the plans and the collecting.
+    </p>
+    <p>
+      <strong>If you need the plan itself delivered, stored or version-tracked</strong>, Croodit is not that
+      tool. It has no document library, no client file and no health record: the PDF it produces is the
+      invoice, not the diet chart. You send the plan the way you send it today, and Croodit stays on the
+      money side of the thread — which is also why it cannot read anything clinical.
+    </p>
+    <p>
+      <strong>If scheduling is the part that is actually eating your week</strong>, buy something for that
+      instead. Croodit has no calendar and no appointment booking, so the fortnightly review calls a
+      programme includes are yours to arrange — a booking link such as <strong>Calendly</strong>, or a
+      health-practice platform such as <strong>Practo</strong> if you want appointments and your listing
+      together.
+    </p>
+    <p>
+      <strong>If you sell supplements or meal kits</strong>, that half of the business needs items, purchase
+      entries and stock, and inventory-first billing software does it properly — <strong>Vyapar</strong>,
+      <strong>myBillBook</strong> or <strong>Zoho Invoice</strong>. Croodit has no inventory at all. We say
+      where Vyapar is the better buy on our
+      <a href="/vyapar-alternative-for-trainers-and-coaches">Vyapar alternative page</a>, including the part
+      where its Android plan costs less per year than Croodit Pro.
+    </p>
+    <p>
+      <strong>If you are a clinic with several dietitians</strong>, you need practitioner payouts, shared
+      client records and a front desk. Croodit has no concept of staff — there is one user, and everything
+      belongs to them.
+    </p>
+    <p>
+      <strong>If most of your income is corporate wellness</strong> — workshops and employee programmes
+      invoiced to an HR department against a purchase order — use a business invoicing tool with email
+      delivery, payment terms and an audit trail, such as <strong>Refrens</strong> or
+      <strong>Zoho Invoice</strong>. A WhatsApp nudge does not move an accounts payable cycle, and the
+      person who receives it is not the person who pays.
+    </p>
+
+    <h2>What it costs, and the honest catch for a nutrition practice</h2>
+    <p>
+      Free forever for up to {SITE.freeClients} clients, with unlimited invoices and reminders and no card.
+      The catch here is not volume, it is turnover: a yoga teacher keeps the same fifteen regulars all year,
+      while your roster replaces itself. Three-month programmes mean seven slots can cycle through several
+      sets of people in a year, so treat the free tier as a genuine trial of the workflow rather than a
+      permanent home.
+    </p>
+    <p>
+      Croodit Pro removes the client limit at ₹{SITE.pro.monthly} a month or
+      ₹{SITE.pro.yearly.toLocaleString("en-IN")} a year, after a {SITE.pro.trialDays}-day free trial — less
+      than one follow-up consultation you forgot to invoice. Money goes straight to your own UPI ID; Croodit
+      is not a payment gateway, holds nothing and takes no cut. GST is optional and off by default.
+    </p>
+    <p>
+      The iPhone app is in early access and Android is on a waitlist, so you cannot download it today. The
+      manual method costs nothing and works now:
+      <a href="/answers/how-to-send-an-invoice-on-whatsapp">how to send an invoice on WhatsApp with a UPI
+      payment link</a>. For the renewal you have been putting off, read
+      <a href="/answers/how-to-ask-a-client-for-payment-politely">how to ask a client for payment
+      politely</a>. And before you mark a programme paid on the strength of a screenshot, read
+      <a href="/answers/is-a-upi-screenshot-proof-of-payment">whether a UPI screenshot is proof of
+      payment</a>.
+    </p>
+
+    <h2>Questions nutritionists and dietitians ask</h2>
+    <div class="faq__list" style="margin-top:6px">
+      {faqs.map((item, i) => (
+        <details open={i === 0}>
+          <summary>{item.q}</summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+
+    <h2>Not a nutritionist?</h2>
+    <p>
+      The app is the same; the packages and the awkwardness differ.
+      {others.map((p, i) => (
+        <span>{i > 0 ? " " : ""}<a href={`/for/${p.slug}`}>{p.label}</a>{i < others.length - 1 ? ", " : ". "}</span>
+      ))}
+      Or see <a href="/for">everyone Croodit is built for</a>.
+    </p>
+  </article>
+
+  <section class="wrap final">
+    <div class="final__box">
+      <div class="blob blob--violet anim-blobA" style="width:520px;height:520px;top:-260px;right:-160px;filter:blur(60px);opacity:.7"></div>
+      <div class="final__logo"><Mark id="p1" width={50} /></div>
+      <h2>Nothing is overdue. <span>Something just expired.</span></h2>
+      <p>Free forever for up to {SITE.freeClients} clients. You still press send — always.</p>
+      <div class="final__cta">
+        <a href={iosHref} class="btn btn--lime">{iosLabel}</a>
+        <a href={SITE.playStoreUrl ?? waitlist("Android")} class="btn btn--glass">Android — join the waitlist</a>
+      </div>
+    </div>
+  </section>
+</Base>
