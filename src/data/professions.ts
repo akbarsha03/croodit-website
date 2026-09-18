@@ -29,6 +29,14 @@ export const professions = [
       "You teach the student and invoice the parent, per subject, on a term cycle. Sibling rates, quarterly-in-advance, and a reminder that goes to the right phone.",
   },
   {
+    slug: "nutritionists",
+    emoji: "🥗",
+    label: "Nutritionists and dietitians",
+    headline: "Invoicing app for nutritionists and dietitians in India",
+    blurb:
+      "Your chat is your clinic, so the plan, the daily check-ins and the money share one thread — and you have nothing to withhold when a month goes unpaid. Programmes that count down to their end date and a renewal drafted before day 90.",
+  },
+  {
     slug: "photographers",
     emoji: "📸",
     label: "Photographers",
