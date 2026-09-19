@@ -8,7 +8,7 @@ const path = "/answers";
 const crumb = "Answers";
 const title = "How to get paid on time as a trainer, coach or tutor in India";
 const description =
-  "Straight answers to the money questions solo trainers, coaches and tutors actually ask — sending an invoice on WhatsApp with a UPI pay link, knowing whether a payment screenshot means you were actually paid, chasing a fee without making it awkward, and whether taking fees on UPI puts you on a tax radar.";
+  "Straight answers to the money questions solo trainers, coaches and tutors actually ask — whether you need a GST number to invoice at all, sending an invoice on WhatsApp with a UPI pay link, knowing whether a payment screenshot means you were actually paid, chasing a fee without making it awkward, and whether taking fees on UPI puts you on a tax radar.";
 
 const updatedISO = "2026-09-17";
 const updatedHuman = "17 September 2026";
@@ -16,11 +16,20 @@ const updatedHuman = "17 September 2026";
 const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
 const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
 
-/** The cluster, ordered as the problem actually arrives: send it, confirm it, chase it, stop fearing it. */
+/** The cluster, ordered as the problem actually arrives: may I, send it, confirm it, chase it, stop fearing it. */
 const answers = [
   {
+    slug: "do-i-need-a-gst-number-to-send-an-invoice",
+    step: "1. Know you are allowed to invoice at all",
+    headline: "Do I need a GST number or a registered business to send an invoice in India?",
+    readIf:
+      "You have never sent an invoice because you have not registered anything, and it feels like a step you are skipping.",
+    gives:
+      "Why a sole proprietor has nothing to register, what belongs on an invoice with no GSTIN, the one thing you must never put on it, and why documenting fees nobody asked to be documented does not make you owe more.",
+  },
+  {
     slug: "how-to-send-an-invoice-on-whatsapp",
-    step: "1. Send it properly",
+    step: "2. Send it properly",
     headline: "How to send an invoice on WhatsApp with a UPI payment link",
     readIf:
       "You are sending a QR screenshot or a bare “₹2,500 please” message, and you want the free, correct version.",
@@ -29,7 +38,7 @@ const answers = [
   },
   {
     slug: "is-a-upi-screenshot-proof-of-payment",
-    step: "2. Know when you have actually been paid",
+    step: "3. Know when you have actually been paid",
     headline: "A client sent me a UPI payment screenshot — is that proof they paid?",
     readIf:
       "Someone showed you a green tick, you said thank you, and you are not sure the money arrived.",
@@ -38,7 +47,7 @@ const answers = [
   },
   {
     slug: "how-to-ask-a-client-for-payment-politely",
-    step: "3. Chase it without the cringe",
+    step: "4. Chase it without the cringe",
     headline: "How to ask a client for payment politely",
     readIf:
       "The invoice is sent, the money has not come, and you see this person at 6am tomorrow.",
@@ -47,7 +56,7 @@ const answers = [
   },
   {
     slug: "will-i-get-a-gst-notice-for-taking-fees-on-upi",
-    step: "4. Stop fearing the paper trail",
+    step: "5. Stop fearing the paper trail",
     headline: "Will I get a GST or income tax notice if I take class fees on UPI?",
     readIf:
       "You read about the 2025 Karnataka UPI notices and quietly went back to cash.",
@@ -72,10 +81,6 @@ const shortAnswers = [
   {
     q: "Do I need WhatsApp Business, or the WhatsApp Business API, to invoice people?",
     a: "Neither, for one-to-one invoicing. WhatsApp Business adds a catalogue, labels and a greeting message; it does not create invoices or track who has paid. The Business API — the one with approved templates and automated sending — is built for companies with a developer and a monthly conversation bill, and it is overkill for a solo trainer. Your ordinary WhatsApp account is enough, and the invoice guide above uses nothing else.",
-  },
-  {
-    q: "Do I need to register a business or get a GST number before I can send an invoice?",
-    a: "No. An individual can issue an invoice in their own name, with their own address and their own UPI ID, and it is a valid document. GST registration only becomes compulsory once your service receipts cross the threshold — ₹20 lakh a year in most states, ₹10 lakh in Manipur, Mizoram, Nagaland and Tripura. Below that you invoice without a GSTIN and charge no GST. This is general information, not tax advice; near the line, spend an hour with a chartered accountant.",
   },
   {
     q: "How long should I actually wait before I remind someone about a fee?",
@@ -135,11 +140,11 @@ const schema = [
     </nav>
     <h1>How to get paid on time as a trainer, coach or tutor in India</h1>
     <p class="lede">
-      Getting paid on time comes down to four things, in this order: send a real invoice with a UPI pay
-      link instead of a QR screenshot, confirm the money actually landed in your account rather than
-      trusting a screenshot, agree a due date and chase the invoice rather than the person, and stop
-      treating digital receipts as a tax risk — the GST line for a service provider is ₹20 lakh a year,
-      not the ₹40 lakh everyone quotes.
+      Getting paid on time comes down to five things, in this order: know you can invoice with no GST
+      number and nothing registered, send a real invoice with a UPI pay link instead of a QR screenshot,
+      confirm the money landed in your account before you call it paid, agree a due date and chase the
+      invoice rather than the person, and stop treating digital receipts as a tax risk — the GST line for
+      a service provider is ₹20 lakh a year, not the ₹40 lakh everyone quotes.
     </p>
     <p style="font-size:14px;color:var(--t-50)">
       Last updated {updatedHuman} · Written for solo trainers, coaches, tutors and creators in India
@@ -147,7 +152,7 @@ const schema = [
 
     <h2>Start with whichever one is actually blocking you</h2>
     <p>
-      These are full guides, free, and none of them need an app. Most people arrive at the third one,
+      These are full guides, free, and none of them need an app. Most people arrive at the fourth one,
       because the invoice was never the hard part.
     </p>
     <ul>

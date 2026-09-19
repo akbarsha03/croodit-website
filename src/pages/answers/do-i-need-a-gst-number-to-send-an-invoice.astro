@@ -1,0 +1,374 @@
+---
+import Base from "../../layouts/Base.astro";
+import Mark from "../../components/Mark.astro";
+import { SITE, waitlist } from "../../site";
+import { breadcrumb, orgRef } from "../../data/schema";
+
+const path = "/answers/do-i-need-a-gst-number-to-send-an-invoice";
+const crumb = "Do I need a GST number to send an invoice?";
+const title = "Do I need a GST number or a registered business to send an invoice in India?";
+const description =
+  "No. You can invoice in your own name, with your own UPI ID, with no GSTIN, no company and nothing registered — GST registration only becomes compulsory above ₹20 lakh of service receipts. What to put on that invoice, the one thing you must never put on it, and why sending invoices nobody asked for does not make you owe anything new.";
+
+const updatedISO = "2026-09-19";
+const updatedHuman = "19 September 2026";
+
+const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
+const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
+
+/** What actually belongs on an invoice issued by someone with no GST registration. */
+const fields = [
+  ["Your name", "Your own legal name, or the name you teach under — “Priya Menon” or “Priya's Zumba Studio”", "You are the supplier. A trading name is fine and needs no registration."],
+  ["Your address and phone", "Where you can be reached — a home address is normal", "Makes the document answerable to a person, which is what makes it a document."],
+  ["Invoice number", "Sequential and never repeated — 2026-27/014", "The number is what lets you say “invoice 14 is still open” instead of “November, I think”."],
+  ["Invoice date and due date", "Both. “Due 5 November 2026”, not “due soon”", "A due date is what turns a reminder into a fact. Without one there is nothing to be late."],
+  ["Who is paying", "The person or company paying — for a child's tuition, the parent, not the student", "The payer is the client. This is the field tutors most often get wrong."],
+  ["What it was for", "“Monthly Zumba pack — November 2026, 12 classes”", "Six months later this line is the only thing that explains a ₹2,500 credit."],
+  ["Amount in rupees", "₹2,500. In figures, with the currency", "No tax rows, no sub-totals you do not have."],
+  ["How to pay", "Your own UPI ID, and a UPI pay link or QR", "Money goes from their app to your account. Nothing sits in between."],
+  ["Your PAN", "Only when a company or school is paying you", "They need it to deduct TDS. A GSTIN is not a substitute and is not required."],
+];
+
+/** The things people believe they must register for before they are allowed to invoice. */
+const registrations = [
+  [
+    "GST number (GSTIN)",
+    "No — not until ₹20 lakh",
+    "Compulsory only once service receipts cross ₹20 lakh in a financial year (₹10 lakh in Manipur, Mizoram, Nagaland and Tripura). Below that you invoice without one and charge no GST.",
+  ],
+  [
+    "A company or LLP",
+    "No",
+    "A sole proprietorship is not something you apply for — it is what you already are the moment someone pays you for a class. Incorporating costs money and adds annual filings you do not need.",
+  ],
+  [
+    "PAN",
+    "You already have one",
+    "Your personal PAN is your PAN as a proprietor. It is an identity, not a business registration. Give it to a company that is deducting TDS.",
+  ],
+  [
+    "Udyam (MSME) registration",
+    "No — but it is free",
+    "Worth twenty minutes only if you invoice companies or schools: it brings the MSMED Act late-payment rules into play. Useless against an individual client who is late.",
+  ],
+  [
+    "A current account in a business name",
+    "No",
+    "A personal savings account and your personal UPI ID are enough to invoice and be paid. If you later want a current account, banks ask for activity proof under RBI's KYC norms — and a free Udyam certificate is the cheapest one to hand them.",
+  ],
+  [
+    "Shop & Establishment or a trade licence",
+    "Usually not, and unrelated",
+    "State law tied to premises and employees, not to invoicing. A teacher in a rented hall or a client's living room is generally outside it; a studio with staff should ask locally.",
+  ],
+];
+
+const faqs = [
+  {
+    q: "I teach 3 Zumba batches and about 20 people pay me ₹2,500 a month. I have no GST number and no registered company — can I legally send them invoices?",
+    a: "Yes. An invoice in your own name, with your own address and your own UPI ID, is a valid document, and nothing in Indian law requires a registration before you can issue one. At 20 clients paying ₹2,500 a month you are at roughly ₹6 lakh of receipts a year, which is under a third of the ₹20 lakh threshold at which GST registration becomes compulsory for a service provider. Write “Invoice” at the top, not “Tax Invoice”, leave every tax field off, and send it. This is general information rather than tax advice; if you are anywhere near ₹20 lakh, ask a chartered accountant.",
+  },
+  {
+    q: "If I start sending invoices, does that make me a business? Will I suddenly have to file GST returns?",
+    a: "No, on both counts. GST returns are something a registered person files; if you are not registered there is no return to file, no portal to log into and nothing monthly to miss. And an invoice does not create income — it records income you already had. Twenty-four clients paying ₹2,500 is the same ₹7.2 lakh whether you issue twenty-four invoices or none at all. What changes is that you can now explain every credit in your bank statement, which is the thing that helps you if a question ever arrives.",
+  },
+  {
+    q: "A school is paying me ₹20,000 for a fitness workshop and their accounts person asked for my GST number. I don't have one. What do I say?",
+    a: "Tell them you are not registered under GST because you are below the threshold, and send the invoice without any tax on it. A registered company is allowed to buy from an unregistered supplier — it simply cannot claim input tax credit on your ₹20,000, which is their cost and not your problem. Give them your PAN, because they will deduct TDS: on a ₹20,000 workshop you would typically receive ₹18,000 with ₹2,000 deducted, and you claim that ₹2,000 back in your income tax return, in full if your income is below the taxable limit. Without a PAN, Section 206AA pushes the deduction to 20%.",
+  },
+  {
+    q: "Should I write “Tax Invoice” at the top, like the bills I get from shops?",
+    a: "No — call it “Invoice” or “Bill”. A tax invoice is the specific document a GST-registered person issues under Section 31 of the CGST Act, and its contents are prescribed by Rule 46, starting with a GSTIN you do not have. Using the words costs you nothing legally but it is the wrong label, and the moment it sits in front of someone's accountant it raises a question about a registration number that does not exist. Plain “Invoice” is correct, complete and unremarkable.",
+  },
+  {
+    q: "Can my clients just pay into my normal savings account by UPI, or do I need a current account in a business name?",
+    a: "Your ordinary savings account and your personal UPI ID are enough — this is how almost every solo trainer in India is paid, and the invoice simply carries that UPI ID. A current account is a banking product, not a legal requirement for invoicing, and whether you want one is about transaction limits and keeping fees separate from household money. One thing worth knowing either way: aggregate cash deposits of ₹10 lakh or more into savings accounts in a year are separately reportable, while UPI credits are not.",
+  },
+  {
+    q: "Is Udyam or MSME registration actually worth doing if I'm just one trainer?",
+    a: "Only if companies, schools or studios are among the people who pay you. Udyam registration is free and online, and once you have it the MSMED Act caps what a corporate buyer can take to pay you: the agreed date, or 15 days where nothing was agreed, with an outer limit of 45 days — and interest at three times the RBI bank rate, compounded, if they run over. You can escalate through the MSME Samadhaan portal. Two catches: the registration has to predate the invoice to cover it, and none of it applies to an individual client, so it does nothing for the twelve people in your 6am batch.",
+  },
+  {
+    q: "What invoice number should I start at, and does it matter if I skip one?",
+    a: "Start at 001 with a financial-year prefix — 2026-27/001 — because the Indian financial year runs April to March and the prefix stops you restarting from 1 and confusing two years of records. There is no statutory numbering rule binding you here; the 16-character consecutive serial in Rule 46 applies to tax invoices from registered persons. Practically, keep it sequential and never reuse a number: a gap invites “where is 013?”, and if you cancel an invoice, record it as cancelled rather than renumbering the ones after it.",
+  },
+  {
+    q: "Do I need a GST number to use Croodit?",
+    a: `No. GST in Croodit is optional and off by default, because most of the people it is built for are below the registration threshold and have nothing to charge. Your invoices go out in your own name with your own UPI ID. If you are registered, you can turn GST on — including on some invoices and not others, which is the normal case for a teacher who bills a company for corporate sessions and individuals for everything else. Croodit is free forever for up to ${SITE.freeClients} clients with unlimited invoices, and it is not a payment gateway: money goes straight to your UPI ID.`,
+  },
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: title,
+    description,
+    inLanguage: "en-IN",
+    datePublished: updatedISO,
+    dateModified: updatedISO,
+    mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE.url}${path}` },
+    author: orgRef,
+    publisher: orgRef,
+    about: [
+      { "@type": "Thing", name: "Goods and Services Tax (GST)" },
+      { "@type": "Thing", name: "Invoice" },
+      { "@type": "Thing", name: "Sole proprietorship" },
+      { "@type": "Thing", name: "Unified Payments Interface (UPI)" },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  },
+  breadcrumb([
+    ["Croodit", "/"],
+    ["Answers", "/answers"],
+    [crumb, path],
+  ]),
+];
+---
+
+<Base title={`${title} — Croodit`} description={description} path={path} schema={schema}>
+  <article class="wrap prose">
+    <nav class="eyebrow" aria-label="Breadcrumb" style="color:#6B4EFF">
+      <a href="/" style="color:inherit">Croodit</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <a href="/answers" style="color:inherit">Answers</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <span>{crumb}</span>
+    </nav>
+    <h1>Do I need a GST number or a registered business to send an invoice in India?</h1>
+    <p class="lede">
+      No. You can issue an invoice in your own name with no GST number, no company and nothing registered
+      anywhere. GST registration becomes compulsory only above ₹20 lakh of service receipts a year. Below
+      that, put your name, a number, a date, what it was for and your UPI ID on it — and leave every tax
+      field off entirely.
+    </p>
+    <p style="font-size:14px;color:var(--t-50)">
+      Last updated {updatedHuman} · Written for solo trainers, coaches, tutors and creators in India ·
+      General information, not tax advice
+    </p>
+
+    <h2>There is no registration to do, because there is nothing to register</h2>
+    <p>
+      The question usually arrives as a blocker: <em>I can't send a proper invoice yet, I haven't registered
+      anything.</em> There is nothing to wait for. The moment someone pays you for a class, a session or a
+      shoot, you are a sole proprietor — that is the default status of an individual doing business in India,
+      and it is not something you apply for, pay for or receive a certificate for. Your invoice is issued by
+      you, in your name, and your PAN is already your PAN.
+    </p>
+    <p>
+      A GST number is a separate thing entirely, and it is a threshold, not a starting requirement.
+      Registration becomes compulsory for a service provider once receipts cross <strong>₹20 lakh</strong> in a
+      financial year — ₹10 lakh in Manipur, Mizoram, Nagaland and Tripura. The ₹40 lakh figure you have
+      probably seen is the limit for supplying <em>goods</em>, and it is not yours. We have written that out in
+      full, including where the confusion came from, on
+      <a href="/answers/will-i-get-a-gst-notice-for-taking-fees-on-upi">will I get a GST notice for taking fees
+      on UPI</a>.
+    </p>
+
+    <h2>Nobody asked you for an invoice. That is not a reason not to send one.</h2>
+    <p>
+      Almost everything written about this question is written for a freelancer with a corporate client — a
+      designer or developer whose client has a finance team, a GSTIN, input tax credit to claim and TDS to
+      deduct. In that world the question means <em>will my invoice be accepted?</em>
+    </p>
+    <p>
+      That is not the situation a trainer is in. The twelve people in your 6am batch have no GSTIN, claim no
+      credit, deduct no TDS, and would happily pay you in cash forever. None of them will ever ask you for an
+      invoice. So when a trainer asks whether they need a GST number to invoice, the real question underneath
+      is a different one: <strong>if I start producing documents nobody demanded, have I turned myself into
+      something that now owes more than it did?</strong>
+    </p>
+    <p>
+      No. And the reason is worth being precise about: <strong>an invoice does not create income, it records
+      income you already had.</strong> Twenty-four clients at ₹2,500 a month is ₹7.2 lakh whether you issue
+      twenty-four invoices or zero. Whatever you owe was fixed when you earned the fee, not when you wrote it
+      down. Issuing the document changes exactly one thing — whether you can explain the money.
+    </p>
+    <p>
+      And that asymmetry runs the opposite way to the fear. Without invoices, your bank statement is a list of
+      unexplained credits and your answer to any question is a memory. With them, every credit has a numbered
+      document behind it, a date, and a line saying which month of which pack it covered. The trainers who get
+      into difficulty are not the ones who can account for their receipts.
+    </p>
+    <p>
+      There is also a blunter reason, which has nothing to do with tax. <strong>You cannot chase a payment that
+      has no record.</strong> “₹2,500 for this month 🙏” is not something you can politely repeat in three
+      weeks, because there is no document to follow up — only a person to confront. That is the whole argument
+      for invoicing a class roster, and it is covered in
+      <a href="/answers/how-to-ask-a-client-for-payment-politely">how to ask a client for payment politely</a>.
+    </p>
+
+    <h2>What goes on the invoice when you have no GSTIN</h2>
+    <p>
+      There is no prescribed format for you, and that is a legal fact rather than a gap: the contents of an
+      invoice are prescribed by Rule 46 of the CGST Rules, which governs the <em>tax invoice</em> that a
+      registered person issues under Section 31. You are not issuing one of those. What follows is what makes
+      the document useful and answerable, not a compliance checklist.
+    </p>
+    <table>
+      <thead>
+        <tr><th>Put this on it</th><th>Looks like</th><th>Why it earns its place</th></tr>
+      </thead>
+      <tbody>
+        {fields.map(([field, example, why]) => (
+          <tr><td><strong>{field}</strong></td><td>{example}</td><td>{why}</td></tr>
+        ))}
+      </tbody>
+    </table>
+    <p>
+      Then the practical half of the job — attaching that to a WhatsApp message with a tappable UPI link — is
+      a separate guide: <a href="/answers/how-to-send-an-invoice-on-whatsapp">how to send an invoice on
+      WhatsApp with a UPI payment link</a>, including the <code>upi://</code> link field by field if you want
+      to build it by hand for free.
+    </p>
+
+    <h2>The one thing you must not put on it</h2>
+    <p>
+      Do not add GST. Not a percentage, not a tax row, not a rounded-up “₹2,950 incl. taxes”, and not a
+      borrowed or invented GSTIN. <strong>Section 32(1) of the CGST Act says a person who is not registered
+      shall not collect any amount by way of tax</strong> — and if you do collect it, Section 76 requires you
+      to pay it over with interest whether or not you were entitled to charge it. This is the only part of the
+      whole question where a well-meaning trainer can actually get something wrong, and it usually happens for
+      cosmetic reasons: an 18% line looks more official.
+    </p>
+    <p>
+      Two smaller versions of the same mistake. Do not write <strong>“GSTIN: N/A”</strong> or
+      <strong>“GSTIN: applied for”</strong> — leave the field off the document completely, because a blank
+      labelled field invites the question. And do not head the page <strong>“Tax Invoice”</strong>; that is the
+      registered person's document. Yours says <strong>“Invoice”</strong>, and it is complete.
+    </p>
+
+    <h2>The registrations people mix up with each other</h2>
+    <p>
+      Six different things get collapsed into “registering the business”. Only one of them has a threshold you
+      might ever cross, and none of them stand between you and sending an invoice this afternoon.
+    </p>
+    <table>
+      <thead>
+        <tr><th>Thing</th><th>Needed to invoice?</th><th>The honest answer</th></tr>
+      </thead>
+      <tbody>
+        {registrations.map(([thing, needed, detail]) => (
+          <tr><td><strong>{thing}</strong></td><td><strong>{needed}</strong></td><td>{detail}</td></tr>
+        ))}
+      </tbody>
+    </table>
+
+    <h2>When a client does ask for your GST number</h2>
+    <p>
+      It happens in exactly one situation, and it is the one invoice on your list that behaves like a corporate
+      transaction: the school that books a fitness workshop, the company that buys a weekly yoga slot for its
+      staff, the studio that pays you per batch. Their accounts person asks for a GSTIN because their software
+      has a field for it.
+    </p>
+    <p>
+      Say you are not registered under GST as you are below the threshold, and send the invoice with no tax on
+      it. A registered company is perfectly able to buy from an unregistered supplier — it simply cannot claim
+      input tax credit on what it pays you, which is their cost to weigh and not a reason for you to register.
+      Reverse charge does not turn a fitness workshop into their liability either; it applies to notified
+      categories of supply, not to general services bought from an unregistered person.
+    </p>
+    <p>
+      What they genuinely need from you is your <strong>PAN</strong>, because they will deduct TDS before
+      paying. On a ₹20,000 workshop that typically means ₹18,000 arriving and ₹2,000 deducted — and that
+      ₹2,000 is not lost. It is credited against your income tax and refunded in full if your income is below
+      the taxable limit, which is why the PAN matters: without it, Section 206AA raises the deduction to 20%.
+    </p>
+    <p>
+      This is also the only client type for whom <a href="https://udyamregistration.gov.in/">Udyam
+      registration</a> is worth the twenty minutes. It is free, and once registered — before you raise the
+      invoice, not after — the MSMED Act gives a corporate buyer the agreed date or 15 days to pay, with an
+      outer cap of 45 days and interest at three times the RBI bank rate, compounded. A ₹20,000 invoice sitting
+      unpaid for four months at a company is a different problem from a ₹2,500 fee, and it has a different
+      lever. For the yoga teacher billing both a company and twelve individuals, see
+      <a href="/for/yoga-teachers">invoicing for yoga teachers</a>; tutors invoicing parents instead are on
+      <a href="/for/tutors">the tutor page</a>.
+    </p>
+
+    <h2>Who this applies to, and who it doesn't</h2>
+    <p>
+      <strong>If you are one person teaching, coaching, tutoring or shooting, paid by individuals, taking well
+      under ₹20 lakh a year</strong> — this page is the whole answer. Register nothing, charge no GST, invoice
+      in your own name from today, and keep the records good enough to file a return that matches your bank
+      account.
+    </p>
+    <p>
+      <strong>If your receipts are near ₹20 lakh, or you crossed it this year</strong>, stop reading websites
+      and spend an hour with a chartered accountant. Registration is compulsory above the line, the timing
+      matters, and the same applies if you sell goods as well as services — retailing supplements alongside
+      training changes which threshold you are tested against.
+    </p>
+    <p>
+      <strong>If most of your money comes from companies against purchase orders</strong>, the invoice is the
+      smaller half of your problem: you need email delivery, payment terms and a chase-by-thread trail, which
+      means Refrens or Zoho Invoice rather than anything built for a WhatsApp roster. And <strong>if you are
+      already GST-registered and filing monthly</strong>, you want a tool your CA works in — Vyapar,
+      myBillBook or Zoho Invoice — and our
+      <a href="/vyapar-alternative-for-trainers-and-coaches">Vyapar alternative page</a> says plainly where
+      Vyapar is the better buy.
+    </p>
+
+    <h2>What Croodit does here, and what it does not</h2>
+    <p>
+      Croodit is a WhatsApp invoicing and UPI payment-tracking app for solo service providers in India, and it
+      is built for exactly the person this page is written for: someone with no GSTIN who needs a numbered
+      invoice rather than an accounting system. <strong>GST is optional and off by default.</strong> Invoices
+      go out in your own name, with your own UPI ID, numbered in sequence so you never have to remember which
+      ones are open.
+    </p>
+    <p>
+      It is <strong>not a payment gateway</strong>. Money goes straight from your client's UPI app to your own
+      UPI ID — Croodit never holds it, never routes it and takes no cut, so there is no settlement account and
+      nothing registered on your behalf. It files nothing with any authority. If you do cross the threshold
+      later, GST can be switched on per invoice, and the monthly export in Excel, PDF and Tally formats is what
+      your CA opens instead of a folder of screenshots.
+    </p>
+    <p>
+      And the reminders stay yours. On day 3, 7 and 10 Croodit notifies <em>you</em> with the message already
+      drafted; you read it and press send from your own WhatsApp. Nothing ever reaches a client by itself.
+    </p>
+    <p>
+      Free forever for up to {SITE.freeClients} clients, with unlimited invoices and unlimited reminders to
+      them and no card needed. Croodit Pro lifts that to unlimited clients at ₹{SITE.pro.monthly} a month or
+      ₹{SITE.pro.yearly.toLocaleString("en-IN")} a year, after a {SITE.pro.trialDays}-day free trial.
+    </p>
+
+    <h2>Questions people ask about invoicing without a GST number</h2>
+    <div class="faq__list" style="margin-top:6px">
+      {faqs.map((item, i) => (
+        <details open={i === 0}>
+          <summary>{item.q}</summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+
+    <p style="font-size:14px;color:var(--t-50);margin-top:28px">
+      This page is general information about Indian invoicing and GST registration as it stood on
+      {" "}{updatedHuman}, written to answer a question trainers and tutors ask constantly. It is not tax
+      advice, it is not a substitute for a chartered accountant, and thresholds, rates and rules change. Check
+      your own position before acting on it.
+    </p>
+  </article>
+
+  <section class="wrap final">
+    <div class="final__box">
+      <div class="blob blob--violet anim-blobA" style="width:520px;height:520px;top:-260px;right:-160px;filter:blur(60px);opacity:.7"></div>
+      <div class="final__logo"><Mark id="p1" width={50} /></div>
+      <h2>A numbered invoice in your own name. <span>No GSTIN needed.</span></h2>
+      <p>Free forever for up to {SITE.freeClients} clients. GST optional, off by default.</p>
+      <div class="final__cta">
+        <a href={iosHref} class="btn btn--lime">{iosLabel}</a>
+        <a href={SITE.playStoreUrl ?? waitlist("Android")} class="btn btn--glass">Android — join the waitlist</a>
+      </div>
+    </div>
+  </section>
+</Base>
