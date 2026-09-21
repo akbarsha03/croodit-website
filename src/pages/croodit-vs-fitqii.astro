@@ -1,0 +1,394 @@
+---
+import Base from "../layouts/Base.astro";
+import Mark from "../components/Mark.astro";
+import { SITE, waitlist } from "../site";
+import { breadcrumb, orgRef } from "../data/schema";
+
+const path = "/croodit-vs-fitqii";
+const crumb = "Croodit vs Fitqii";
+const title = "Croodit vs Fitqii: do you need fitness management software, or just a way to get paid?";
+const description =
+  "Fitqii runs your whole practice — workout plans, nutrition, attendance, chat — and collects fees inside its own app. Croodit only gets you paid, on the WhatsApp you already use. Fitqii's real 2026 prices, verified against fitqii.com.";
+
+const updatedISO = "2026-09-21";
+const updatedHuman = "21 September 2026";
+
+const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
+const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
+
+const yearly = SITE.pro.yearly.toLocaleString("en-IN");
+
+/**
+ * Every Fitqii figure and feature line below was read on 2026-09-21 from fitqii.com,
+ * fitqii.com/personal-trainers and fitqii.com/zumba-trainers — Fitqii's own surfaces,
+ * not a review site or a software directory. Fitqii shows a struck-through list price
+ * beside each plan (Pro ₹5,999, Prime ₹19,999); the lower figure is the one it charges,
+ * so the lower figure is the one used here.
+ * Fitqii publishes no price at all for its solo-coach tier — that rung says
+ * "Schedule a call" — so this page does not guess one.
+ * Re-verify before editing; omit anything that no longer checks out.
+ */
+const fitqiiFreeClients = 25;
+const fitqiiProMonthly = 3749;
+const fitqiiProClients = 100;
+const fitqiiProYear = fitqiiProMonthly * 12;
+const fitqiiGap = (fitqiiProYear - SITE.pro.yearly).toLocaleString("en-IN");
+
+const fitqiiPlans = [
+  ["Starter", "Free", `Up to ${fitqiiFreeClients} clients, on the Fitqii app`],
+  ["Pro", `₹${fitqiiProMonthly.toLocaleString("en-IN")}/month`, `Up to ${fitqiiProClients} clients, on the Fitqii app`],
+  ["Prime", "₹14,999/month", "Up to 500 clients, custom branded app"],
+  ["Unlimited", "Custom, on request", "Unlimited clients, custom branded app"],
+  ["Fitqii for Business", "From ₹15,000/month", "A team of coaches: whitelabelled apps, API integration, priority support"],
+];
+
+const fitqiiDoes = [
+  "Workout plan builder and an exercise library",
+  "Nutrition plan builder and a nutrition library",
+  "Class and session scheduling, plus roster management",
+  "Attendance tracking, for the trainer and the client",
+  "Progress tracking, weekly goals, body composition calculators",
+  "In-app chat, one-to-one and group, with session ratings and feedback",
+  "Challenges, leaderboards and a FitBuddy feature for joint workouts",
+  "Apple Health, Google Fit and Strava integration",
+  "Customer analytics, reporting and a lead management system",
+  "Payment management through a payment gateway you connect yourself",
+];
+
+const crooditDoesNot = [
+  "Workout plans — none, not in any form",
+  "Nutrition plans and food libraries — none",
+  "Class booking, timetables or scheduling — none",
+  "In-app chat with your clients — none; the conversation stays in WhatsApp",
+  "Progress photos, body measurements, Apple Health or Strava — none",
+  "A client-facing app your students log into — none, by design",
+];
+
+const rows = [
+  [
+    "What it is",
+    "Fitness management software. Plans, sessions, attendance, chat and progress in one app, with fee collection as one feature among many.",
+    "An invoicing and payment-tracking app. It sends the invoice, takes the money to your UPI ID and tells you who has not paid. Nothing else.",
+  ],
+  [
+    "Where your client is",
+    "Inside the Fitqii app. Fitqii's own customer quote describes the win as moving a 400-member WhatsApp community \"to one App\".",
+    "In WhatsApp, where they already were. Your client installs nothing and signs up for nothing.",
+  ],
+  [
+    "The invoice",
+    "Payment management: connect your preferred payment gateway and receive payments directly to your account.",
+    "A PDF invoice with your logo, a Unified Payments Interface (UPI) pay link and a QR code, opened in WhatsApp with the message already written.",
+  ],
+  [
+    "How the money moves",
+    "Through the payment gateway you connect. Fitqii says it takes no service charge or commission; whatever your gateway charges is between you and the gateway.",
+    "A standard UPI intent straight into your own UPI ID. No gateway, no merchant onboarding. Croodit is not a payment gateway, holds nothing and takes no cut.",
+  ],
+  [
+    "Chasing an unpaid fee",
+    "Automated reminders and notifications for sessions, follow-ups and check-ins, sent by Fitqii.",
+    `Croodit never messages a client by itself. On day 3, 7 and 10 it notifies you with the reminder already written; you read it, edit it, press send.`,
+  ],
+  [
+    "GST",
+    "Not mentioned anywhere on Fitqii's own site.",
+    "Optional and off by default. On when you need it, with monthly CA-ready exports in Excel, PDF and Tally.",
+  ],
+  [
+    "Free plan",
+    `Starter: free, up to ${fitqiiFreeClients} clients.`,
+    `Free forever for up to ${SITE.freeClients} clients, with unlimited invoices and unlimited reminders to them.`,
+  ],
+  [
+    "First paid rung you can see a price for",
+    `₹${fitqiiProMonthly.toLocaleString("en-IN")} a month — ₹${fitqiiProYear.toLocaleString("en-IN")} a year — for up to ${fitqiiProClients} clients. A solo-coach tier exists but publishes no price.`,
+    `₹${SITE.pro.monthly} a month or ₹${yearly} a year, unlimited clients, after a ${SITE.pro.trialDays}-day free trial. No card.`,
+  ],
+  [
+    "How you buy it",
+    "\"Schedule a call\" on every paid tier. Only the free Starter plan has a self-serve button.",
+    "Sign up in the app. Nobody calls you.",
+  ],
+  [
+    "Platform",
+    "Live today: iOS and Android apps for coaches and clients, plus a web dashboard.",
+    `iPhone first. ${SITE.appStoreUrl ? "Available on the App Store." : "Not on the App Store yet — early access; Android is a waitlist."}`,
+  ],
+];
+
+const faqs = [
+  {
+    q: "I teach 3 Zumba batches and about 20 people pay me monthly. Fitqii is free up to 25 clients and Croodit isn't. Why would I pay?",
+    a: `At 20 clients you would be paying, and Fitqii's Starter plan would not. That is the honest position and it is the strongest argument on Fitqii's side of this page — Croodit's free tier stops at ${SITE.freeClients} clients, so a 20-person roster is Croodit Pro at ₹${SITE.pro.monthly} a month or ₹${yearly} a year. The question worth asking is what the free 25 buys you. Fitqii Starter puts your 20 students into the Fitqii app, where they get workout plans, chat, attendance and progress tracking, and where they have to go to pay you. If you want that, take it — it costs nothing. If what you actually wanted was for the ₹2,000 fee to arrive without you typing "payment pending?" into a chat with someone you see at 7am tomorrow, you are installing a practice-management platform to solve an invoicing problem, and twenty people have to download an app for it to work.`,
+  },
+  {
+    q: "What does Fitqii cost once I go past 25 clients?",
+    a: `The next rung with a published price is Pro at ₹${fitqiiProMonthly.toLocaleString("en-IN")} a month for up to ${fitqiiProClients} clients — ₹${fitqiiProYear.toLocaleString("en-IN")} across a year, read from fitqii.com on ${updatedHuman}. Above that, Prime is ₹14,999 a month for up to 500 clients and Fitqii for Business starts at ₹15,000 a month. Fitqii also lists a "Fitqii Pro — best for solo coaches" tier priced by client count, but it publishes no amount for it; the button says "Schedule a call". So the honest answer is that the solo-coach price is a number you get on a phone call, and the cheapest price Fitqii shows you in public is ₹${fitqiiProMonthly.toLocaleString("en-IN")} a month. Croodit Pro is ₹${yearly} a year for unlimited clients, which is ₹${fitqiiGap} less than Fitqii Pro over twelve months. That gap is real, but it is a gap between two different products, not two versions of the same one.`,
+  },
+  {
+    q: "Do my students have to download anything to pay me through Croodit?",
+    a: "No. They receive a WhatsApp message from your number with a PDF invoice and a pay link. They tap the link, their own UPI app opens — Google Pay, PhonePe, Paytm, BHIM or their bank app — and the money goes to your UPI ID. There is no Croodit account on their side, no login, no app to install and nothing for you to explain to a 58-year-old in your morning batch. This is the single biggest structural difference between the two products: Fitqii's value depends on your clients being in Fitqii, and Croodit's depends on them being nowhere at all.",
+  },
+  {
+    q: "Can Fitqii send a proper GST invoice?",
+    a: `Fitqii's own site does not say so. It describes payment management — connect a payment gateway, receive payments directly to your account, no service charge or commission — and its personal trainer page mentions handling "payments and invoices", but nothing on fitqii.com mentions GST, a GSTIN, tax invoices or Indian tax exports, as of ${updatedHuman}. If you need a GST invoice you should ask them directly rather than trust this page. Croodit treats GST as optional and off by default: turn it on per client or per invoice, and the monthly export comes out CA-ready in Excel, PDF or Tally.`,
+  },
+  {
+    q: "I want workout plans and fee collection. Can I use both?",
+    a: "You can, and for some people that is the right answer, but be clear about what you are doing: there is no integration between them, so your roster lives in two places and you maintain it twice. It makes sense when the coaching side genuinely needs programming — a personal trainer writing individual workout and nutrition plans and tracking progress photos week by week. It makes no sense for a group class, where nobody gets an individual programme and the only thing that repeats is the fee.",
+  },
+  {
+    q: "Fitqii works today and Croodit doesn't. Isn't that the whole decision?",
+    a: `If you need to collect fees this month, largely yes. Fitqii has iOS and Android apps for coaches and clients that are live now. Croodit's iPhone app is early access and not on the App Store yet, and Android is a waitlist — that is the state of things on ${updatedHuman} and no comparison table changes it. In the meantime the manual method costs nothing and takes about two minutes: a PDF, a UPI link and a WhatsApp message. We wrote it up step by step.`,
+  },
+  {
+    q: "My studio has three instructors and a timetable. Which one?",
+    a: "Fitqii, or something like it. Croodit has no concept of staff, no instructor payouts, no class booking and no timetable — a second person in the business is the clearest line where Croodit stops being the answer. Fitqii's roster management, session manager and per-coach dashboards exist for exactly that, and its Prime and Business tiers are priced for a team. Croodit is built for one person who sells their own time.",
+  },
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: title,
+    description,
+    inLanguage: "en-IN",
+    datePublished: updatedISO,
+    dateModified: updatedISO,
+    mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE.url}${path}` },
+    author: orgRef,
+    publisher: orgRef,
+    about: [
+      { "@type": "SoftwareApplication", name: "Fitqii", applicationCategory: "BusinessApplication" },
+      { "@type": "Thing", name: "Invoicing" },
+      { "@type": "Thing", name: "Unified Payments Interface (UPI)" },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  },
+  breadcrumb([
+    ["Croodit", "/"],
+    [crumb, path],
+  ]),
+];
+---
+
+<Base title={`${title} — Croodit`} description={description} path={path} schema={schema}>
+  <article class="wrap prose">
+    <nav class="eyebrow" aria-label="Breadcrumb" style="color:#6B4EFF">
+      <a href="/" style="color:inherit">Croodit</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <span>{crumb}</span>
+    </nav>
+    <h1>Croodit vs Fitqii</h1>
+    <p class="lede">
+      These are not two versions of the same product. Fitqii is fitness management software — workout plans,
+      nutrition, scheduling, attendance, chat — that collects fees inside its own app, which your clients have
+      to install. Croodit does none of that coaching work; it sends the invoice on the WhatsApp you already use
+      and tracks who paid.
+    </p>
+    <p style="font-size:14px;color:var(--t-50)">
+      Last updated {updatedHuman} · Every Fitqii figure below was read from fitqii.com on that date
+    </p>
+
+    <h2>Start with the concession, because it is a big one</h2>
+    <p>
+      <strong>Fitqii's free plan covers {fitqiiFreeClients} clients. Croodit's covers {SITE.freeClients}.</strong>{" "}
+      If you have twenty regulars and you want to pay nothing, Fitqii Starter is free and Croodit is
+      ₹{SITE.pro.monthly} a month. There is no reading of that which favours us, and a comparison page that
+      buried it would not be worth your time.
+    </p>
+    <p>
+      <strong>Fitqii is also live and Croodit is not.</strong> Fitqii has iOS and Android apps for coaches and
+      clients working today. Croodit's iPhone app is early access and not on the App Store yet; Android is a
+      waitlist. If you need fees collected this month, that settles it.
+    </p>
+    <p>
+      What the rest of this page is about is the thing those two facts do not tell you: the free 25 and the
+      ₹{fitqiiProMonthly.toLocaleString("en-IN")} a month above it both assume your clients are in an app. That
+      assumption is the product, not a detail of it.
+    </p>
+
+    <h2>What Fitqii is</h2>
+    <p>
+      Fitqii describes itself as "Apps and Software for Fitness Communities, Strength and Conditioning Trainers,
+      Yoga Instructors, Nutritionists and other Fitness Professionals", and it has its own landing pages for
+      personal trainers, yoga instructors and Zumba trainers. It is a practice-management platform, and it is a
+      broad one:
+    </p>
+    <ul>
+      {fitqiiDoes.map((f) => <li>{f}</li>)}
+    </ul>
+    <p>
+      Croodit does exactly one of those ten things — it counts sessions against a class pack — and the rest of
+      the list is a genuine, permanent gap on our side. Not a roadmap item. Croodit is an invoicing app and has
+      no ambition to program anyone's squats.
+    </p>
+
+    <h2>What Fitqii costs</h2>
+    <p>These were the plans on fitqii.com on {updatedHuman}:</p>
+    <table>
+      <thead>
+        <tr><th>Plan</th><th>Price</th><th>What it covers</th></tr>
+      </thead>
+      <tbody>
+        {fitqiiPlans.map(([plan, price, covers]) => (
+          <tr><td><strong>{plan}</strong></td><td>{price}</td><td>{covers}</td></tr>
+        ))}
+      </tbody>
+    </table>
+    <p>
+      Two things about that table matter more than the numbers in it.{" "}
+      <strong>Only the free plan has a self-serve button</strong> — every paid tier says "Schedule a call".
+      And <strong>the tier aimed at people like you has no published price at all</strong>: Fitqii lists a
+      "Fitqii Pro — best for solo coaches" option with a slider from 5 clients up to 200, and no amount beside
+      any position on it. So the cheapest Fitqii price a solo trainer can actually read is
+      ₹{fitqiiProMonthly.toLocaleString("en-IN")} a month, which is ₹{fitqiiProYear.toLocaleString("en-IN")} a
+      year, against Croodit Pro at ₹{yearly} a year — a difference of ₹{fitqiiGap}.
+    </p>
+    <p style="font-size:14px;color:var(--t-50)">
+      On sourcing: Fitqii shows a struck-through higher figure beside each plan (Pro at ₹5,999, Prime at
+      ₹19,999). The lower number is what it charges, so the lower number is what is used above. Ask them for
+      the solo-coach price before you compare anything — we are not going to invent it for you.
+    </p>
+
+    <h2>The real fork: where your client has to be</h2>
+    <p>
+      Fitqii's own site says this better than we could. A customer quote on its homepage describes the win as
+      moving a daily fitness community of 400 members off WhatsApp: "Running a daily fitness community of 400
+      members on Whatsapp was quite a task! With Fitqii, I have been able to move all of them to one App."
+    </p>
+    <p>
+      That is a completely reasonable goal for a 400-member community, and it is the opposite of Croodit's
+      design. Croodit assumes your client will never install anything. They get a WhatsApp message from your
+      number with a PDF invoice and a UPI pay link; they tap it, their own payment app opens, the money lands in
+      your UPI ID. No account, no login, nothing to explain to the 58-year-old in your 6am batch.
+    </p>
+    <p>
+      The test is simple and it is not about features. <strong>Count how many of your clients would download an
+      app, open it weekly, and go into it to pay you.</strong> If most of them would — because you are writing
+      them individual programmes they need to read — Fitqii's model works and its fee collection comes free with
+      the thing they are already opening. If the honest answer is "about four of them", then the app is a
+      toll gate between you and your money, and every unpaid fee has a second possible cause: they did not open
+      it.
+    </p>
+
+    <h2>Fitqii and Croodit, side by side</h2>
+    <table>
+      <thead>
+        <tr><th>&nbsp;</th><th>Fitqii</th><th>Croodit</th></tr>
+      </thead>
+      <tbody>
+        {rows.map(([label, f, c]) => (
+          <tr><td><strong>{label}</strong></td><td>{f}</td><td>{c}</td></tr>
+        ))}
+      </tbody>
+    </table>
+
+    <h2>What Croodit does not do, stated plainly</h2>
+    <ul>
+      {crooditDoesNot.map((f) => <li>{f}</li>)}
+    </ul>
+    <p>
+      If two or more of those lines made you wince, you are shopping for management software and Croodit is the
+      wrong page. Fitqii is a real answer, and so are Momoyoga, Bookee and the gym platforms.
+    </p>
+
+    <h2>Where Fitqii is the better choice — honestly</h2>
+    <ul>
+      <li><strong>You write individual programmes.</strong> A personal trainer building a workout and nutrition plan per client, tracking measurements and progress photos, needs a plan builder. Croodit has none.</li>
+      <li><strong>Your clients already live in an app.</strong> If they open it for the workout, paying inside it costs them nothing extra and Fitqii's model is efficient.</li>
+      <li><strong>You have staff or a timetable.</strong> Instructor rosters, session managers, per-coach dashboards. Croodit has no concept of a second person.</li>
+      <li><strong>You have 25 clients or fewer and want to spend ₹0.</strong> Fitqii Starter is free at that size and Croodit's free tier stops at {SITE.freeClients}.</li>
+      <li><strong>You need it running this month.</strong> Fitqii is live on iOS and Android. Croodit is early access on iPhone and a waitlist on Android.</li>
+    </ul>
+
+    <h2>Where Croodit fits instead</h2>
+    <p>
+      The person this page is written for does not have a coaching-software problem. She has three Zumba
+      batches and twenty-four people on ₹2,000 monthly packs, and what is broken is that nine of them have not
+      paid, she cannot remember which nine, and the ₹2,000 credit that landed on Tuesday could have been any of
+      them. She teaches the class and then spends the evening being an accountant.
+    </p>
+    <p>
+      Croodit saves your packages and rates once. You pick a client, tap what they bought, and WhatsApp opens
+      with the message written, the invoice PDF attached and a UPI pay link ready — about thirty seconds. It
+      tracks paid, pending and overdue, counts sessions down against the pack, and on day 3, 7 and 10 it
+      notifies <em>you</em> with the follow-up already drafted. Nothing reaches a client until you press send,
+      and the money goes straight to your own UPI ID: Croodit is not a payment gateway, holds nothing and takes
+      no cut.
+    </p>
+
+    <h2>Who should pick which</h2>
+    <p>
+      <strong>If your product is the programme</strong> — individual workouts, nutrition plans, progress tracked
+      week by week, clients who open an app because there is something in it for them — Fitqii fits, because fee
+      collection rides along on a tool they are already using. Croodit would leave you buying a plan builder
+      somewhere else.
+    </p>
+    <p>
+      <strong>If your product is the class and the only repeating thing is the fee</strong> — a batch turns up,
+      dances for an hour, goes home, and pays monthly — Croodit fits because the invoice, the pack countdown and
+      the reminder are the entire job, and nobody has to install anything to pay you. The version with your
+      trade's real numbers is at <a href="/for/zumba-trainers">fee collection for Zumba trainers</a>,{" "}
+      <a href="/for/yoga-teachers">yoga teachers</a>, <a href="/for/tutors">tutors</a>,{" "}
+      <a href="/for/nutritionists">nutritionists</a> and <a href="/for/photographers">photographers</a>.
+    </p>
+    <p>
+      <strong>If you bill project work with quotations and signed contracts</strong>, neither of these is
+      shaped right. <a href="/croodit-vs-riffit">Croodit vs Riffit</a> covers that fork, and Riffit is live
+      today.
+    </p>
+    <p>
+      <strong>If you sell goods out of stock or need GST filing support</strong>, look at a billing product
+      instead — we compared one in{" "}
+      <a href="/vyapar-alternative-for-trainers-and-coaches">Vyapar alternative for trainers and coaches</a>.
+    </p>
+    <p>
+      <strong>If you invoice fewer than about five people a month</strong>, you may not need any of this.{" "}
+      <a href="/answers/how-to-send-an-invoice-on-whatsapp">The free manual method</a> is a PDF, a UPI link and
+      a message. And if the blocker is not the software but the asking,{" "}
+      <a href="/answers/how-to-ask-a-client-for-payment-politely">how to ask a client for payment politely</a>{" "}
+      has the words for day 3, day 7 and day 10. The questions that come before the tool — whether you need a
+      GST number at all, whether a UPI screenshot counts as proof — are indexed at{" "}
+      <a href="/answers">how to get paid on time as a trainer, coach or tutor in India</a>.
+    </p>
+
+    <h2>Questions people ask before they choose</h2>
+    <div class="faq__list" style="margin-top:6px">
+      {faqs.map((item, i) => (
+        <details open={i === 0}>
+          <summary>{item.q}</summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+
+    <p style="font-size:14px;color:var(--t-50)">
+      Fitqii is a trademark of its owner and is not affiliated with Croodit. Everything above was taken from
+      Fitqii's public site on {updatedHuman} and may have changed since — check fitqii.com before you pay.
+    </p>
+  </article>
+
+  <section class="wrap final">
+    <div class="final__box">
+      <div class="blob blob--violet anim-blobA" style="width:520px;height:520px;top:-260px;right:-160px;filter:blur(60px);opacity:.7"></div>
+      <div class="final__logo"><Mark id="a1" width={50} /></div>
+      <h2>Your clients install nothing. <span>Croodit.</span></h2>
+      <p>Free forever for up to {SITE.freeClients} clients. Your packages, your UPI, your logo.</p>
+      <div class="final__cta">
+        <a href={iosHref} class="btn btn--lime">{iosLabel}</a>
+        <a href={SITE.playStoreUrl ?? waitlist("Android")} class="btn btn--glass">Android — join the waitlist</a>
+      </div>
+    </div>
+  </section>
+</Base>
