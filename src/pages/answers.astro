@@ -8,10 +8,15 @@ const path = "/answers";
 const crumb = "Answers";
 const title = "How to get paid on time as a trainer, coach or tutor in India";
 const description =
-  "Straight answers to the money questions solo trainers, coaches and tutors actually ask — whether you need a GST number to invoice at all, sending an invoice on WhatsApp with a UPI pay link, knowing whether a payment screenshot means you were actually paid, chasing a fee without making it awkward, and whether taking fees on UPI puts you on a tax radar.";
+  "Straight answers to the money questions solo trainers, coaches and tutors actually ask — whether you need a GST number to invoice at all, sending an invoice on WhatsApp with a UPI pay link, knowing whether a payment screenshot means you were actually paid, chasing a fee without making it awkward, whether taking fees on UPI puts you on a tax radar, and how to tell a batch you are raising the fees.";
 
-const updatedISO = "2026-09-17";
-const updatedHuman = "17 September 2026";
+/** The hub itself shipped on 2026-09-13; updatedISO only tracks revisions. */
+const publishedISO = "2026-09-13";
+const updatedISO = "2026-09-23";
+const updatedHuman = "23 September 2026";
+
+/** Sits outside the five-step order below — it is what comes after, not part of it. */
+const RAISE_SLUG = "how-to-raise-your-class-fees-without-losing-clients";
 
 const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
 const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
@@ -101,18 +106,26 @@ const schema = [
     description,
     url: `${SITE.url}${path}`,
     inLanguage: "en-IN",
-    datePublished: updatedISO,
+    datePublished: publishedISO,
     dateModified: updatedISO,
     publisher: orgRef,
     mainEntity: {
       "@type": "ItemList",
       name: "Croodit answers — getting paid in India",
-      itemListElement: answers.map((a, i) => ({
-        "@type": "ListItem",
-        position: i + 1,
-        name: a.headline,
-        url: `${SITE.url}/answers/${a.slug}`,
-      })),
+      itemListElement: [
+        ...answers.map((a, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          name: a.headline,
+          url: `${SITE.url}/answers/${a.slug}`,
+        })),
+        {
+          "@type": "ListItem",
+          position: answers.length + 1,
+          name: "How do I tell my students I'm raising the fees?",
+          url: `${SITE.url}/answers/${RAISE_SLUG}`,
+        },
+      ],
     },
   },
   {
@@ -163,6 +176,17 @@ const schema = [
         </li>
       ))}
     </ul>
+
+    <h2>Once the getting-paid part works, the next problem is the price</h2>
+    <p>
+      The five guides above are about collecting the fee you already charge. The question that arrives
+      immediately after — usually from someone who has not moved their rate in two or three years — is a
+      different one, and it has its own guide:
+      <strong><a href={`/answers/${RAISE_SLUG}`}>how do I tell my students I'm raising the fees?</a></strong>
+      Read it if the number is too low and saying so out loud is the hard part. It covers the arithmetic of
+      how many people you can afford to lose, why the batch WhatsApp group is the one place you must not
+      announce it, and the exact messages in English and Hinglish.
+    </p>
 
     <h2>Why the order matters</h2>
     <p>
