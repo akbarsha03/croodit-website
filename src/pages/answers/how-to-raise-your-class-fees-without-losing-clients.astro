@@ -1,0 +1,387 @@
+---
+import Base from "../../layouts/Base.astro";
+import Mark from "../../components/Mark.astro";
+import { SITE, waitlist } from "../../site";
+import { breadcrumb, orgRef } from "../../data/schema";
+
+const path = "/answers/how-to-raise-your-class-fees-without-losing-clients";
+const crumb = "How to raise your class fees";
+const title = "How do I tell my students I'm raising the fees?";
+const description =
+  "Give a month's notice, say the new number once, apply it from each person's next pack rather than mid-pack, and send it one-to-one with the invoice instead of announcing it in the batch group. The arithmetic of how many people you can afford to lose, and the exact messages in English and Hinglish.";
+
+const updatedISO = "2026-09-23";
+const updatedHuman = "23 September 2026";
+
+const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
+const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
+
+/**
+ * The break-even arithmetic on one illustrative roster — 24 people on a ₹2,000 monthly
+ * pack, ₹48,000 a month. Not a prediction of who leaves; just the number of departures
+ * each increase can absorb before you are worse off than you were.
+ */
+const OLD_PRICE = 2000;
+const ROSTER = 24;
+const OLD_TOTAL = OLD_PRICE * ROSTER;
+const increases = [2200, 2300, 2500, 3000].map((price) => {
+  const needed = Math.ceil(OLD_TOTAL / price);
+  return {
+    price,
+    pct: Math.round(((price - OLD_PRICE) / OLD_PRICE) * 100),
+    needed,
+    canLose: ROSTER - needed,
+    newTotal: needed * price,
+  };
+});
+
+/** The order the steps actually have to happen in, which is not the order the templates give. */
+const steps = [
+  [
+    "Decide the number before you decide the message",
+    "One number, for everybody on that pack, from one date. Two prices for the same class — the old rate for the people who have been coming two years, the new one for anyone joining — is the version that collapses, because the batch talks to each other in the car park and you will spend the next year explaining a rule you invented in an evening.",
+  ],
+  [
+    "Give one month's notice, and pick the date deliberately",
+    "Announce it right after you have sent this month's invoices, not in the week fees are due. Nobody should receive the news and a bill in the same message. A month is long enough that the person who genuinely cannot afford it has time to talk to you, and short enough that you are not managing an announcement for a whole quarter.",
+  ],
+  [
+    "Tell them one-to-one, not in the batch group",
+    "This is the step every guide written abroad gets wrong for you, and it is the one that decides the outcome. See below.",
+  ],
+  [
+    "Apply it from each person's next pack, never mid-pack",
+    "A 12-class pack bought on the 3rd does not become more expensive on the 15th. The pack someone has already paid for finishes at the price they paid; the new rate starts on the invoice after it. That boundary is cleaner than any grandfathering period you could invent, and it explains itself — nobody argues with it.",
+  ],
+  [
+    "Let the invoice carry the number",
+    "Say the new amount once, in words, and then let the next invoice state it. A number on a document is a fact; a number repeated in a chat is a negotiation. This is also why the increase should not be the only thing in the message — the invoice is the thing you are sending, and the new rate is a line on it.",
+  ],
+];
+
+const faqs = [
+  {
+    q: "I teach two Zumba batches and I've charged ₹2,000 a month for three years. I know I'm underpriced but I'm terrified half of them will leave. How do I actually do this?",
+    a: "Do the arithmetic before the anxiety, because on a class roster the arithmetic is usually reassuring. If 24 people pay ₹2,000 you make ₹48,000 a month. At ₹2,300 you need 21 of them to stay to be exactly where you were — so three people can leave and you are still ahead, on fewer bodies in the hall and less work. Then give a month's notice, apply it from each person's next pack rather than mid-pack, and send it as an individual message with the invoice rather than an announcement in the batch group. Expect one or two conversations, not a walkout. The people who leave over ₹300 are almost always the people who were already attending twice a month.",
+  },
+  {
+    q: "Should I announce the fee increase in my class WhatsApp group? It would be so much faster than messaging everyone.",
+    a: "No, and this is the single most expensive shortcut available to you. A group announcement turns one person's reaction into everyone's reaction: the first reply is read by all twenty-four, and if that reply is \"₹2,500? that's a lot\" you are now negotiating in public with people who had not yet formed an opinion. Individually, the same objection is one private conversation you can answer on its own terms — and most people simply reply with a thumbs up. It is twenty-four messages instead of one. That is an hour, once, to protect the income of the next twelve months, and it is the only hour on this page worth spending.",
+  },
+  {
+    q: "Someone has already paid for a 12-class pack and has 5 classes left when the new rate starts. Do they pay the difference?",
+    a: "No. They paid for twelve classes at the price on the day they bought them, and they get twelve classes. The new rate applies to the next pack they buy, whenever that falls. Do not pro-rate, do not collect a difference, and do not make an exception the other way either — the pack boundary is the rule, and the reason it works is that it is the same rule for everybody and needs no explaining. Somebody who renews on the 28th pays the new price; somebody who renews on the 2nd of the following month also pays the new price; somebody mid-pack pays nothing extra until they renew.",
+  },
+  {
+    q: "How much should I increase my fees by, and how often?",
+    a: "This page cannot tell you your number — it depends on your city, your hall rent and what the studio down the road charges, and anyone quoting you a universal percentage is guessing. What it can tell you is the shape of the decision. A small annual increase is easier to say and easier to hear than a large one every four years, because the small one reads as routine and the large one reads as an event. And a very small increase is not free: it costs you the same awkward month of messaging as a meaningful one, so an increase that does not change your month is the worst use of that month.",
+  },
+  {
+    q: "A long-standing student says they can't afford the new fee. Do I make an exception?",
+    a: "You can, and there is a way to do it that does not unravel the increase. Keep the price the same for everyone and change what they get instead — move them to the smaller pack, the 8-class instead of the 12-class, so they are paying less because they are buying less. The price list stays honest, the number is still one number, and nobody else has a rate to compare theirs against. A quiet personal discount on the same pack is the version that leaks, and it leaks to the person most likely to mention it.",
+  },
+  {
+    q: "Does Croodit send the fee-increase announcement to my clients for me?",
+    a: "No. Croodit never messages a client by itself — reminders are notifications to you, and this is not even a reminder. Croodit has no bulk-messaging feature at all, so there is no way to blast a rate change to twenty-four people, and on this particular message that constraint is doing you a favour. What Croodit does is hold the rate on the client rather than in your memory: you change the package price once, and it applies from the next invoice you raise, not retrospectively. Packs already invoiced and paid are untouched, so the mid-pack boundary takes care of itself.",
+  },
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: title,
+    description,
+    inLanguage: "en-IN",
+    datePublished: updatedISO,
+    dateModified: updatedISO,
+    mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE.url}${path}` },
+    author: orgRef,
+    publisher: orgRef,
+    about: [
+      { "@type": "Thing", name: "Pricing" },
+      { "@type": "Thing", name: "Client communication" },
+      { "@type": "Thing", name: "Fitness and coaching businesses in India" },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to raise your class fees without losing clients",
+    description:
+      "The five steps a solo trainer, coach or tutor in India takes to move a whole roster to a higher fee — decide the number, give a month's notice, tell people one-to-one, apply it from the next pack, and let the invoice carry the number.",
+    step: steps.map(([name, text], i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name,
+      text,
+    })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  },
+  breadcrumb([
+    ["Croodit", "/"],
+    ["Answers", "/answers"],
+    [crumb, path],
+  ]),
+];
+---
+
+<Base title={`${title} — Croodit`} description={description} path={path} schema={schema}>
+  <article class="wrap prose">
+    <nav class="eyebrow" aria-label="Breadcrumb" style="color:#6B4EFF">
+      <a href="/" style="color:inherit">Croodit</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <a href="/answers" style="color:inherit">Answers</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <span>{crumb}</span>
+    </nav>
+    <h1>How do I tell my students I'm raising the fees?</h1>
+    <p class="lede">
+      Give one month's notice, say the new number once in plain words, and apply it from each person's
+      <em>next</em> pack rather than mid-pack. Send it one-to-one with their invoice — never as an
+      announcement in the batch WhatsApp group, where one person's reaction becomes everybody's. On a class
+      roster you can usually lose two or three people and still earn more than before.
+    </p>
+    <p style="font-size:14px;color:var(--t-50)">
+      Last updated {updatedHuman} · Written for solo trainers, coaches, tutors and creators in India who
+      teach a batch rather than bill a company
+    </p>
+
+    <h2>Why the standard advice does not fit you</h2>
+    <p>
+      There is no shortage of writing on this. Search it and you will find price-increase letter templates
+      from personal-training platforms, coaching blogs and service-business software vendors, and the advice is
+      broadly sensible: give notice, lead with value, state the number without apologising, protect your
+      existing clients for a while. None of it is wrong.
+    </p>
+    <p>
+      It is just written for somebody else. Almost all of it assumes a Western personal trainer or therapist
+      with <strong>one-to-one clients, an email list and a per-session rate</strong> — and the two pieces of
+      advice repeated most often are the two you cannot execute:
+    </p>
+    <ul>
+      <li>
+        <strong>"Email each client individually."</strong> Your channel is not email. It is WhatsApp, and for
+        most trainers the batch is already a group — which is exactly the thing you must not use for this.
+      </li>
+      <li>
+        <strong>"Grandfather existing clients at the old rate for three months."</strong> An arbitrary
+        three-month window is a rule you then have to remember, per person, across a roster of twenty-four.
+        You already have a better boundary and it costs you nothing: the pack they have already bought.
+      </li>
+    </ul>
+    <p>
+      The rest of the mismatch is structural. You do not have one rate; you have a 12-class pack, an 8-class
+      pack, a drop-in and a couples pack, and people sit on different renewal dates, so for up to a month after
+      the change you are running two price lists at once. That is not a communication problem. It is a
+      bookkeeping problem wearing a communication problem's clothes, and it is the reason most trainers do the
+      announcement and then quietly charge three people the old amount by mistake.
+    </p>
+
+    <h2>Start with the arithmetic, because it is the reassuring part</h2>
+    <p>
+      The fear is always "half of them will leave". The number rarely supports it. Take a roster of
+      {ROSTER} people on a ₹{OLD_PRICE.toLocaleString("en-IN")} monthly pack —
+      ₹{OLD_TOTAL.toLocaleString("en-IN")} a month. Here is how many have to stay for each new price to leave
+      you no worse off:
+    </p>
+    <table>
+      <thead>
+        <tr><th>New pack price</th><th>Increase</th><th>People needed to match today</th><th>You can lose</th></tr>
+      </thead>
+      <tbody>
+        {increases.map((r) => (
+          <tr>
+            <td><strong>₹{r.price.toLocaleString("en-IN")}</strong></td>
+            <td>+{r.pct}%</td>
+            <td>{r.needed} of {ROSTER} — ₹{r.newTotal.toLocaleString("en-IN")}</td>
+            <td><strong>{r.canLose} people</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    <p style="font-size:14px;color:var(--t-50)">
+      Arithmetic on an illustrative roster, not a prediction and not a recommended rate. Put your own numbers
+      in: today's total ÷ the new price = the number of people you need.
+    </p>
+    <p>
+      Three things fall out of that table. A ₹300 increase absorbs three departures. The bigger the increase,
+      the more attrition it can absorb — which is the opposite of the instinct that says go small to be safe.
+      And every one of those rows describes a month with <em>fewer</em> people in the hall, less attendance to
+      tick and fewer invoices to send, for the same money or more. The cost of raising your fee is a month of
+      awkward messages; the cost of not raising it is every month after that.
+    </p>
+
+    <h2>The five steps, in the order they have to happen</h2>
+    <table>
+      <thead>
+        <tr><th>Step</th><th>Why</th></tr>
+      </thead>
+      <tbody>
+        {steps.map(([name, why], i) => (
+          <tr><td><strong>{i + 1}. {name}</strong></td><td>{why}</td></tr>
+        ))}
+      </tbody>
+    </table>
+
+    <h2>Why the batch group is the wrong place, specifically</h2>
+    <p>
+      A group message looks like it saves you twenty-three messages. What it actually does is hand the framing
+      of your price to whoever replies first.
+    </p>
+    <p>
+      In a group, the first reaction is read by everyone before anyone has formed their own. If that reaction
+      is <em>"₹2,500? that's a lot yaar"</em>, twenty-four people now have permission to think it, and you are
+      negotiating in public with an audience. If somebody asks for a discount there, every refusal you give is
+      also public. And a batch group is the one room where your clients can compare notes about you in real
+      time — which is fine for class timings and genuinely costly for price.
+    </p>
+    <p>
+      Sent one-to-one, the same objection is one private conversation, answered on its own facts, invisible to
+      everyone else. Most replies will be a thumbs up. It is twenty-four messages instead of one: an hour, once,
+      to protect a year of income. That is the best-value hour on this page.
+    </p>
+    <p>
+      The same logic applies to tutors with a parents' group and to studio owners with a members' broadcast.
+      The payer is the person who gets the message — for tuition that is the parent, not the student, and the
+      message goes to them directly.
+    </p>
+
+    <h2>What to actually send</h2>
+    <p>
+      Short, unapologetic, one number, with the invoice. No paragraph about rising costs — you are a person
+      teaching a class, not a utility company, and a long justification invites a rebuttal of the
+      justification.
+    </p>
+    <ul>
+      <li>
+        <strong>The announcement, a month ahead (English).</strong> "Hi Priya — a small heads up: from 1
+        November the monthly 12-class pack will be ₹2,300 instead of ₹2,000. Your current pack isn't affected,
+        so the new rate starts from your next renewal. Everything else stays the same — same timings, same
+        batch. Thank you for being part of it, see you Monday."
+      </li>
+      <li>
+        <strong>The same, in Hinglish.</strong> "Hi Priya — ek chhota update: 1 November se monthly 12-class
+        pack ₹2,300 ho jayega (abhi ₹2,000 hai). Aapka current pack same rahega, naya rate next renewal se
+        lagega. Timings aur batch bilkul same. Thank you so much, Monday ko milte hain!"
+      </li>
+      <li>
+        <strong>If somebody says it is too much.</strong> "I completely understand. If the 12-class pack is too
+        much right now, the 8-class one is ₹1,700 and works well for three mornings a week — shall I move you
+        to that from November?" You have changed what they buy, not what it costs. The price list stays one
+        price list.
+      </li>
+      <li>
+        <strong>On the first invoice at the new rate.</strong> Say nothing. The line item states ₹2,300 and the
+        date states November. A number on a document settles; a number restated in chat reopens.
+      </li>
+    </ul>
+    <p>
+      For the fee that is simply late rather than disputed, the day-3, day-7 and day-10 scripts are on
+      <a href="/answers/how-to-ask-a-client-for-payment-politely">how to ask a client for payment politely</a>.
+    </p>
+
+    <h2>The month you are running two prices at once</h2>
+    <p>
+      Between the announcement and the last old pack expiring, some people are on ₹2,000 and some are on
+      ₹2,300, and which is which depends on the day each of them last renewed. This is where an otherwise
+      well-handled increase leaks money — not in dramatic departures, but in three invoices raised at the old
+      amount because you were going from memory at 11pm on the 1st.
+    </p>
+    <p>
+      Whatever you use to track it, the rule that makes the month survivable is the same: <strong>the price
+      belongs to the client record, not to your head</strong>, and you change it once, on the day their pack
+      ends. If you are working from a notebook, write the new rate against the name the moment you announce it
+      and put the start date next to it — not on a separate list of "people I told".
+    </p>
+
+    <h2>Who this is for, and who it isn't</h2>
+    <p>
+      <strong>If you run a class roster — a dozen to forty people paying you monthly, in person, by UPI</strong>
+      — this page is written for your exact situation: a WhatsApp group you must not announce in, packs on
+      staggered renewal dates, and a price that has not moved in two or three years because saying so out loud
+      is the hard part.
+    </p>
+    <p>
+      <strong>If your income is corporate or contracted work</strong> — a company wellness batch, a school, a
+      brand retainer — do not follow this page. Those rates change at renewal, in writing, against the
+      purchase order or the contract, with notice periods that may already be written down. Raise it with the
+      procurement or HR contact, not with the person you teach, and expect it to take a cycle.
+    </p>
+    <p>
+      <strong>If you are deciding what to charge in the first place</strong>, this is the wrong page: it is
+      about moving an existing roster to a higher number, not about setting one. And if the real problem is
+      that people pay late rather than that they pay too little, start with
+      <a href="/answers">the order of operations for getting paid on time</a> instead — raising a fee that
+      half your batch is already behind on makes the arrears bigger, not the income.
+    </p>
+
+    <h2>What Croodit does, and does not do, here</h2>
+    <p>
+      The limitation first, because it is the one people hope is otherwise: <strong>Croodit will not send this
+      message for you.</strong> It never messages a client by itself, and it has no bulk-messaging feature, so
+      there is no button that announces a price change to twenty-four people. On this particular message that
+      is the right constraint — a rate change that arrives as an automated broadcast is the version that loses
+      you clients.
+    </p>
+    <p>
+      What it does is remove the bookkeeping half of the problem. Each client carries their own package and
+      price, so the rate lives on the client rather than in your memory; change it once and it applies from the
+      next invoice you raise, never retrospectively. Packs already invoiced and paid are untouched, which is
+      the mid-pack boundary enforcing itself rather than you remembering it. And because every fee is a
+      numbered invoice with the amount on it, the month you are running two prices at once is a list you can
+      read instead of a month you have to reconstruct.
+    </p>
+    <p>
+      Reminders keep the same rule as everything else: on day 3, 7 and 10 Croodit notifies <em>you</em> with the
+      message drafted for that client, and you press send from your own WhatsApp.
+    </p>
+    <p>
+      It is free forever for up to {SITE.freeClients} clients, with unlimited invoices and unlimited reminders
+      to them and no card needed. Croodit Pro lifts that to unlimited clients at ₹{SITE.pro.monthly} a month or
+      ₹{SITE.pro.yearly.toLocaleString("en-IN")} a year, after a {SITE.pro.trialDays}-day free trial.
+    </p>
+    <p>
+      Related: <a href="/for/zumba-trainers">fee collection for Zumba trainers</a> if your money is a class
+      pack, <a href="/for/yoga-teachers">for yoga teachers</a> if you carry a different rate for every kind of
+      student, and <a href="/for/tutors">for tutors</a> if the person you teach is not the person who pays.
+    </p>
+
+    <h2>Questions trainers ask about raising their fees</h2>
+    <div class="faq__list" style="margin-top:6px">
+      {faqs.map((item, i) => (
+        <details open={i === 0}>
+          <summary>{item.q}</summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+
+    <p style="font-size:14px;color:var(--t-50);margin-top:28px">
+      Rupee amounts on this page are illustrative and are used to show the shape of the decision, not to
+      recommend a price. Croodit has no data on what proportion of clients stay after a fee increase and makes
+      no claim about it — the table above is arithmetic about break-even, not a forecast.
+    </p>
+  </article>
+
+  <section class="wrap final">
+    <div class="final__box">
+      <div class="blob blob--violet anim-blobA" style="width:520px;height:520px;top:-260px;right:-160px;filter:blur(60px);opacity:.7"></div>
+      <div class="final__logo"><Mark id="p1" width={50} /></div>
+      <h2>Change the rate once. <span>Every invoice after it is right.</span></h2>
+      <p>Free forever for up to {SITE.freeClients} clients. The price lives on the client, not in your head.</p>
+      <div class="final__cta">
+        <a href={iosHref} class="btn btn--lime">{iosLabel}</a>
+        <a href={SITE.playStoreUrl ?? waitlist("Android")} class="btn btn--glass">Android — join the waitlist</a>
+      </div>
+    </div>
+  </section>
+</Base>
