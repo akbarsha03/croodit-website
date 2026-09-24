@@ -1,0 +1,342 @@
+---
+import Base from "../layouts/Base.astro";
+import Mark from "../components/Mark.astro";
+import { SITE, waitlist } from "../site";
+import { breadcrumb, orgRef } from "../data/schema";
+
+const path = "/compare";
+const crumb = "Compare";
+const title = "Fee collection and invoicing apps for trainers, coaches and tutors in India, compared";
+const description =
+  "Do you need software that runs your classes, or only software that gets you paid? Vyapar, Fitqii, Riffit and Croodit side by side for Indian trainers, coaches and tutors — every price read from each company's own site.";
+
+const updatedISO = "2026-09-24";
+const updatedHuman = "24 September 2026";
+
+const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
+const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
+
+const yearly = SITE.pro.yearly.toLocaleString("en-IN");
+
+/**
+ * Every competitor price below was re-read on 2026-09-24 from the competitor's own surface:
+ * Vyapar from its live plans endpoint (api1.vyaparapp.in, the one vyaparapp.in/pricing calls),
+ * Riffit from riffit.in/pricing, Fitqii from fitqii.com. All three matched the figures on the
+ * individual comparison pages. Feature lines come from those pages, which carry their own dates.
+ * Re-verify before editing; omit anything that no longer checks out.
+ */
+const vyaparAndroidYearly = 699;
+const riffitMonthly = 199;
+const riffitYearly = 2388;
+const fitqiiFreeClients = 25;
+const fitqiiProMonthly = 3749;
+const fitqiiProClients = 100;
+
+const inr = (n: number) => `₹${n.toLocaleString("en-IN")}`;
+
+/** The cluster. Only add a row here when a real comparison page exists at that path. */
+const comparisons = [
+  {
+    href: "/vyapar-alternative-for-trainers-and-coaches",
+    name: "Vyapar alternative for trainers and coaches",
+    pole: "The inventory pole",
+    blurb:
+      "Vyapar is GST billing software built around items and stock. Read it if part of what you earn comes from things you sell off a shelf.",
+  },
+  {
+    href: "/croodit-vs-fitqii",
+    name: "Croodit vs Fitqii",
+    pole: "The practice-management pole",
+    blurb:
+      "Fitqii runs a fitness practice — workout and nutrition plans, attendance, chat, progress — and collects fees inside its own app. Read it if you write individual programmes.",
+  },
+  {
+    href: "/croodit-vs-riffit",
+    name: "Croodit vs Riffit",
+    pole: "The project-work pole",
+    blurb:
+      "Riffit is WhatsApp invoicing for freelancers, with quotations and e-signed contracts. Read it if every job is quoted, signed and priced differently.",
+  },
+];
+
+const shapes = [
+  [
+    "Buys goods you hold in stock — supplements, resistance bands, merchandise",
+    "Inventory and GST billing software",
+    "Vyapar",
+    "/vyapar-alternative-for-trainers-and-coaches",
+  ],
+  [
+    "Opens an app to follow a workout or nutrition plan you wrote, and sends you progress",
+    "Fitness practice-management software",
+    "Fitqii",
+    "/croodit-vs-fitqii",
+  ],
+  [
+    "Waits for a one-off job you quoted and they signed",
+    "Freelance invoicing with quotations and contracts",
+    "Riffit",
+    "/croodit-vs-riffit",
+  ],
+  [
+    "Comes to class, and pays the same fee again next month",
+    "Invoicing and payment tracking, nothing else",
+    "Croodit",
+    "/for",
+  ],
+];
+
+const prices = [
+  [
+    "Vyapar",
+    "A free trial, not a permanent plan",
+    `${inr(vyaparAndroidYearly)} a year (Android Silver)`,
+    "Vyapar sends automated WhatsApp reminders",
+    "Yes — Android, iOS, Windows and Mac",
+  ],
+  [
+    "Fitqii",
+    `Starter, free up to ${fitqiiFreeClients} clients`,
+    `${inr(fitqiiProMonthly)} a month (Pro, up to ${fitqiiProClients} clients); every paid tier is bought through "Schedule a call"`,
+    "Fitqii sends automated reminders",
+    "Yes — iOS and Android apps, plus a web dashboard",
+  ],
+  [
+    "Riffit",
+    "Free forever, 5 invoices a month and 5 active clients",
+    `${inr(riffitMonthly)} a month, or ${inr(riffitYearly)} billed annually`,
+    "Riffit sends — email on the free plan, WhatsApp on Pro",
+    "Yes — a web app",
+  ],
+  [
+    "Croodit",
+    `Free forever up to ${SITE.freeClients} clients, unlimited invoices`,
+    `₹${SITE.pro.monthly} a month or ₹${yearly} a year, after a ${SITE.pro.trialDays}-day trial`,
+    "You do. Croodit writes the reminder on day 3, 7 and 10 and never messages a client by itself",
+    SITE.appStoreUrl ? "Yes — iPhone" : "Not yet — iPhone early access; Android is a waitlist",
+  ],
+  [
+    "WhatsApp, a UPI QR and a notes app",
+    "Free",
+    "—",
+    "You do, from memory",
+    "Yes",
+  ],
+];
+
+const faqs = [
+  {
+    q: "I have about 20 students paying me monthly and I just want the fees to come in without chasing. Which of these is cheapest?",
+    a: `Fitqii, at nothing: its Starter plan is free up to ${fitqiiFreeClients} clients. The catch is that your 20 students move into the Fitqii app, and that is where they pay you. The cheapest paid option is Vyapar at ${inr(vyaparAndroidYearly)} a year on Android, but it is built around stock, so your batches go in as items. Croodit Pro is ₹${yearly} a year and Riffit Pro ${inr(riffitYearly)} billed annually. At 20 clients all four cost you either money or an app your students must install, so decide which one fits the shape of your month first. The price gap between them is smaller than the gap between the products.`,
+  },
+  {
+    q: "Which of these apps sends the payment reminder to my client for me?",
+    a: "Vyapar, Fitqii and Riffit all send reminders to your clients themselves. Croodit is the only one here that never does. On day 3, 7 and 10 after an unpaid invoice it notifies you with the message already written, and you press send from your own WhatsApp. That is deliberate. An automated chaser to someone you teach at 6am tomorrow is the message most trainers would never have sent themselves. If you want the reminder fully automated, Croodit is the wrong choice.",
+  },
+  {
+    q: "Do my clients have to download an app to pay me?",
+    a: "With Fitqii, yes — the product is built around your client being inside its app, and that is where fees are collected, through a payment gateway you connect. With Croodit, no. Your client gets a WhatsApp message from your number with a PDF invoice and a Unified Payments Interface (UPI) pay link, and pays from Google Pay, PhonePe, Paytm, BHIM or their bank app, straight into your UPI ID. Croodit is not a payment gateway, holds nothing and takes no cut.",
+  },
+  {
+    q: "Why aren't myBillBook, Khatabook, Zoho Invoice or Refrens on this page?",
+    a: "Because we have not compared them properly yet, and this page only lists comparisons whose figures we have read from the company's own site. Each of them is a real option. Zoho Invoice and Refrens suit invoicing companies against purchase orders, and myBillBook and Khatabook are ledger and billing apps for shops. They will appear here when there is a page behind them, not before.",
+  },
+  {
+    q: "Can I use Croodit today?",
+    a: SITE.appStoreUrl
+      ? "Yes — the iPhone app is on the App Store. Android is a waitlist."
+      : "Not yet. The iPhone app is in early access and Android is a waitlist, so you can put your name down but you cannot install it. Vyapar, Fitqii and Riffit are all live today. If you need to invoice someone this week, the free manual method works: a WhatsApp message with a UPI pay link.",
+  },
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${SITE.url}${path}`,
+    name: title,
+    description,
+    url: `${SITE.url}${path}`,
+    inLanguage: "en-IN",
+    datePublished: updatedISO,
+    dateModified: updatedISO,
+    publisher: orgRef,
+    about: [
+      { "@type": "SoftwareApplication", name: "Vyapar", url: "https://vyaparapp.in" },
+      { "@type": "SoftwareApplication", name: "Fitqii", url: "https://fitqii.com" },
+      { "@type": "SoftwareApplication", name: "Riffit", url: "https://riffit.in" },
+    ],
+    mainEntity: {
+      "@type": "ItemList",
+      name: "Croodit comparisons",
+      itemListElement: comparisons.map((c, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: c.name,
+        url: `${SITE.url}${c.href}`,
+      })),
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  },
+  breadcrumb([
+    ["Croodit", "/"],
+    [crumb, path],
+  ]),
+];
+---
+
+<Base title={`${title} — Croodit`} description={description} path={path} schema={schema}>
+  <article class="wrap prose">
+    <nav class="eyebrow" aria-label="Breadcrumb" style="color:#6B4EFF">
+      <a href="/" style="color:inherit">Croodit</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <span>{crumb}</span>
+    </nav>
+    <h1>Do you need software that runs your classes, or only software that gets you paid?</h1>
+    <p class="lede">
+      Choose by what your client does between payments, not by price. Buying stock from you: inventory
+      billing such as Vyapar. Following your programme in an app: practice-management software such as
+      Fitqii. Quoted, signed project work: freelance invoicing such as Riffit. The same people paying the
+      same fee every month: you only need to get paid.
+    </p>
+    <p style="font-size:14px;color:var(--t-50)">
+      Last updated {updatedHuman} · Every competitor price re-read from that company's own site on this date
+    </p>
+
+    <h2>What does your client do between payments?</h2>
+    <p>
+      Most trainers, coaches and tutors compare invoicing apps on price and feature lists. Those vary less than
+      what the apps assume about your client. Each tool below is built around one thing the client does, and
+      it is only a good fit if your client does that thing.
+    </p>
+    <table>
+      <thead>
+        <tr><th>Your client…</th><th>The kind of tool</th><th>The one we compared</th></tr>
+      </thead>
+      <tbody>
+        {shapes.map(([client, kind, name, href]) => (
+          <tr><td>{client}</td><td>{kind}</td><td><a href={href}>{name}</a></td></tr>
+        ))}
+        <tr>
+          <td>Is one of four regulars, and you remember who owes what</td>
+          <td>A WhatsApp chat, a UPI QR and a notes app</td>
+          <td><a href="/answers/how-to-send-an-invoice-on-whatsapp">The free method</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      The first three rows are tools that do more than collect a fee: they run your stock, your practice or
+      your projects, and billing is one feature among many. Croodit sits in the fourth row. It sends the
+      invoice, tracks who has paid, counts down class packs and writes the reminder. It has no stock, no
+      workout plans, no booking and no contracts.
+    </p>
+
+    <h2>What each one costs, side by side</h2>
+    <p>
+      Every competitor figure was read on {updatedHuman} from the company's own site, not from a review
+      aggregator. Each comparison page linked below says where the other product is the better buy.
+    </p>
+    <table>
+      <thead>
+        <tr><th>Tool</th><th>Free plan</th><th>Cheapest published paid price</th><th>Who sends the reminder</th><th>Usable today?</th></tr>
+      </thead>
+      <tbody>
+        {prices.map(([tool, free, paid, reminder, live]) => (
+          <tr><td><strong>{tool}</strong></td><td>{free}</td><td>{paid}</td><td>{reminder}</td><td>{live}</td></tr>
+        ))}
+      </tbody>
+    </table>
+
+    <h2>Five rosters, five honest answers</h2>
+    <ul>
+      <li>
+        <strong>Two Zumba batches, 24 people, ₹2,000 each a month.</strong> Every option costs something here.
+        Fitqii Starter is free at 24 clients, but all 24 people install Fitqii and pay inside it. Vyapar is the
+        cheapest paid option at {inr(vyaparAndroidYearly)} a year, with your batches entered as stock items.
+        Croodit Pro is ₹{yearly} a year and Riffit Pro {inr(riffitYearly)}. Croodit's case is narrow: nobody
+        installs anything, each pack counts itself down, and the reminder is written for you to send. The
+        <a href="/for/zumba-trainers">Zumba trainer page</a> walks through that month.
+      </li>
+      <li>
+        <strong>A personal trainer writing individual plans for 12 clients and checking progress photos.</strong>
+        Use Fitqii. Its free plan covers you and it does the coaching work, which Croodit does not do at all.
+        At 12 clients you would be on Croodit Pro, paying for less.
+      </li>
+      <li>
+        <strong>A wedding photographer with three bookings this season, each quoted and signed.</strong> Use
+        Riffit if the contract matters most, because Croodit does no quotations and no e-signatures. If the
+        advance and the balance are what go missing, the <a href="/for/photographers">photographer page</a>
+        shows how Croodit handles one job paid in two parts.
+      </li>
+      <li>
+        <strong>A home tutor with five students whose parents pay ₹3,000 a month.</strong> You may not need an
+        app. At five people the free manual method works, and Croodit's free tier covers up to
+        {SITE.freeClients} clients forever if you want the tracking done for you. The
+        <a href="/for/tutors">tutor page</a> covers sibling rates and term fees.
+      </li>
+      <li>
+        <strong>A trainer who also sells protein and resistance bands after class.</strong> Use Vyapar, or
+        another inventory billing app. You need stock and purchase entries, and Croodit has neither.
+      </li>
+    </ul>
+
+    <h2>Who this page is not for</h2>
+    <p>
+      <strong>If you run a studio with instructors on staff,</strong> you need class booking, timetables and
+      instructor payouts. Look at studio management platforms such as Momoyoga or Bookee. We have not
+      compared them, and Croodit has no concept of staff.
+    </p>
+    <p>
+      <strong>If you invoice companies against purchase orders,</strong> you want email delivery, payment
+      terms and an audit trail. Refrens and Zoho Invoice are built for that. A WhatsApp message will not
+      speed up a company's accounts payable cycle.
+    </p>
+
+    <h2>Every comparison</h2>
+    <ul>
+      {comparisons.map((c) => (
+        <li><strong>{c.pole}: <a href={c.href}>{c.name}</a>.</strong> {c.blurb}</li>
+      ))}
+    </ul>
+
+    <h2>Questions people ask before choosing</h2>
+    <div class="faq__list" style="margin-top:6px">
+      {faqs.map((item, i) => (
+        <details open={i === 0}>
+          <summary>{item.q}</summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+
+    <h2>Not ready to pick software at all?</h2>
+    <p>
+      The manual method is free and needs no app:
+      <a href="/answers/how-to-send-an-invoice-on-whatsapp">how to send an invoice on WhatsApp with a UPI
+      payment link</a>, and <a href="/answers/how-to-ask-a-client-for-payment-politely">how to ask a client
+      for payment politely</a> when it does not arrive. The full order of operations is in
+      <a href="/answers">how to get paid on time as a trainer, coach or tutor</a>.
+    </p>
+  </article>
+
+  <section class="wrap final">
+    <div class="final__box">
+      <div class="blob blob--violet anim-blobA" style="width:520px;height:520px;top:-260px;right:-160px;filter:blur(60px);opacity:.7"></div>
+      <div class="final__logo"><Mark id="c1" width={50} /></div>
+      <h2>Same people, same fee, every month? <span>That's the one we built.</span></h2>
+      <p>Free forever for up to {SITE.freeClients} clients. You still press send — always.</p>
+      <div class="final__cta">
+        <a href={iosHref} class="btn btn--lime">{iosLabel}</a>
+        <a href={SITE.playStoreUrl ?? waitlist("Android")} class="btn btn--glass">Android — join the waitlist</a>
+      </div>
+    </div>
+  </section>
+</Base>
