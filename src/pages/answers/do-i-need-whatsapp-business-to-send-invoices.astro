@@ -1,0 +1,302 @@
+---
+import Base from "../../layouts/Base.astro";
+import Mark from "../../components/Mark.astro";
+import { SITE, waitlist } from "../../site";
+import { breadcrumb, orgRef } from "../../data/schema";
+
+const path = "/answers/do-i-need-whatsapp-business-to-send-invoices";
+const crumb = "Do I need WhatsApp Business to send invoices?";
+const title = "Do I need WhatsApp Business or the WhatsApp Business API to send invoices?";
+const description =
+  "No. The WhatsApp already on your phone is enough to invoice the people you teach or coach. What the free WhatsApp Business app adds and what it cannot do, what the Business API actually costs and why it is built for companies, and the bulk-sender shortcut that gets the number your clients have saved banned.";
+
+const updatedISO = "2026-09-25";
+const updatedHuman = "25 September 2026";
+
+const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
+const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
+
+/** Checked on AiSensy's own pricing page on updatedISO; Meta's charge plus the provider's, before GST. */
+const API_UTILITY_PAISE = 14.5;
+const ROSTER = 24;
+const MESSAGES_PER_CLIENT = 4; // one invoice and up to three reminders a month
+const apiMonthly = Math.round((ROSTER * MESSAGES_PER_CLIENT * API_UTILITY_PAISE) / 100);
+
+/** Three different products share the name. */
+const products = [
+  [
+    "WhatsApp",
+    "The app you already use, on your own number",
+    "Free",
+    "No, but it carries the PDF and the pay link you attach",
+    "You, by hand",
+  ],
+  [
+    "WhatsApp Business app",
+    "A separate free app from the same company: business profile, catalogue, labels, quick replies, greeting and away messages",
+    "Free (Meta Verified and ads are optional paid extras)",
+    "No. Labels can mark a chat “pending”, but nothing creates, numbers or totals an invoice",
+    "You, by hand",
+  ],
+  [
+    "WhatsApp Business Platform (the API)",
+    "Meta's platform for software to send messages: pre-approved templates, usually through a Business Solution Provider",
+    "Charged per delivered template message, plus the provider's plan",
+    "No. It sends whatever another system hands it",
+    "A system, automatically",
+  ],
+];
+
+const faqs = [
+  {
+    q: "I teach two Zumba batches and everyone pays me on my personal WhatsApp number. Do I need to switch to WhatsApp Business before I start sending invoices?",
+    a: "No. An invoice is a PDF and a UPI pay link inside a message, and ordinary WhatsApp sends both from the number your students already have saved. Switching gains you labels, quick replies and an away message, all useful and none of them an invoice. If you do switch later, WhatsApp Business uses the same number and offers to restore your chats from backup, so it is not a decision you have to make before you invoice.",
+  },
+  {
+    q: "Will my clients take the invoice less seriously if it comes from my personal WhatsApp instead of a business account?",
+    a: "Your clients judge the document, not the app it came from. A numbered invoice with your name, what it is for, a due date and a pay link that fills in the amount looks like a bill. “₹2,500 for this month 🙏” looks like a favour, and it looks like one from a business account too. The green badge people associate with “official” is Meta Verified, a paid subscription, and a student paying you for a yoga pack has never checked for it.",
+  },
+  {
+    q: "Should I get a second SIM just for my classes?",
+    a: "Only if you want the separation for your own sake: family chats and fee chats on different numbers, or an away message after 8pm. It costs you the thing that makes a trainer's reminders work, which is that the message arrives in the chat the person already talks to you in. If you do it, tell every client the new number yourself, because WhatsApp broadcast lists only reach people who have saved your number.",
+  },
+  {
+    q: "What does the WhatsApp Business API actually cost for someone with 24 clients?",
+    a: `Less than you would guess in message fees. One invoice and up to three reminders to ${ROSTER} people is at most ${ROSTER * MESSAGES_PER_CLIENT} messages a month. At the ₹0.145 per utility message one Indian provider, AiSensy, listed on ${updatedHuman}, that comes to about ₹${apiMonthly} before GST. The rest is the problem: the provider's own plan on top, templates approved in advance, opt-in from each client, and a number that, registered directly, can no longer be used in the WhatsApp app.`,
+  },
+  {
+    q: "Is there any safe way to send the same fee reminder to all my students at once?",
+    a: "A broadcast list is the safe version: it is built into WhatsApp, each person receives it privately, and it reaches up to 256 people who have saved your number. But a fee reminder is the wrong message for it. Each person owes a different amount for a different pack, and most of them have already paid. Never use a bulk-sender extension or a modified WhatsApp app for this. Unofficial automation breaks WhatsApp's terms, and a banned number is the one every client has saved.",
+  },
+  {
+    q: "Does Croodit use the WhatsApp Business API?",
+    a: `No. Croodit writes the invoice and the message, then hands them to the WhatsApp on your phone, where you read them and press send yourself. It has no API account, no bot and no template approvals, and it cannot read your chats. Reminders on day 3, 7 and 10 are notifications to you, not messages to your client. Croodit is free forever for up to ${SITE.freeClients} clients, and it is in early access on iPhone.`,
+  },
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: title,
+    description,
+    inLanguage: "en-IN",
+    datePublished: updatedISO,
+    dateModified: updatedISO,
+    mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE.url}${path}` },
+    author: orgRef,
+    publisher: orgRef,
+    about: [
+      { "@type": "SoftwareApplication", name: "WhatsApp Business" },
+      { "@type": "Thing", name: "WhatsApp Business Platform" },
+      { "@type": "Thing", name: "Invoice" },
+      { "@type": "Thing", name: "Unified Payments Interface (UPI)" },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  },
+  breadcrumb([
+    ["Croodit", "/"],
+    ["Answers", "/answers"],
+    [crumb, path],
+  ]),
+];
+---
+
+<Base title={`${title} — Croodit`} description={description} path={path} schema={schema}>
+  <article class="wrap prose">
+    <nav class="eyebrow" aria-label="Breadcrumb" style="color:#6B4EFF">
+      <a href="/" style="color:inherit">Croodit</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <a href="/answers" style="color:inherit">Answers</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <span>{crumb}</span>
+    </nav>
+    <h1>Do I need WhatsApp Business or the WhatsApp Business API to send invoices?</h1>
+    <p class="lede">
+      No. For invoicing people you teach or coach one-to-one, the WhatsApp already on your phone is enough.
+      The free WhatsApp Business app adds labels, quick replies and away messages, but it cannot make an
+      invoice or tell you who has paid. The Business API is for companies sending automated messages at
+      volume — the wrong tool for one person.
+    </p>
+    <p style="font-size:14px;color:var(--t-50)">
+      Last updated {updatedHuman} · Written for solo trainers, coaches, tutors and creators in India
+    </p>
+
+    <h2>Three different things are called “WhatsApp Business”</h2>
+    <p>
+      Most of the confusion comes from one name covering three products. Only one of them costs money, and none
+      of them makes an invoice.
+    </p>
+    <table>
+      <thead>
+        <tr><th>Product</th><th>What it is</th><th>Cost</th><th>Makes invoices?</th><th>Who presses send</th></tr>
+      </thead>
+      <tbody>
+        {products.map(([name, what, cost, invoices, sender]) => (
+          <tr><td><strong>{name}</strong></td><td>{what}</td><td>{cost}</td><td>{invoices}</td><td>{sender}</td></tr>
+        ))}
+      </tbody>
+    </table>
+    <p>
+      An invoice on WhatsApp is a PDF and a UPI pay link inside a message. Any of the three can carry that
+      message. Making the invoice happens somewhere else: a template, an invoicing app, or the free manual
+      method in <a href="/answers/how-to-send-an-invoice-on-whatsapp">how to send an invoice on WhatsApp with a
+      UPI payment link</a>.
+    </p>
+
+    <h2>Why every answer you find says “get WhatsApp Business”</h2>
+    <p>
+      Search the question and the guides that rank are written by GST billing software for shops and MSMEs, or
+      by the companies that resell the Business API. For a shop, “recommended” is fair: a catalogue of products,
+      a greeting message for walk-in enquiries and a support queue are what the Business app was built for. For
+      an API reseller, the answer is the product they sell.
+    </p>
+    <p>
+      A trainer's situation is different. Your twenty clients are not enquiries. They are people who already
+      have your number saved and already chat with you about batch timings, and the invoice is one more message
+      in a conversation that exists. You are not trying to reach more people. You are trying to get the ones you
+      already see every morning to pay on the 5th without a confrontation. None of the three products is built
+      around that problem.
+    </p>
+
+    <h2>What the free WhatsApp Business app is actually good for</h2>
+    <p>
+      If you want it, it is a reasonable app, and a few features help with fees:
+    </p>
+    <ul>
+      <li><strong>Labels.</strong> Tag each chat “Fee pending” and “Paid” and you have a rough list of who owes you, filtered in one tap.</li>
+      <li><strong>Quick replies.</strong> Save your reminder wording once and type a shortcut instead of writing it fresh every month. The <a href="/answers/how-to-ask-a-client-for-payment-politely">day-3, day-7 and day-10 scripts</a> work well saved this way.</li>
+      <li><strong>Away message.</strong> An automatic reply during class hours or after 9pm, so a fee question at 11pm does not need an answer at 11pm.</li>
+      <li><strong>A second number.</strong> On a dual-SIM phone, the Business app can run your classes on one number while ordinary WhatsApp keeps your family on the other.</li>
+    </ul>
+    <p>
+      And here is what it does not do, which is why it does not answer the invoicing question. It does not
+      create or number an invoice, it does not put an amount-filled UPI link in the message, and it cannot see
+      your bank account, so a “Paid” label is only true if you checked the credit and moved the label yourself.
+      On the 5th of the month it will not tell you which eight of twenty-four people have not paid. The label is
+      a sticky note you keep by hand.
+    </p>
+    <p>
+      Switching is low-risk if you decide to. WhatsApp Business registers with the same phone number and offers
+      to restore your existing chats from backup during setup. A number can only be active in one of the two
+      apps on a phone at a time.
+    </p>
+
+    <h2>What the Business API is, and what it would cost you</h2>
+    <p>
+      The WhatsApp Business Platform, which everyone calls the API, is how software sends WhatsApp messages
+      without a person. Meta charges per delivered template message. Templates have to be approved in advance,
+      and replies to a client who messaged you in the last 24 hours are free. Most small businesses reach it
+      through a Business Solution Provider such as AiSensy, Wati or Interakt, which charges its own plan on top.
+    </p>
+    <p>
+      The per-message fee is the part people fear, and for a trainer it is the smallest part. Take a roster of
+      {" "}{ROSTER} clients, each sent one invoice and up to three reminders a month: at most
+      {" "}{ROSTER * MESSAGES_PER_CLIENT} messages. At the ₹0.145 per utility message AiSensy listed on its
+      pricing page on {updatedHuman}, that is about <strong>₹{apiMonthly} a month</strong> before GST.
+    </p>
+    <p>The costs that matter are the other three:</p>
+    <ul>
+      <li><strong>Your words are fixed in advance.</strong> A reminder is a template with blanks, approved before you send it. You cannot write “no rush, I know your daughter's exams are on” to one person.</li>
+      <li><strong>Your number changes hands.</strong> Meta's own documentation says a number registered directly on its Cloud API loses its messaging history and cannot be used in the WhatsApp Business app again unless it is deregistered. Some providers can onboard a Business-app number so both work side by side, but that is a provider feature you have to go looking for.</li>
+      <li><strong>It is built to send without you.</strong> That is the whole point of it, and for this buyer it is the problem. An automated fee chaser reaching someone you will teach at 6am tomorrow is the message you would not have sent. We make the same argument, from the other side, in <a href="/answers/how-to-ask-a-client-for-payment-politely">how to ask a client for payment politely</a>.</li>
+    </ul>
+
+    <h2>The shortcut that costs you your number</h2>
+    <p>
+      Between the free app and the paid API sits a third option that gets advertised everywhere: bulk-sender
+      Chrome extensions, “WhatsApp marketing” desktop tools and modified WhatsApp apps that send one message to a
+      pasted list of numbers. Do not use them for fees, or for anything else. They reach WhatsApp through
+      unofficial means, which breaks WhatsApp's terms, and the penalty is a banned number. For a shop that is an
+      inconvenience. <strong>For a trainer, the banned number is the one twenty clients and three batch groups
+      have saved</strong>, and your whole business is reached through it.
+    </p>
+    <p>
+      The legitimate bulk tool is the broadcast list, built into both apps. Each person receives the message in
+      their own chat, it reaches up to 256 people, and only those who have saved your number. It is right for
+      “no class on Monday, Diwali”. It is wrong for fees: each person owes a different amount for a different
+      pack, most of them have already paid, and a reminder sent to people who have paid reads as an accusation.
+      And never chase a fee in the batch WhatsApp group, for the reason set out in
+      <a href="/answers/how-to-raise-your-class-fees-without-losing-clients">how to tell your students you are
+      raising the fees</a>: one person's reaction becomes everybody's.
+    </p>
+
+    <h2>Who this applies to, and who it doesn't</h2>
+    <p>
+      <strong>If you teach, coach, tutor or shoot, and the people who pay you already have your number
+      saved</strong>, keep the WhatsApp you have. Put the effort into a proper invoice and a UPI pay link rather
+      than into changing apps. Switch to the free Business app if labels or a second number would help you, but
+      not because a guide said invoicing requires it.
+    </p>
+    <p>
+      <strong>If you sell products and field enquiries from strangers</strong>, a boutique, a home bakery or a
+      supplement counter alongside your classes, the Business app's catalogue and greeting message earn their
+      keep, and an inventory billing app fits better than anything built for a roster. Our
+      <a href="/vyapar-alternative-for-trainers-and-coaches">Vyapar alternative page</a> says plainly where Vyapar
+      is the better buy.
+    </p>
+    <p>
+      <strong>If you run a studio with staff, hundreds of members and payment confirmations that should go out
+      without anyone touching them</strong>, the API is the right tool and the per-message cost above is trivial
+      at your scale. Look at studio management software that runs it for you; our
+      <a href="/compare">comparison hub</a> sets out where practice-management platforms such as Fitqii fit.
+    </p>
+
+    <h2>What Croodit does here, and what it does not</h2>
+    <p>
+      Croodit is a WhatsApp invoicing and UPI payment-tracking app for solo service providers in India. It does
+      the part none of the three products does: pick a client, tap the packages they bought, and Croodit writes a
+      numbered invoice and opens WhatsApp with the message, the invoice PDF link and a UPI pay link already in
+      place. <strong>You press send yourself, from your own number.</strong>
+    </p>
+    <p>
+      It uses no WhatsApp Business API, no bot and no bulk sending, and it cannot read your chats. Reminders on
+      day 3, 7 and 10 are notifications to <em>you</em> with the message drafted, so nothing ever reaches a client
+      by itself. It is <strong>not a payment gateway</strong>: money goes from your client's UPI app to your own
+      UPI ID, and Croodit takes no cut. Because it tracks every invoice as paid, pending or overdue, the list of
+      who owes you on the 5th is the one thing it produces that a “Fee pending” label cannot.
+    </p>
+    <p>
+      Free forever for up to {SITE.freeClients} clients, with unlimited invoices and unlimited reminders to them
+      and no card needed. Croodit Pro lifts that to unlimited clients at ₹{SITE.pro.monthly} a month or
+      ₹{SITE.pro.yearly.toLocaleString("en-IN")} a year, after a {SITE.pro.trialDays}-day free trial. The iPhone
+      app is in early access and Android is on a waitlist.
+    </p>
+
+    <h2>Questions people ask about WhatsApp Business and invoicing</h2>
+    <div class="faq__list" style="margin-top:6px">
+      {faqs.map((item, i) => (
+        <details open={i === 0}>
+          <summary>{item.q}</summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+
+    <p style="font-size:14px;color:var(--t-50);margin-top:28px">
+      WhatsApp features, Meta's pricing and provider prices are as they stood on {updatedHuman}. Per-message
+      rates in particular change often, so check the current rate card before you budget against it.
+    </p>
+  </article>
+
+  <section class="wrap final">
+    <div class="final__box">
+      <div class="blob blob--violet anim-blobA" style="width:520px;height:520px;top:-260px;right:-160px;filter:blur(60px);opacity:.7"></div>
+      <div class="final__logo"><Mark id="p1" width={50} /></div>
+      <h2>Keep your WhatsApp. <span>Add the invoice it can't make.</span></h2>
+      <p>Free forever for up to {SITE.freeClients} clients. You still press send — always.</p>
+      <div class="final__cta">
+        <a href={iosHref} class="btn btn--lime">{iosLabel}</a>
+        <a href={SITE.playStoreUrl ?? waitlist("Android")} class="btn btn--glass">Android — join the waitlist</a>
+      </div>
+    </div>
+  </section>
+</Base>

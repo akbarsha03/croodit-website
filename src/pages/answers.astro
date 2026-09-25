@@ -12,11 +12,13 @@ const description =
 
 /** The hub itself shipped on 2026-09-13; updatedISO only tracks revisions. */
 const publishedISO = "2026-09-13";
-const updatedISO = "2026-09-23";
-const updatedHuman = "23 September 2026";
+const updatedISO = "2026-09-25";
+const updatedHuman = "25 September 2026";
 
 /** Sits outside the five-step order below — it is what comes after, not part of it. */
 const RAISE_SLUG = "how-to-raise-your-class-fees-without-losing-clients";
+/** A detour off step 2 rather than a step of its own: the question people stall on before sending. */
+const WAB_SLUG = "do-i-need-whatsapp-business-to-send-invoices";
 
 const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
 const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
@@ -84,10 +86,6 @@ const shortAnswers = [
     a: "It works, and it costs you the evening. A QR is the same image for every client, so twelve people paying ₹2,500 lands as twelve near-identical credits that you then match to names by hand. A UPI pay link carries the amount and a reference already filled in, so the client cannot fat-finger ₹250, and you can tell which invoice each payment closed. The QR is fine for one walk-in; it stops scaling at about five regulars.",
   },
   {
-    q: "Do I need WhatsApp Business, or the WhatsApp Business API, to invoice people?",
-    a: "Neither, for one-to-one invoicing. WhatsApp Business adds a catalogue, labels and a greeting message; it does not create invoices or track who has paid. The Business API — the one with approved templates and automated sending — is built for companies with a developer and a monthly conversation bill, and it is overkill for a solo trainer. Your ordinary WhatsApp account is enough, and the invoice guide above uses nothing else.",
-  },
-  {
     q: "How long should I actually wait before I remind someone about a fee?",
     a: "Three days after the due date, then day 7, then day 10 — early enough that it is still a reminder rather than a confrontation, spaced enough that you are not nagging. The first one should re-send the invoice and say almost nothing; by day 10 you ask for a date rather than a payment. The scripts for all three are on the politely page above. Croodit follows the same rhythm, but as a notification to you, not a message to them.",
   },
@@ -124,6 +122,12 @@ const schema = [
           position: answers.length + 1,
           name: "How do I tell my students I'm raising the fees?",
           url: `${SITE.url}/answers/${RAISE_SLUG}`,
+        },
+        {
+          "@type": "ListItem",
+          position: answers.length + 2,
+          name: "Do I need WhatsApp Business or the WhatsApp Business API to send invoices?",
+          url: `${SITE.url}/answers/${WAB_SLUG}`,
         },
       ],
     },
@@ -176,6 +180,12 @@ const schema = [
         </li>
       ))}
     </ul>
+    <p>
+      Stuck before step 2 because you think you need a different app first? You do not:
+      <strong><a href={`/answers/${WAB_SLUG}`}>do I need WhatsApp Business or the WhatsApp Business API to send
+      invoices?</a></strong> covers what the free Business app adds, what the API costs, and the bulk-sender
+      shortcut that gets the number your clients have saved banned.
+    </p>
 
     <h2>Once the getting-paid part works, the next problem is the price</h2>
     <p>
