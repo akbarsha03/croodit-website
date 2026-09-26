@@ -1,4 +1,5 @@
 // @ts-check
+import { execFileSync } from 'node:child_process';
 import { mkdir, readdir, writeFile } from 'node:fs/promises';
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
@@ -51,9 +52,40 @@ function trailingSlashStubs() {
   };
 }
 
+/**
+ * `<lastmod>` for the sitemap: the last commit that touched the page's source,
+ * not the build time — a date that changes on every deploy is noise search
+ * engines learn to ignore. The homepage FAQ lives in `src/data/faq.ts`, so that
+ * counts as homepage content too. Needs full history (`fetch-depth: 0` in the
+ * deploy workflow); in a shallow clone every file would report HEAD's date, so
+ * lastmod is omitted rather than wrong. Uncommitted pages also get none.
+ */
+const git = (...args) => execFileSync('git', args, { encoding: 'utf8' }).trim();
+let fullHistory = false;
+try {
+  fullHistory = git('rev-parse', '--is-shallow-repository') === 'false';
+} catch {}
+if (!fullHistory) console.warn('[sitemap] no full git history — <lastmod> omitted');
+
+function lastmod(url) {
+  if (!fullHistory) return undefined;
+  const path = new URL(url).pathname;
+  const page = path === '/' ? 'src/pages/index.astro' : `src/pages${path}.astro`;
+  const sources = path === '/' ? [page, 'src/data/faq.ts'] : [page];
+  return git('log', '-1', '--format=%cI', '--', ...sources) || undefined;
+}
+
 export default defineConfig({
   site: SITE,
   trailingSlash: 'never',
   build: { format: 'file' },
-  integrations: [sitemap(), trailingSlashStubs()],
+  integrations: [
+    sitemap({
+      serialize(item) {
+        item.lastmod = lastmod(item.url);
+        return item;
+      },
+    }),
+    trailingSlashStubs(),
+  ],
 });
