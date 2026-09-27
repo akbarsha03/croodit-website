@@ -42,3 +42,16 @@ jobs:
     steps:
       - id: deploy
         uses: actions/deploy-pages@v4
+
+  indexnow:
+    needs: deploy
+    runs-on: ubuntu-latest
+    continue-on-error: true # a ping failure must not mark a good deploy red
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # needs the pre-push commit's date
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/indexnow.mjs ${{ github.event.before }}
