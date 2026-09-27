@@ -28,6 +28,7 @@ npm run build    # -> dist/
 | `public/brand/` | Wordmark and app-icon SVGs. |
 | `astro.config.mjs` | Build config **and** the `trailing-slash-stubs` integration that emits `/<page>/index.html` redirect stubs. |
 | `scripts/check-stubs.mjs` | `npm run check:stubs` — asserts every built page has a stub canonicalling to its no-slash URL. |
+| `scripts/indexnow.mjs` | Runs after each deploy: submits the sitemap URLs this push changed to IndexNow (Bing and others). The key is the 32-hex `.txt` file in `public/`. Re-run the workflow by hand to submit every URL. |
 | `scripts/og.mjs` | Regenerates `public/og.png`. Needs Bricolage Grotesque as a system font; output is committed so CI doesn't. |
 
 ## Rules that matter

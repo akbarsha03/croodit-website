@@ -11,7 +11,8 @@ const title = "Invoicing app for nutritionists and dietitians in India — bill 
 const description =
   "Your clinic is a WhatsApp thread, so the plan, the daily check-ins and the money all live in one chat. Croodit sends the programme invoice with a UPI pay link, counts the programme down to its end date, and drafts the renewal for you to press send.";
 
-const updatedISO = "2026-09-18";
+const publishedISO = "2026-09-18";
+const updatedISO = "2026-09-22";
 const updatedHuman = "18 September 2026";
 
 const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
@@ -94,7 +95,7 @@ const schema = [
     description,
     url: `${SITE.url}${path}`,
     inLanguage: "en-IN",
-    datePublished: updatedISO,
+    datePublished: publishedISO,
     dateModified: updatedISO,
     isPartOf: { "@type": "CollectionPage", "@id": `${SITE.url}/for` },
     about: { "@type": "Thing", name: "Nutrition programme invoicing and renewal tracking" },

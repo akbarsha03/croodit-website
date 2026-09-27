@@ -11,7 +11,8 @@ const title = "Fee collection app for Zumba trainers in India — invoice a batc
 const description =
   "Collect monthly class-pack fees from two Zumba batches without chasing 24 people one by one. Invoices on WhatsApp with a UPI pay link, pack countdowns, and reminders you approve before they send.";
 
-const updatedISO = "2026-09-11";
+const publishedISO = "2026-09-11";
+const updatedISO = "2026-09-21";
 const updatedHuman = "11 September 2026";
 
 const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
@@ -84,7 +85,7 @@ const schema = [
     description,
     url: `${SITE.url}${path}`,
     inLanguage: "en-IN",
-    datePublished: updatedISO,
+    datePublished: publishedISO,
     dateModified: updatedISO,
     isPartOf: { "@type": "CollectionPage", "@id": `${SITE.url}/for` },
     about: { "@type": "Thing", name: "Zumba class fee collection" },

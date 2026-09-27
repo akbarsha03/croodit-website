@@ -11,7 +11,8 @@ const title = "Invoice and fee tracking app for yoga teachers in India — Whats
 const description =
   "Three rate cards for the same hour: home visits, a studio group and a corporate booking. Croodit remembers each client's rate, sends the invoice on WhatsApp with a UPI pay link, and puts GST only on the invoices that need it.";
 
-const updatedISO = "2026-09-11";
+const publishedISO = "2026-09-11";
+const updatedISO = "2026-09-22";
 const updatedHuman = "11 September 2026";
 
 const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
@@ -86,7 +87,7 @@ const schema = [
     description,
     url: `${SITE.url}${path}`,
     inLanguage: "en-IN",
-    datePublished: updatedISO,
+    datePublished: publishedISO,
     dateModified: updatedISO,
     isPartOf: { "@type": "CollectionPage", "@id": `${SITE.url}/for` },
     about: { "@type": "Thing", name: "Yoga class fee tracking" },
