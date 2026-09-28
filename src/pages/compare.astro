@@ -10,8 +10,9 @@ const title = "Fee collection and invoicing apps for trainers, coaches and tutor
 const description =
   "Do you need software that runs your classes, or only software that gets you paid? Vyapar, Fitqii, Riffit and Croodit side by side for Indian trainers, coaches and tutors — every price read from each company's own site.";
 
-const updatedISO = "2026-09-24";
-const updatedHuman = "24 September 2026";
+const publishedISO = "2026-09-24";
+const updatedISO = "2026-09-28";
+const updatedHuman = "28 September 2026";
 
 const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
 const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
@@ -19,10 +20,12 @@ const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on
 const yearly = SITE.pro.yearly.toLocaleString("en-IN");
 
 /**
- * Every competitor price below was re-read on 2026-09-24 from the competitor's own surface:
+ * Every competitor price below was re-read on 2026-09-28 (first read 2026-09-24) from the competitor's own surface:
  * Vyapar from its live plans endpoint (api1.vyaparapp.in, the one vyaparapp.in/pricing calls),
  * Riffit from riffit.in/pricing, Fitqii from fitqii.com. All three matched the figures on the
- * individual comparison pages. Feature lines come from those pages, which carry their own dates.
+ * individual comparison pages. The one change on 09-28 was Vyapar's free tier: vyaparapp.in now says the
+ * mobile app is free for life (desktop is a trial), so the old "trial, not a permanent plan" line is gone.
+ * Feature lines come from those pages, which carry their own dates.
  * Re-verify before editing; omit anything that no longer checks out.
  */
 const vyaparAndroidYearly = 699;
@@ -89,7 +92,7 @@ const shapes = [
 const prices = [
   [
     "Vyapar",
-    "A free trial, not a permanent plan",
+    "Free for life on mobile, with \"essential billing features\"; desktop is a free trial",
     `${inr(vyaparAndroidYearly)} a year (Android Silver)`,
     "Vyapar sends automated WhatsApp reminders",
     "Yes — Android, iOS, Windows and Mac",
@@ -127,7 +130,7 @@ const prices = [
 const faqs = [
   {
     q: "I have about 20 students paying me monthly and I just want the fees to come in without chasing. Which of these is cheapest?",
-    a: `Fitqii, at nothing: its Starter plan is free up to ${fitqiiFreeClients} clients. The catch is that your 20 students move into the Fitqii app, and that is where they pay you. The cheapest paid option is Vyapar at ${inr(vyaparAndroidYearly)} a year on Android, but it is built around stock, so your batches go in as items. Croodit Pro is ₹${yearly} a year and Riffit Pro ${inr(riffitYearly)} billed annually. At 20 clients all four cost you either money or an app your students must install, so decide which one fits the shape of your month first. The price gap between them is smaller than the gap between the products.`,
+    a: `Two of them cost nothing at 20 students. Fitqii's Starter plan is free up to ${fitqiiFreeClients} clients, but your students move into the Fitqii app, and that is where they pay you. Vyapar's mobile app is free for life, but it is built around stock, so your batches go in as items, and Vyapar does not list which features the free plan leaves out. Its cheapest paid plan is ${inr(vyaparAndroidYearly)} a year on Android. Croodit is free only up to ${SITE.freeClients} clients, so at 20 you would pay ₹${yearly} a year for Croodit Pro, and Riffit Pro is ${inr(riffitYearly)} billed annually. Decide which one fits the shape of your month first. The price gap between them is smaller than the gap between the products.`,
   },
   {
     q: "Which of these apps sends the payment reminder to my client for me?",
@@ -158,7 +161,7 @@ const schema = [
     description,
     url: `${SITE.url}${path}`,
     inLanguage: "en-IN",
-    datePublished: updatedISO,
+    datePublished: publishedISO,
     dateModified: updatedISO,
     publisher: orgRef,
     about: [
@@ -258,9 +261,10 @@ const schema = [
     <h2>Five rosters, five honest answers</h2>
     <ul>
       <li>
-        <strong>Two Zumba batches, 24 people, ₹2,000 each a month.</strong> Every option costs something here.
-        Fitqii Starter is free at 24 clients, but all 24 people install Fitqii and pay inside it. Vyapar is the
-        cheapest paid option at {inr(vyaparAndroidYearly)} a year, with your batches entered as stock items.
+        <strong>Two Zumba batches, 24 people, ₹2,000 each a month.</strong> Two options are free here, and each
+        one costs you something else. Fitqii Starter is free at 24 clients, but all 24 people install Fitqii and
+        pay inside it. Vyapar's mobile app is free for life, with your batches entered as stock items, and its
+        cheapest paid plan is {inr(vyaparAndroidYearly)} a year.
         Croodit Pro is ₹{yearly} a year and Riffit Pro {inr(riffitYearly)}. Croodit's case is narrow: nobody
         installs anything, each pack counts itself down, and the reminder is written for you to send. The
         <a href="/for/zumba-trainers">Zumba trainer page</a> walks through that month.
