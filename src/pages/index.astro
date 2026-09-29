@@ -277,6 +277,45 @@ const schema = [
     </div>
   </section>
 
+  <!-- PRICING -->
+  <section id="pricing" class="wrap who">
+    <p class="eyebrow" style="color:#6B4EFF">Pricing</p>
+    <h2 class="h2" style="max-width:720px">The whole price list, in one line.</h2>
+    <p class="lede" style="max-width:640px">
+      Free forever for up to {SITE.freeClients} clients. After that, Croodit Pro is ₹{SITE.pro.monthly} a month or
+      ₹{SITE.pro.yearly.toLocaleString("en-IN")} a year, after a {SITE.pro.trialDays}-day free trial. There is no card to start and no call to book,
+      and Croodit never takes a cut of your fees.
+    </p>
+    <div class="feats">
+      <article class="feat">
+        <p class="feat__icon">₹0</p>
+        <h3>Up to {SITE.freeClients} clients, forever</h3>
+        <p>Unlimited invoices and reminders to them. No card. If you never pass {SITE.freeClients} clients, you never pay.</p>
+      </article>
+      <article class="feat">
+        <p class="feat__icon">₹{SITE.pro.monthly}<span style="font-size:15px">/month</span></p>
+        <h3>Croodit Pro</h3>
+        <p>Unlimited clients, monthly GST reports for your CA and attendance QR check-in. Adding your 8th client starts a {SITE.pro.trialDays}-day free trial.</p>
+      </article>
+      <article class="feat">
+        <p class="feat__icon">₹{SITE.pro.yearly.toLocaleString("en-IN")}<span style="font-size:15px">/year</span></p>
+        <h3>Croodit Pro, paid yearly</h3>
+        <p>The same plan, about ₹{Math.round(SITE.pro.yearly / 12)} a month.</p>
+      </article>
+      <article class="feat">
+        <p class="feat__icon">0%</p>
+        <h3>Of your fees</h3>
+        <p>Croodit is not a payment gateway. Clients pay your own UPI ID directly, and the money never passes through us.</p>
+      </article>
+    </div>
+    <p class="lede" style="max-width:640px;font-size:16px">
+      Croodit is not the cheapest option, and we won't pretend it is. Vyapar's mobile app is free for life, and
+      Fitqii's free plan covers 25 clients to our {SITE.freeClients}. The difference is that you can read all of Croodit's
+      pricing right here. Every paid Fitqii plan is bought through "Schedule a call". See
+      <a href="/compare" style="font-weight:600">every option side by side</a>, with each price read from the company's own site.
+    </p>
+  </section>
+
   <!-- FAQ -->
   <section id="faq" class="wrap faq">
     <div style="display:flex;flex-direction:column;gap:12px;max-width:640px">
