@@ -25,6 +25,10 @@ export const faq = [
     a: "Any of them. The pay link opens a standard UPI intent, so Google Pay, PhonePe, Paytm, BHIM and every bank app work. Clients can also scan the QR on the invoice or copy your UPI ID. If they pay you in cash or directly, you tap \"Mark paid\" and the invoice closes.",
   },
   {
+    q: "My clients have been warned never to tap payment links on WhatsApp. Will they think my Croodit pay link is a scam?",
+    a: "That warning is about links from strangers and requests that ask for a UPI PIN to receive money. Your invoice comes from your own number, in the chat they already have with you, and Croodit never messages anyone by itself. The link opens a standard UPI payment to your UPI ID for the invoice amount, so their own UPI app shows who they are paying before they enter a PIN, and a PIN is for paying. Anyone still wary can scan the QR or copy your UPI ID from the invoice instead.",
+  },
+  {
     q: "Does Croodit message my clients automatically?",
     a: "Never. Reminders are notifications to you, not messages to them. On day 3, 7 and 10 Croodit pings you; you tap the notification and WhatsApp opens with a polite reminder and the pay link already typed. Nothing leaves your phone until you press send — no bots, no WhatsApp Business API, no spam.",
   },
