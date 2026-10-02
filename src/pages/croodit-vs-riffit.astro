@@ -3,6 +3,7 @@ import Base from "../layouts/Base.astro";
 import Mark from "../components/Mark.astro";
 import { SITE, waitlist } from "../site";
 import { breadcrumb, orgRef } from "../data/schema";
+import { riffit } from "../data/comparisons";
 
 const path = "/croodit-vs-riffit";
 const crumb = "Croodit vs Riffit";
@@ -17,33 +18,17 @@ const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
 const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
 
 const yearly = SITE.pro.yearly.toLocaleString("en-IN");
-/** Riffit Pro billed annually, read from riffit.in/pricing on 2026-09-15. */
-const riffitYearly = 2388;
-const riffitSaving = (riffitYearly - SITE.pro.yearly).toLocaleString("en-IN");
 
 /**
- * Every Riffit figure and feature line below was read on 2026-09-15 from riffit.in
- * and riffit.in/pricing — Riffit's own surfaces, not a review site or a directory.
- * Note: Riffit's own blog still quotes Pro at ₹249/month. The pricing page is the
- * newer surface and says ₹199, so that is what is used here.
- * Re-verify before editing; omit anything that no longer checks out.
+ * Prices are sourced from src/data/comparisons.ts. The updatedHuman date on this page
+ * reflects the last time the page prose was materially changed; competitor figures are
+ * current as of the verifiedDate in comparisons.ts.
  */
-const riffitFree = [
-  "5 invoices a month",
-  "5 active clients in total",
-  "WhatsApp invoice creation",
-  "PDF invoices, with a Riffit watermark",
-  "3 contracts lifetime, with e-signature and an audit trail",
-  "Email reminders, on the due date only",
-];
+const riffitYearly = riffit.proYearly;
+const riffitSaving = (riffitYearly - SITE.pro.yearly).toLocaleString("en-IN");
 
-const riffitPro = [
-  "Unlimited invoices, clients and reminders",
-  "AI natural-language invoicing — describe the job in a sentence",
-  "No watermark, plus custom invoice branding",
-  "WhatsApp reminders and notifications, and automatic payment triggers",
-  "Unlimited quotations and contracts",
-];
+const riffitFree = riffit.freeFeatures;
+const riffitPro = riffit.proFeatures;
 
 const rows = [
   [

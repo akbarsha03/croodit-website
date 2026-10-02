@@ -4,6 +4,7 @@ import Mark from "../../components/Mark.astro";
 import { SITE, waitlist } from "../../site";
 import { breadcrumb, orgRef } from "../../data/schema";
 import { professions } from "../../data/professions";
+import { fitqii } from "../../data/comparisons";
 
 const path = "/for/yoga-teachers";
 const crumb = "Yoga teachers";
@@ -208,7 +209,7 @@ const schema = [
       <strong>If what you want held is the practice rather than the timetable</strong> — sequences, home
       practice logged between sessions, progress, a chat thread per student — that is coaching software, and
       it collects the fee on the way past. <strong>Fitqii</strong> names yoga instructors on its own homepage
-      and is the Indian one to look at; its free tier covers 25 clients against Croodit's
+      and is the Indian one to look at; its free tier covers {fitqii.freeClients} clients against Croodit's
       {" "}{SITE.freeClients}, and it is live on both app stores while Croodit is not. Note that this is a
       different concession from the booking one above: a timetable platform replaces your calendar, coaching
       software replaces the WhatsApp thread. Croodit replaces neither — it assumes the thread is where you

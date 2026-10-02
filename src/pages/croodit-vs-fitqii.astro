@@ -3,6 +3,7 @@ import Base from "../layouts/Base.astro";
 import Mark from "../components/Mark.astro";
 import { SITE, waitlist } from "../site";
 import { breadcrumb, orgRef } from "../data/schema";
+import { fitqii, inr, verifiedHuman } from "../data/comparisons";
 
 const path = "/croodit-vs-fitqii";
 const crumb = "Croodit vs Fitqii";
@@ -19,41 +20,18 @@ const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on
 const yearly = SITE.pro.yearly.toLocaleString("en-IN");
 
 /**
- * Every Fitqii figure and feature line below was read on 2026-09-21 from fitqii.com,
- * fitqii.com/personal-trainers and fitqii.com/zumba-trainers — Fitqii's own surfaces,
- * not a review site or a software directory. Fitqii shows a struck-through list price
- * beside each plan (Pro ₹5,999, Prime ₹19,999); the lower figure is the one it charges,
- * so the lower figure is the one used here.
- * Fitqii publishes no price at all for its solo-coach tier — that rung says
- * "Schedule a call" — so this page does not guess one.
- * Re-verify before editing; omit anything that no longer checks out.
+ * Prices are sourced from src/data/comparisons.ts. The updatedHuman date on this page
+ * reflects the last time the page prose was materially changed; competitor figures are
+ * current as of the verifiedDate in comparisons.ts.
  */
-const fitqiiFreeClients = 25;
-const fitqiiProMonthly = 3749;
-const fitqiiProClients = 100;
+const fitqiiFreeClients = fitqii.freeClients;
+const fitqiiProMonthly = fitqii.proMonthly;
+const fitqiiProClients = fitqii.proClients;
 const fitqiiProYear = fitqiiProMonthly * 12;
 const fitqiiGap = (fitqiiProYear - SITE.pro.yearly).toLocaleString("en-IN");
 
-const fitqiiPlans = [
-  ["Starter", "Free", `Up to ${fitqiiFreeClients} clients, on the Fitqii app`],
-  ["Pro", `₹${fitqiiProMonthly.toLocaleString("en-IN")}/month`, `Up to ${fitqiiProClients} clients, on the Fitqii app`],
-  ["Prime", "₹14,999/month", "Up to 500 clients, custom branded app"],
-  ["Unlimited", "Custom, on request", "Unlimited clients, custom branded app"],
-  ["Fitqii for Business", "From ₹15,000/month", "A team of coaches: whitelabelled apps, API integration, priority support"],
-];
-
-const fitqiiDoes = [
-  "Workout plan builder and an exercise library",
-  "Nutrition plan builder and a nutrition library",
-  "Class and session scheduling, plus roster management",
-  "Attendance tracking, for the trainer and the client",
-  "Progress tracking, weekly goals, body composition calculators",
-  "In-app chat, one-to-one and group, with session ratings and feedback",
-  "Challenges, leaderboards and a FitBuddy feature for joint workouts",
-  "Apple Health, Google Fit and Strava integration",
-  "Customer analytics, reporting and a lead management system",
-  "Payment management through a payment gateway you connect yourself",
-];
+const fitqiiPlans = fitqii.plans;
+const fitqiiDoes = fitqii.features;
 
 const crooditDoesNot = [
   "Workout plans — none, not in any form",
@@ -120,11 +98,11 @@ const rows = [
 const faqs = [
   {
     q: "I teach 3 Zumba batches and about 20 people pay me monthly. Fitqii is free up to 25 clients and Croodit isn't. Why would I pay?",
-    a: `At 20 clients you would be paying, and Fitqii's Starter plan would not. That is the honest position and it is the strongest argument on Fitqii's side of this page — Croodit's free tier stops at ${SITE.freeClients} clients, so a 20-person roster is Croodit Pro at ₹${SITE.pro.monthly} a month or ₹${yearly} a year. The question worth asking is what the free 25 buys you. Fitqii Starter puts your 20 students into the Fitqii app, where they get workout plans, chat, attendance and progress tracking, and where they have to go to pay you. If you want that, take it — it costs nothing. If what you actually wanted was for the ₹2,000 fee to arrive without you typing "payment pending?" into a chat with someone you see at 7am tomorrow, you are installing a practice-management platform to solve an invoicing problem, and twenty people have to download an app for it to work.`,
+    a: `At 20 clients you would be paying, and Fitqii's Starter plan would not. That is the honest position and it is the strongest argument on Fitqii's side of this page — Croodit's free tier stops at ${SITE.freeClients} clients, so a 20-person roster is Croodit Pro at ₹${SITE.pro.monthly} a month or ₹${yearly} a year. The question worth asking is what the free ${fitqiiFreeClients} buys you. Fitqii Starter puts your 20 students into the Fitqii app, where they get workout plans, chat, attendance and progress tracking, and where they have to go to pay you. If you want that, take it — it costs nothing. If what you actually wanted was for the ₹2,000 fee to arrive without you typing "payment pending?" into a chat with someone you see at 7am tomorrow, you are installing a practice-management platform to solve an invoicing problem, and twenty people have to download an app for it to work.`,
   },
   {
-    q: "What does Fitqii cost once I go past 25 clients?",
-    a: `The next rung with a published price is Pro at ₹${fitqiiProMonthly.toLocaleString("en-IN")} a month for up to ${fitqiiProClients} clients — ₹${fitqiiProYear.toLocaleString("en-IN")} across a year, read from fitqii.com on ${updatedHuman}. Above that, Prime is ₹14,999 a month for up to 500 clients and Fitqii for Business starts at ₹15,000 a month. Fitqii also lists a "Fitqii Pro — best for solo coaches" tier priced by client count, but it publishes no amount for it; the button says "Schedule a call". So the honest answer is that the solo-coach price is a number you get on a phone call, and the cheapest price Fitqii shows you in public is ₹${fitqiiProMonthly.toLocaleString("en-IN")} a month. Croodit Pro is ₹${yearly} a year for unlimited clients, which is ₹${fitqiiGap} less than Fitqii Pro over twelve months. That gap is real, but it is a gap between two different products, not two versions of the same one.`,
+    q: `What does Fitqii cost once I go past ${fitqiiFreeClients} clients?`,
+    a: `The next rung with a published price is Pro at ₹${fitqiiProMonthly.toLocaleString("en-IN")} a month for up to ${fitqiiProClients} clients — ₹${fitqiiProYear.toLocaleString("en-IN")} across a year, read from fitqii.com on ${updatedHuman}. Above that, Prime is ₹${fitqii.primeMonthly.toLocaleString("en-IN")} a month for up to 500 clients and Fitqii for Business starts at ₹${fitqii.businessFromMonthly.toLocaleString("en-IN")} a month. Fitqii also lists a "Fitqii Pro — best for solo coaches" tier priced by client count, but it publishes no amount for it; the button says "Schedule a call". So the honest answer is that the solo-coach price is a number you get on a phone call, and the cheapest price Fitqii shows you in public is ₹${fitqiiProMonthly.toLocaleString("en-IN")} a month. Croodit Pro is ₹${yearly} a year for unlimited clients, which is ₹${fitqiiGap} less than Fitqii Pro over twelve months. That gap is real, but it is a gap between two different products, not two versions of the same one.`,
   },
   {
     q: "Do my students have to download anything to pay me through Croodit?",
