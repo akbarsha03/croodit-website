@@ -4,6 +4,7 @@ import Mark from "../../components/Mark.astro";
 import { SITE, waitlist } from "../../site";
 import { breadcrumb, orgRef } from "../../data/schema";
 import { professions } from "../../data/professions";
+import { fitqii } from "../../data/comparisons";
 
 const path = "/for/zumba-trainers";
 const crumb = "Zumba trainers";
@@ -223,7 +224,7 @@ const schema = [
     <p>
       <strong>If you want your batch inside an app — workouts, progress, chat, attendance and the fee all in
       one place</strong> — that is fitness management software, not an invoicing app. Fitqii is the Indian one
-      with a Zumba-specific page, and its free plan covers 25 clients against Croodit's {SITE.freeClients}.
+      with a Zumba-specific page, and its free plan covers {fitqii.freeClients} clients against Croodit's {SITE.freeClients}.
       The catch is that your batch has to download it and open it, which is the whole comparison:
       <a href="/croodit-vs-fitqii">Croodit vs Fitqii</a>.
     </p>

@@ -4,6 +4,7 @@ import Mark from "../../components/Mark.astro";
 import { SITE, waitlist } from "../../site";
 import { breadcrumb, orgRef } from "../../data/schema";
 import { professions } from "../../data/professions";
+import { fitqii } from "../../data/comparisons";
 
 const path = "/for/nutritionists";
 const crumb = "Nutritionists and dietitians";
@@ -244,7 +245,7 @@ const schema = [
       <strong>And if you want the plan builder and the payment in the same software</strong>, that exists and
       it is aimed at you by name. <strong>Fitqii</strong> lists "Nutritionist" in its own who-it's-for row and
       ships a nutrition plan builder, a nutrition library, daily logging, progress photos and in-app payments.
-      Its free tier covers 25 clients against Croodit's {SITE.freeClients}, and it is live on iOS and Android
+      Its free tier covers {fitqii.freeClients} clients against Croodit's {SITE.freeClients}, and it is live on iOS and Android
       while Croodit is not — so on a fifteen-client roster Fitqii is free today and Croodit is
       ₹{SITE.pro.monthly} a month. The cost is not the price: your client installs an app, opens it, and goes
       into it to pay you. Count how many of yours would. If your plans already go out as a PDF on WhatsApp and
