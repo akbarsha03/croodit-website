@@ -1,0 +1,389 @@
+---
+import Base from "../../layouts/Base.astro";
+import Mark from "../../components/Mark.astro";
+import { SITE, waitlist } from "../../site";
+import { breadcrumb, orgRef } from "../../data/schema";
+
+const path = "/answers/how-to-track-who-paid-me-on-upi";
+const crumb = "How to track who paid me on UPI";
+const title = "How to track who paid me on UPI when everyone pays the same amount";
+const description =
+  "Twelve clients pay you around the same amount each month by UPI. Your bank statement is a wall of identical credits and you have no idea which ones are the November fee and which ones are not. Here is how to stop matching credits to names from memory.";
+
+const publishedISO = "2026-10-03";
+const updatedISO = "2026-10-03";
+const updatedHuman = "3 October 2026";
+
+const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
+const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
+
+/**
+ * The four ways a solo trainer currently tries to track payments, and why each breaks.
+ */
+const methods = [
+  {
+    method: "Memory",
+    howItWorks: "You remember that Priya paid you at the studio on Tuesday.",
+    breaksWhen: "You have more than about eight people, or two months pass, or somebody pays from a family member's account and the credit says a name you do not recognise.",
+    ceiling: "About 5-8 clients — after that you are guessing.",
+  },
+  {
+    method: "Screenshots saved in a folder",
+    howItWorks: "You ask every client to share their payment screenshot on WhatsApp and you save it in a named folder or album.",
+    breaksWhen: "Two people send similar screenshots the same week, or the screenshot turns out to be from last month, or somebody sends one and the money never arrives (see our guide on whether a UPI screenshot is proof of payment).",
+    ceiling: "Works up to about 10-12 people if you are disciplined. Falls apart when you need a total, because a folder of screenshots is not a ledger — you count images by hand.",
+  },
+  {
+    method: "A notes app or spreadsheet",
+    howItWorks: "You keep a Google Sheet or a Notes list: name, month, amount, paid/not paid, and you update it when you check your bank.",
+    breaksWhen: "You forget to update it for two days, or you update it from memory instead of from the bank, or the month rolls over and you copy the sheet but miss a name. It also requires you to match your bank's list to your own list by hand, which is the step that actually takes the evening.",
+    ceiling: "No client limit in theory — any limit in practice, because the manual matching step takes longer every month and the first month you skip it is the last month the sheet is accurate.",
+  },
+  {
+    method: "Asking each person individually",
+    howItWorks: "You message each client on WhatsApp: 'Hi, just checking — did you pay for November?'",
+    breaksWhen: "Immediately. The person who did pay is insulted; the person who did not says 'I'll send it today' and does not; the person you forgot to ask stays unpaid quietly. This is the method most trainers actually use, and it is the method this entire site exists to replace.",
+    ceiling: "Zero, because every message costs you the relationship rather than costing you time.",
+  },
+];
+
+/**
+ * What a per-client invoice system gives you against each of these.
+ */
+const fixes = [
+  {
+    problem: "All the credits look the same",
+    cause: "A shared QR code carries no client name, no invoice number and the same amount for everyone.",
+    fix: "A per-client pay link carries the exact amount and a reference tied to one invoice for one person. ₹2,500 from Priya against invoice #34 is different from ₹2,500 from Arjun against invoice #35, even if they arrive one minute apart.",
+  },
+  {
+    problem: "You do not know who has not paid",
+    cause: "Your bank tells you how much came in, not who is missing. With 18 clients paying ₹2,500, a total of ₹42,500 instead of ₹45,000 means one person has not paid — and you have no idea which one until you count everybody.",
+    fix: "A client-by-client status — paid, pending, overdue — tells you who is missing without counting. The day-3 reminder fires for only that person, not for you to remember which of eighteen people it was.",
+  },
+  {
+    problem: "You mark something paid and it was not",
+    cause: "Somebody showed you a screenshot, you said thank you, and you ticked them off in your notes. The money was either for last month, went to your old UPI ID, or never arrived at all.",
+    fix: "An open invoice stays open — and stays on your reminder list — until you actively confirm the payment in your bank and mark it. Goodwill does not close it.",
+  },
+  {
+    problem: "Month-end reconciliation takes an evening",
+    cause: "You are matching a bank statement to a mental list, comparing amounts and dates and hoping the names in your head are right.",
+    fix: "The matching is already done: each payment was against a numbered invoice for a named client, so the question is not 'who was this ₹2,500 from?' but 'which clients still show pending?'",
+  },
+];
+
+const faqs = [
+  {
+    q: "I have 24 students and they all pay ₹2,500 a month. My bank statement shows twenty-odd credits of around that amount. How am I supposed to know who has paid and who has not?",
+    a: "You cannot, from the bank statement alone. A UPI credit to your account does not carry the payer's name the way you know it — it carries the name on their bank account, which may be a parent, a spouse, or a version of their name you do not recognise. When sixteen credits say roughly ₹2,500 and eight people have not paid, the only way to match them is to go person by person, which is what the invoice replaces. A numbered invoice ties the ₹2,500 to one client, one month and one reference, so the bank statement line and the invoice close each other out, and whoever is still showing pending is the answer.",
+  },
+  {
+    q: "Can I just check my Google Pay or PhonePe transaction history to see who paid me?",
+    a: "You can, but only for payments received inside that one app. If you use Google Pay but a client pays via PhonePe or their bank app, the credit reaches your bank account but does not appear in Google Pay's incoming transactions list — it shows up only in your bank statement. So checking one UPI app gives you a partial picture, and checking all of them still leaves you matching credits to names by hand. The tracker you need is not inside any payment app; it is the client-by-client list that sits above all of them.",
+  },
+  {
+    q: "Someone paid me from a different UPI ID than usual and I do not recognise the name on the credit. How do I figure out who it is?",
+    a: "Ask. There is no public directory that maps a UPI ID to a person, and your bank cannot tell you. The credit shows a name — the one on the payer's bank account — and a UPI ID, neither of which may match the client you know. The realistic answer is to ask your group: 'I received a payment of ₹2,500 from [name on credit] — was that someone here?' A per-client invoice with a pay link avoids this, because even if the person pays from a spouse's or parent's account, the payment lands against a specific invoice number and you know which client it was meant for.",
+  },
+  {
+    q: "My students pay at different times during the month — some on the 1st, some on the 15th, some whenever they feel like it. How do I keep track?",
+    a: "A due date on each invoice turns the chaos into a queue. Everyone who has not paid by their due date shows up in the pending list — whether they were due on the 1st or the 20th. Without a due date, you have no trigger point: you cannot send a reminder because you do not know when it became late, and you cannot tell at a glance whether the month is closed or not.",
+  },
+  {
+    q: "I teach two batches and some people attend both. They sometimes pay for one batch and not the other and I lose track.",
+    a: "Two separate invoices, one per batch, each with its own amount. The person who paid for the morning batch but not the evening one then has one invoice marked paid and one showing pending, instead of a single ambiguous ₹2,500 that could be for either. This is also how sibling pairs work for tutors — two people, two invoices, same parent paying for both.",
+  },
+  {
+    q: "Will this app actually check my bank and mark invoices paid automatically?",
+    a: `No, and this is a real limitation. Croodit is not a payment gateway and has no connection to your bank — money goes straight from your client to your own UPI ID, Croodit never sees the credit. You confirm the payment in your bank or UPI app and tap Mark paid. What it removes is the matching: each invoice is for one person, one amount, one month, so the check takes seconds instead of an evening. If you need automatic reconciliation — the credit triggers a status change without you — you need a payment gateway such as Razorpay or Cashfree, at a per-transaction cost and with business-account onboarding.`,
+  },
+  {
+    q: "I tried a spreadsheet and it worked for two months, then I stopped updating it. What makes this different?",
+    a: "A spreadsheet requires you to do two separate things: maintain the list of who owes what, and then match it to your bank every month. An invoice system does the first part when you send the invoice and reduces the second part to tapping Mark paid for each confirmed credit. The failure mode of the spreadsheet is not laziness — it is that the reconciliation step is the tedious one, and skipping it once makes the sheet untrustworthy, so you stop opening it. Remove the tedious step and the system does not decay.",
+  },
+  {
+    q: "Is there a way to see all UPI payments received in one place without giving an app access to my bank account?",
+    a: "Your bank's own statement is the complete record — every UPI credit to that account, regardless of which app the sender used. Download it from your bank's app or net banking as a PDF or CSV. The problem is not getting the list; it is that the list has no client names you recognise and no invoice references, so you still have to match by hand. The per-client invoice is the other half: it gives each credit a name and a number, so you read the bank statement and the invoice list side by side rather than from memory.",
+  },
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: title,
+    description,
+    inLanguage: "en-IN",
+    datePublished: publishedISO,
+    dateModified: updatedISO,
+    mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE.url}${path}` },
+    author: orgRef,
+    publisher: orgRef,
+    about: [
+      { "@type": "Thing", name: "Unified Payments Interface (UPI)" },
+      { "@type": "Thing", name: "Payment tracking" },
+      { "@type": "Thing", name: "Invoice management" },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to stop tracking UPI payments from memory",
+    description:
+      "Four steps to replace the manual matching of bank credits to client names with a per-client invoice system.",
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Send a numbered invoice for each client's fee",
+        text: "Each fee is a separate invoice with the client's name, the amount and a due date. This is the step that creates the record to match against — without it, you are matching a bank statement to your head.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Include a per-client UPI pay link",
+        text: "The link carries your UPI ID and the exact invoice amount, so the client cannot fat-finger the number and the credit has a reference tied to one invoice. A shared QR code makes every credit look identical.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Confirm the credit in your bank and mark the invoice paid",
+        text: "Open your bank or UPI app, find the matching credit, and mark the invoice closed. Do not mark it from a screenshot or from memory — the bank is the source of truth.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 4,
+        name: "Let the unpaid invoices remind you",
+        text: "An invoice you did not close stays pending and fires a reminder at you on day 3, 7 and 10 past the due date. You read the drafted message, change it if you want, and press send. You do not have to remember who has not paid.",
+      },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  },
+  breadcrumb([
+    ["Croodit", "/"],
+    ["Answers", "/answers"],
+    [crumb, path],
+  ]),
+];
+---
+
+<Base title={`${title} — Croodit`} description={description} path={path} schema={schema}>
+  <article class="wrap prose">
+    <nav class="eyebrow" aria-label="Breadcrumb" style="color:#6B4EFF">
+      <a href="/" style="color:inherit">Croodit</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <a href="/answers" style="color:inherit">Answers</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <span>{crumb}</span>
+    </nav>
+    <h1>{title}</h1>
+    <p class="lede">
+      If you collect fees from a dozen or more people by UPI, your bank statement is a wall of ₹2,500
+      credits with no client names on them. To track who actually paid you, you need a per-client record
+      that sits above the bank &mdash; a numbered invoice for each person, each month, with a pay link
+      that ties the credit to the name. Without that, you are matching credits to people from memory, and
+      the first month you skip the matching is the month someone stops paying and you do not notice.
+    </p>
+    <p style="font-size:14px;color:var(--t-50)">
+      Last updated {updatedHuman} &middot; Written for solo trainers, coaches, tutors and creators in India
+      who get paid by the people they teach
+    </p>
+
+    <h2>Why a bank statement does not answer the question</h2>
+    <p>
+      Every guide on tracking UPI payments tells you to open your payment app and look at transaction
+      history. That advice is correct if you sent money to the wrong person and need to trace the
+      transaction. It is useless if you are a yoga teacher with eighteen students paying ₹2,500 a month
+      and you need to know which three have not paid yet.
+    </p>
+    <p>
+      A bank statement tells you <em>how much</em> came in. It does not tell you <em>from whom you
+      expected it</em>. The payer's name is whatever is on their bank account &mdash; a parent, a
+      spouse, a middle name you have never heard &mdash; and the amount is whatever they typed, which
+      may be last month's rate, a partial payment, or the sibling's fee sent from the same account. To
+      answer "who has not paid me for November?" you would have to export the statement, list every
+      credit of around ₹2,500, match each one to a name in your head, and subtract from the full roster.
+      That is an evening's work, every month, and the people writing "open your UPI app" have never done
+      it for twelve people.
+    </p>
+
+    <h2>The four things trainers actually do, and where each one breaks</h2>
+    <table>
+      <thead>
+        <tr><th>Method</th><th>How it works</th><th>Breaks when</th><th>Practical ceiling</th></tr>
+      </thead>
+      <tbody>
+        {methods.map((m) => (
+          <tr>
+            <td><strong>{m.method}</strong></td>
+            <td>{m.howItWorks}</td>
+            <td>{m.breaksWhen}</td>
+            <td>{m.ceiling}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    <p>
+      None of these fail because the trainer is careless. They fail because the bank and the trainer are
+      looking at different lists. The bank has a list of credits; the trainer has a list of clients. Nobody
+      is connecting the two, so the matching happens from memory &mdash; and memory is the thing that
+      does not scale.
+    </p>
+
+    <h2>The fix: make each payment matchable before it arrives</h2>
+    <p>
+      The tracking problem is not about the payment app you use or the bank you are with. It is about
+      what happens <em>before</em> the money is sent. If each fee starts as a numbered invoice for a
+      named client &mdash; with the exact amount and a UPI pay link tied to that invoice &mdash; then the
+      credit in your bank has something to land against. The four problems above all come from the same
+      root: no record existed before the money moved, so the money is unmatched the moment it arrives.
+    </p>
+    <table>
+      <thead>
+        <tr><th>Problem</th><th>Root cause</th><th>What a per-client invoice changes</th></tr>
+      </thead>
+      <tbody>
+        {fixes.map((f) => (
+          <tr>
+            <td><strong>{f.problem}</strong></td>
+            <td>{f.cause}</td>
+            <td>{f.fix}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+
+    <h2>The four steps, in order</h2>
+    <ol>
+      <li>
+        <strong>Send a numbered invoice for each client's fee.</strong> Each month, each client gets an
+        invoice with their name, the amount, and a due date. This is the record that the credit will be
+        matched against &mdash; without it, you are matching a bank statement to your head.
+      </li>
+      <li>
+        <strong>Include a per-client UPI pay link.</strong> The link carries your UPI ID and the exact
+        invoice amount already filled in, so the client cannot fat-finger ₹250 instead of ₹2,500 and
+        the credit has a reference tied to that one invoice. A shared QR code is the same image for
+        everyone &mdash; twelve people paying the same amount produces twelve identical credits.
+      </li>
+      <li>
+        <strong>Confirm the credit in your bank and mark the invoice paid.</strong> Open your bank app
+        or UPI app, find the matching credit, and close the invoice. Do not close it from a screenshot
+        or from goodwill &mdash;
+        <a href="/answers/is-a-upi-screenshot-proof-of-payment">a screenshot is not proof of
+        payment</a>, and a goodwill close kills the reminder for a fee that may never arrive.
+      </li>
+      <li>
+        <strong>Let the unpaid invoices tell you who is missing.</strong> An invoice you did not close
+        stays pending. If it has a due date, the reminder fires at you &mdash; at <em>you</em>, not at
+        the client &mdash; on day 3, 7 and 10, with the message already drafted. You read it, change it
+        if you want, and press send from your own WhatsApp. You do not have to remember who has not paid,
+        because the system remembers for you.
+      </li>
+    </ol>
+    <p>
+      The result is that the question "who has not paid me for November?" takes five seconds &mdash; open
+      the app, look at the pending list &mdash; instead of an evening of cross-referencing bank credits to
+      names.
+    </p>
+
+    <h2>Who this is for, and who it is not for</h2>
+    <p>
+      <strong>If you collect monthly fees from a roster of 8 to 50 people &mdash; fitness classes, yoga
+      batches, tuition, coaching &mdash; and they all pay by UPI</strong>, this page describes your exact
+      problem. Your issue is not a failed transaction or a disputed payment; it is that your bank statement
+      does not speak the same language as your client list. A per-client invoice is the translation.
+    </p>
+    <p>
+      <strong>If you need to trace one specific UPI transaction</strong> &mdash; it says successful but
+      the money has not arrived, or you sent money to the wrong person &mdash; that is a different
+      problem. Open the transaction in your UPI app, look for the 12-digit UTR or RRN reference number,
+      and raise a dispute through your bank. NPCI's dispute mechanism handles this. Our guide on
+      <a href="/answers/is-a-upi-screenshot-proof-of-payment">UPI screenshot proof of payment</a> covers
+      the steps.
+    </p>
+    <p>
+      <strong>If you need automatic reconciliation</strong> &mdash; the credit triggers a status change
+      without you tapping anything &mdash; you need a payment gateway such as Razorpay or Cashfree, where
+      the money flows through them at a per-transaction fee with business-account onboarding. For a
+      trainer collecting ₹2,500 from eighteen people, that is a heavy trade for a check that takes
+      seconds, but it is the honest alternative if manual confirmation is not acceptable.
+    </p>
+    <p>
+      <strong>If you sell goods out of inventory</strong>, your tracking problem is a stock-and-receivables
+      problem, not a roster problem. Vyapar, myBillBook and Khatabook are built for that &mdash; see
+      <a href="/vyapar-alternative-for-trainers-and-coaches">Vyapar alternative for trainers</a> for the
+      distinction.
+    </p>
+
+    <h2>What Croodit does here, and what it does not</h2>
+    <p>
+      Start with the limitation: <strong>Croodit does not connect to your bank.</strong> It is not a
+      payment gateway, has no read access to your account, never holds money, takes no cut, and never sees
+      whether a credit arrived. Money goes straight from your client to your own UPI ID. You confirm the
+      payment in your bank app and tap <strong>Mark paid</strong>, exactly as you would for cash.
+    </p>
+    <p>
+      What it gives you is the layer that makes the tracking work: one numbered invoice per client per fee,
+      with the exact amount, a due date, a UPI pay link that carries the amount already filled in, and a
+      client-by-client view of paid, pending and overdue. When you open your bank app, you know what you
+      are looking for. And the invoices you did not close stay on the pending list and fire reminders at
+      you &mdash; not at the client &mdash; on day 3, 7 and 10. You read the drafted message, change it
+      if you want, and press send from your own WhatsApp. <strong>Croodit never messages a client by
+      itself.</strong>
+    </p>
+    <p>
+      It is free forever for up to {SITE.freeClients} clients &mdash; unlimited invoices and unlimited
+      reminders to them, no card required. Croodit Pro lifts that to unlimited clients at
+      ₹{SITE.pro.monthly} a month or ₹{SITE.pro.yearly.toLocaleString("en-IN")} a year, after a
+      {SITE.pro.trialDays}-day free trial.
+    </p>
+    <p>
+      Related guides:
+      <a href="/answers/how-to-send-an-invoice-on-whatsapp">how to send an invoice on WhatsApp with a UPI
+      payment link</a> (step 2 &mdash; the send itself),
+      <a href="/answers/is-a-upi-screenshot-proof-of-payment">is a UPI screenshot proof of
+      payment?</a> (step 3 &mdash; confirming one specific payment), and
+      <a href="/answers/how-to-ask-a-client-for-payment-politely">how to ask a client for payment
+      politely</a> (step 4 &mdash; the scripts for the reminder you will send).
+    </p>
+
+    <h2>Questions people ask about tracking UPI payments</h2>
+    <div class="faq__list" style="margin-top:6px">
+      {faqs.map((item, i) => (
+        <details open={i === 0}>
+          <summary>{item.q}</summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+
+    <p style="font-size:14px;color:var(--t-50);margin-top:28px">
+      General information about UPI payment tracking for solo service providers in India, current as of
+      {updatedHuman}. UPI transaction reference numbers, dispute routes and bank statement formats may vary
+      by bank and app.
+    </p>
+  </article>
+
+  <section class="wrap final">
+    <div class="final__box">
+      <div class="blob blob--violet anim-blobA" style="width:520px;height:520px;top:-260px;right:-160px;filter:blur(60px);opacity:.7"></div>
+      <div class="final__logo"><Mark id="p1" width={50} /></div>
+      <h2>Stop matching bank credits to memory. <span>Match them to an invoice.</span></h2>
+      <p>Free forever for up to {SITE.freeClients} clients. Paid, pending and overdue, client by client.</p>
+      <div class="final__cta">
+        <a href={iosHref} class="btn btn--lime">{iosLabel}</a>
+        <a href={SITE.playStoreUrl ?? waitlist("Android")} class="btn btn--glass">Android &mdash; join the waitlist</a>
+      </div>
+    </div>
+  </section>
+</Base>

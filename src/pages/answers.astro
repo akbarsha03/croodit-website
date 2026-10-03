@@ -12,13 +12,15 @@ const description =
 
 /** The hub itself shipped on 2026-09-13; updatedISO only tracks revisions. */
 const publishedISO = "2026-09-13";
-const updatedISO = "2026-09-25";
-const updatedHuman = "25 September 2026";
+const updatedISO = "2026-10-03";
+const updatedHuman = "3 October 2026";
 
 /** Sits outside the five-step order below — it is what comes after, not part of it. */
 const RAISE_SLUG = "how-to-raise-your-class-fees-without-losing-clients";
 /** A detour off step 2 rather than a step of its own: the question people stall on before sending. */
 const WAB_SLUG = "do-i-need-whatsapp-business-to-send-invoices";
+/** A companion to step 3: the screenshot page is about one payment, this is about the whole roster. */
+const TRACK_SLUG = "how-to-track-who-paid-me-on-upi";
 
 const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
 const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
@@ -129,6 +131,12 @@ const schema = [
           name: "Do I need WhatsApp Business or the WhatsApp Business API to send invoices?",
           url: `${SITE.url}/answers/${WAB_SLUG}`,
         },
+        {
+          "@type": "ListItem",
+          position: answers.length + 3,
+          name: "How to track who paid me on UPI when everyone pays the same amount",
+          url: `${SITE.url}/answers/${TRACK_SLUG}`,
+        },
       ],
     },
   },
@@ -185,6 +193,13 @@ const schema = [
       <strong><a href={`/answers/${WAB_SLUG}`}>do I need WhatsApp Business or the WhatsApp Business API to send
       invoices?</a></strong> covers what the free Business app adds, what the API costs, and the bulk-sender
       shortcut that gets the number your clients have saved banned.
+    </p>
+    <p>
+      Step 3 answers whether <em>one</em> payment really arrived. If the bigger problem is knowing which
+      of your twelve or twenty clients actually paid you this month &mdash; matching a wall of identical
+      bank credits to names &mdash; that is a different guide:
+      <strong><a href={`/answers/${TRACK_SLUG}`}>how to track who paid me on UPI when everyone pays the
+      same amount</a></strong>.
     </p>
 
     <h2>Once the getting-paid part works, the next problem is the price</h2>
