@@ -48,4 +48,16 @@ export const faq = [
     q: "Who is Croodit for?",
     a: "Anyone paid by people rather than payroll: Zumba and fitness trainers, yoga and dance coaches, personal trainers, pilates instructors, tutors, nutritionists, photographers, makeup artists and content creators. Croodit pre-fills your service menu based on what you do — monthly packs, class bundles, drop-ins, retainers or one-off shoots.",
   },
+  {
+    q: "I track my class fees in a WhatsApp chat and a notebook — do I really need an app for this?",
+    a: "Not if you have five people. A notebook works until the roster grows past about eight, or until you run two batches, or until somebody pays from a family member's account and the credit says a name you do not recognise. The notebook breaks because tracking a payment is two separate jobs: remembering who owes you, and matching bank credits to those names. At twelve or twenty people paying roughly the same amount, matching credits to names from memory is an evening's work every month — and the first month you skip it, someone stops paying and you do not notice until March. Croodit does the first job when you send the invoice and shrinks the second one to tapping Mark paid against each confirmed credit. The notebook stays accurate for two months; the invoice list stays accurate because every unpaid fee sits on a pending list that does not forget.",
+  },
+  {
+    q: "I run 3 batches — a morning class, an evening class and weekend workshops, all with different fees. Can one app handle that?",
+    a: "Yes. Set up each batch as a separate package — say ₹2,000 a month for mornings, ₹1,500 for evenings, ₹500 per session for weekend workshops. Clients who attend two batches get two invoices, one per batch, so when Priya pays for mornings but not evenings you can see exactly which fee is pending instead of guessing which half of a combined amount arrived. Each batch has its own pack size and validity if you sell class packs, and the reminders fire only for the fee that is actually overdue.",
+  },
+  {
+    q: "I have 20 students and I just want to know which ones have not paid this month — can Croodit tell me that in one tap?",
+    a: "That is the whole point. Open the app and the pending list shows every client whose invoice is open — no counting bank credits, no scrolling through UPI transaction history, no checking a spreadsheet you stopped updating in September. Each name on the list is one invoice you have not marked paid. Tap a name and the reminder is already drafted, with the pay link included, ready for you to send from your own WhatsApp.",
+  },
 ];
