@@ -11,8 +11,9 @@ const title = "Croodit vs Riffit: WhatsApp invoicing for trainers and coaches";
 const description =
   "Riffit and Croodit both put an invoice and a UPI link into WhatsApp. Riffit's real 2026 prices, what it does that Croodit doesn't, and why a class-pack roster is a different shape from freelance project work.";
 
-const updatedISO = "2026-09-15";
-const updatedHuman = "15 September 2026";
+const publishedISO = "2026-09-15";
+const updatedISO = "2026-10-05";
+const updatedHuman = "5 October 2026";
 
 const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
 const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
@@ -24,8 +25,11 @@ const yearly = SITE.pro.yearly.toLocaleString("en-IN");
  * reflects the last time the page prose was materially changed; competitor figures are
  * current as of the verifiedDate in comparisons.ts.
  */
+const riffitMonthly = riffit.proMonthly;
 const riffitYearly = riffit.proYearly;
-const riffitSaving = (riffitYearly - SITE.pro.yearly).toLocaleString("en-IN");
+const riffitAnnualMonthly = riffit.proAnnualMonthly;
+const monthlySaving = (riffitMonthly - SITE.pro.monthly).toLocaleString("en-IN");
+const yearlySaving = (riffitYearly - SITE.pro.yearly).toLocaleString("en-IN");
 
 const riffitFree = riffit.freeFeatures;
 const riffitPro = riffit.proFeatures;
@@ -73,7 +77,7 @@ const rows = [
   ],
   [
     "Paid plan",
-    `₹199 a month, or ₹${riffitYearly.toLocaleString("en-IN")} billed annually. 14-day Pro trial, no card.`,
+    `₹${riffitMonthly} a month, or ₹${riffitAnnualMonthly}/mo billed yearly (₹${riffitYearly.toLocaleString("en-IN")} a year). 14-day Pro trial, no card.`,
     `₹${SITE.pro.monthly} a month, or ₹${yearly} a year. ${SITE.pro.trialDays}-day free trial, no card.`,
   ],
 ];
@@ -85,11 +89,11 @@ const faqs = [
   },
   {
     q: "I teach 3 Zumba batches and about 24 people pay me monthly. Would Riffit's free plan cover me?",
-    a: `No — you would run out in the first week of the first month. Riffit's free plan is 5 invoices a month and 5 active clients, read from riffit.in/pricing on ${updatedHuman}. With 24 people paying monthly you need 24 invoices a month, every month, so you would be on Riffit Pro from day one at ₹199 a month. Croodit's free tier is shaped the other way round — up to ${SITE.freeClients} clients with unlimited invoices to them — which covers a small roster forever but does nothing for you at 24 clients either. At your size both of these are paid products, and the honest comparison is ₹${riffitYearly.toLocaleString("en-IN")} a year against ₹${yearly}.`,
+    a: `No — you would run out in the first week of the first month. Riffit's free plan is 5 invoices a month and 5 active clients, read from riffit.in/pricing on ${updatedHuman}. With 24 people paying monthly you need 24 invoices a month, every month, so you would be on Riffit Pro from day one at ₹${riffitMonthly} a month (or ₹${riffitAnnualMonthly}/mo billed yearly). Croodit's free tier is shaped the other way round — up to ${SITE.freeClients} clients with unlimited invoices to them — which covers a small roster forever but does nothing for you at 24 clients either. At your size both of these are paid products, and the honest comparison is ₹${riffitYearly.toLocaleString("en-IN")} a year against ₹${yearly}.`,
   },
   {
     q: "Is Croodit cheaper than Riffit?",
-    a: `Monthly, no — both are ₹199 a month. Annually, yes: Riffit Pro billed annually was ₹${riffitYearly.toLocaleString("en-IN")} on ${updatedHuman} and Croodit Pro is ₹${yearly} a year, so Croodit is ₹${riffitSaving} less over twelve months. That is a real difference but a small one, and it is the weakest reason on this page to choose either. Pick on whether you bill projects or a roster; the ₹${riffitSaving} follows from that, it shouldn't lead it.`,
+    a: `Yes, at both cadences now. Monthly, Riffit Pro is ₹${riffitMonthly} and Croodit Pro is ₹${SITE.pro.monthly} — Croodit is ₹${monthlySaving} less. Annually, Riffit is ₹${riffitYearly.toLocaleString("en-IN")} billed yearly and Croodit is ₹${yearly} — Croodit is ₹${yearlySaving} less over twelve months. Both gaps are real but small. Neither is a reason to pick a tool by itself. Pick on whether you bill projects or a roster; the savings follow from that, they shouldn't lead it.`,
   },
   {
     q: "Riffit sends the payment reminder for me. Croodit makes me press send myself. Isn't that worse?",
@@ -101,7 +105,7 @@ const faqs = [
   },
   {
     q: "What does Riffit's AI invoicing actually do, and does Croodit have anything like it?",
-    a: "You type a description of the job in a WhatsApp message — Riffit's own example is \"Bill Priya 40K for branding\" — and it produces a formatted PDF invoice with a UPI payment link. It is on the Pro plan. Croodit has nothing equivalent and works the opposite way: instead of describing the job in words each time, you save your packages and rates once, then pick a client and tap what they bought. Typing a sentence wins when every job is different. Tapping a saved package wins when the same ₹2,500 monthly pack goes to eighteen people.",
+    a: "You type a description of the job in a WhatsApp message — Riffit's own example is \"Bill Priya 40K for branding\" — and it produces a formatted PDF invoice with a UPI payment link. You can also send a voice note for an invoice, up to 10 a day. It is on the Pro plan. Croodit has nothing equivalent and works the opposite way: instead of describing the job in words each time, you save your packages and rates once, then pick a client and tap what they bought. Typing a sentence wins when every job is different. Tapping a saved package wins when the same ₹2,500 monthly pack goes to eighteen people.",
   },
   {
     q: "Can I use both?",
@@ -116,7 +120,7 @@ const schema = [
     headline: title,
     description,
     inLanguage: "en-IN",
-    datePublished: updatedISO,
+    datePublished: publishedISO,
     dateModified: updatedISO,
     mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE.url}${path}` },
     author: orgRef,
@@ -182,22 +186,22 @@ const schema = [
     <p>
       Riffit calls itself "WhatsApp Invoicing for Indian Freelancers" — "the invoicing tool for Indian
       freelancers. Invoices and quotes from a WhatsApp message, contracts on the dashboard." You describe a job
-      in a sentence, and it produces a branded PDF invoice with a UPI payment link. Its own worked example is
-      "Bill Priya 40K for branding", and the buyers it names are designers, illustrators and marketing
-      professionals.
+      in a sentence, or send a voice note on Pro, and it produces a branded PDF invoice with a UPI payment link.
+      Its own worked example is "Bill Priya 40K for branding", and the buyers it names are designers,
+      illustrators and marketing professionals.
     </p>
     <p>
-      It also does two things Croodit does not do at all: <strong>quotations</strong> that convert into invoices,
-      and <strong>contracts with OTP-verified e-signatures</strong> and an audit-trail certificate. If a signed
-      document is part of how you close work, that is a real gap on Croodit's side and it is not on a roadmap
-      this page can promise you.
+      It also does two things Croodit does not do at all: <strong>quotations</strong> — unlimited on both plans,
+      with online client acceptance — and <strong>contracts with OTP-verified e-signatures</strong> and an
+      audit-trail certificate. If a signed document is part of how you close work, that is a real gap on
+      Croodit's side and it is not on a roadmap this page can promise you.
     </p>
 
     <h2>What Riffit costs</h2>
     <p>These were the plans on riffit.in/pricing on {updatedHuman}:</p>
     <table>
       <thead>
-        <tr><th>Free — ₹0 forever</th><th>Pro — ₹199/month or ₹{riffitYearly.toLocaleString("en-IN")}/year</th></tr>
+        <tr><th>Free — ₹0 forever</th><th>Pro — ₹{riffitMonthly}/month, or ₹{riffitAnnualMonthly}/mo billed yearly (₹{riffitYearly.toLocaleString("en-IN")}/year)</th></tr>
       </thead>
       <tbody>
         <tr>
@@ -215,16 +219,18 @@ const schema = [
       </tbody>
     </table>
     <p>
-      <strong>The monthly price is identical.</strong> Riffit Pro is ₹199 a month and Croodit Pro is ₹{SITE.pro.monthly}{" "}
-      a month. Annually they separate: Riffit is ₹{riffitYearly.toLocaleString("en-IN")} billed yearly against
-      Croodit's ₹{yearly}, so Croodit is ₹{riffitSaving} less over twelve months. Both start with a 14-day trial
-      and neither asks for a card. A ₹{riffitSaving} gap across a year is not a reason to pick a tool, and this
-      page is not going to pretend it is.
+      <strong>Croodit is now cheaper at both cadences.</strong> Riffit Pro is ₹{riffitMonthly} a month and
+      Croodit Pro is ₹{SITE.pro.monthly}{" "}
+      a month — a ₹{monthlySaving} difference. Annually, Riffit is ₹{riffitYearly.toLocaleString("en-IN")} billed yearly against
+      Croodit's ₹{yearly}, so Croodit is ₹{yearlySaving} less over twelve months. Both start with a 14-day trial
+      and neither asks for a card. The monthly gap is small and the annual gap is not large enough to decide on.
+      Pick on whether you bill projects or a roster; the price follows from that.
     </p>
     <p style="font-size:14px;color:var(--t-50)">
-      One note on sourcing: Riffit's own blog still quotes Pro at ₹249 a month. The pricing page says ₹199, and
-      that is the figure used above — but check riffit.in/pricing yourself before you pay, because the two
-      disagree.
+      Correction, {updatedHuman}: On 15 September 2026, Riffit's pricing page said ₹199 a month while
+      its blog said ₹249. This page used the pricing-page figure and flagged the disagreement. As of today
+      riffit.in/pricing says ₹249 a month (or ₹{riffitAnnualMonthly}/mo billed yearly), so the two surfaces now agree,
+      and the monthly price is no longer identical to Croodit's.
     </p>
 
     <h2>The free plans are shaped differently, and that is the real fork</h2>
