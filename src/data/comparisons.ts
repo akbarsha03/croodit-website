@@ -22,8 +22,8 @@ import { SITE } from "../site";
  * own site. When re-verifying, update this date and the individual figures. Omit
  * anything that no longer checks out rather than guessing.
  */
-export const verifiedDate = "2026-09-28";
-export const verifiedHuman = "28 September 2026";
+export const verifiedDate = "2026-10-05";
+export const verifiedHuman = "5 October 2026";
 
 /* ------------------------------------------------------------------ */
 /*  Competitor pricing — the single source of truth                    */
@@ -57,29 +57,39 @@ export const vyapar = {
 export const riffit = {
   name: "Riffit",
   url: "https://riffit.in",
-  /** Source: riffit.in/pricing on 2026-09-15. Note: the blog still says ₹249/month. */
+  /**
+   * Source: riffit.in/pricing on 2026-10-05.
+   * Monthly price is now ₹249. The annual rate is ₹199/mo billed yearly (₹2,388/year).
+   * The blog and the pricing page now agree at ₹249/month.
+   */
   freeDescription: "Free forever, 5 invoices a month and 5 active clients",
-  proMonthly: 199,
+  proMonthly: 249,
   proYearly: 2388,
+  /** The monthly-equivalent when billed annually. */
+  proAnnualMonthly: 199,
   sendsReminder:
     "Riffit sends — email on the free plan, WhatsApp on Pro",
   usableToday: "Yes — a web app",
-  /** Riffit Free tier features, read from riffit.in/pricing. */
+  /** Riffit Free tier features, read from riffit.in/pricing on 2026-10-05. */
   freeFeatures: [
-    "5 invoices a month",
+    "5 invoices a month (drafts count)",
     "5 active clients in total",
-    "WhatsApp invoice creation",
+    "3 saved services",
+    "WhatsApp invoice creation (short form in the chat)",
     "PDF invoices, with a Riffit watermark",
+    "Unlimited quotations, client accepts online",
     "3 contracts lifetime, with e-signature and an audit trail",
-    "Email reminders, on the due date only",
+    "Email delivery and email reminder on the due date only",
   ] as const,
-  /** Riffit Pro tier features, read from riffit.in/pricing. */
+  /** Riffit Pro tier features, read from riffit.in/pricing on 2026-10-05. */
   proFeatures: [
-    "Unlimited invoices, clients and reminders",
-    "AI natural-language invoicing — describe the job in a sentence",
-    "No watermark, plus custom invoice branding",
-    "WhatsApp reminders and notifications, and automatic payment triggers",
-    "Unlimited quotations and contracts",
+    "Unlimited invoices, clients, contracts and saved services",
+    "AI natural-language invoicing — describe the job in a sentence or a voice note (10 a day)",
+    "No watermark, plus your logo, brand colour and fonts on PDFs",
+    "Six PDF designs (Classic, Minimal, Poster, Bracket, Ink, Headline)",
+    "WhatsApp delivery of invoices, quotes and contracts",
+    "Full reminder schedule — before, on and after the due date, email and WhatsApp",
+    "Unlimited quotations with AI creation in WhatsApp",
   ] as const,
 } as const;
 
