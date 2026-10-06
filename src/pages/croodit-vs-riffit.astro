@@ -1,7 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import Mark from "../components/Mark.astro";
-import { SITE, waitlist } from "../site";
+import { SITE, playLink, iphoneHref, iphoneLabel } from "../site";
 import { breadcrumb, orgRef } from "../data/schema";
 import { riffit } from "../data/comparisons";
 
@@ -15,8 +15,6 @@ const publishedISO = "2026-09-15";
 const updatedISO = "2026-10-05";
 const updatedHuman = "5 October 2026";
 
-const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
-const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
 
 const yearly = SITE.pro.yearly.toLocaleString("en-IN");
 
@@ -68,7 +66,7 @@ const rows = [
   [
     "Platform",
     "A web app at app.riffit.in, plus WhatsApp. Working today; no mobile app listed.",
-    `iPhone first. ${SITE.appStoreUrl ? "Available on the App Store." : "Not on the App Store yet — early access; Android is a waitlist."}`,
+    `${SITE.appStoreUrl ? "Android and iPhone apps." : "An Android app, live on Google Play. iPhone comes later — waitlist only."}`,
   ],
   [
     "Free plan",
@@ -84,8 +82,8 @@ const rows = [
 
 const faqs = [
   {
-    q: "Riffit works today and Croodit doesn't. Why would I wait?",
-    a: `You shouldn't, if you need to invoice someone this week. Riffit is a live web app — you can sign up at riffit.in right now and send an invoice this afternoon. Croodit's iPhone app is early access and not on the App Store yet, and Android is a waitlist. That is the honest state of things on ${updatedHuman}, and no comparison table changes it. The reason to join the Croodit waitlist anyway is if what you invoice is a recurring class roster rather than project work — that is the part Riffit is not built around, and it is what the rest of this page is about.`,
+    q: "I'm on an iPhone. Should I wait for Croodit or use Riffit?",
+    a: `Use Riffit if you need to invoice someone this week. Croodit is live on Android through Google Play, but the iPhone app comes later, and Riffit is a web app at riffit.in that works in any phone or laptop browser today. That is the honest state of things on ${updatedHuman}, and no comparison table changes it. The reason to join the Croodit iPhone waitlist anyway is if what you invoice is a recurring class roster rather than project work — that is the part Riffit is not built around, and it is what the rest of this page is about. On Android, both are open to you now.`,
   },
   {
     q: "I teach 3 Zumba batches and about 24 people pay me monthly. Would Riffit's free plan cover me?",
@@ -160,25 +158,25 @@ const schema = [
     <h1>Croodit vs Riffit</h1>
     <p class="lede">
       Riffit and Croodit both turn a WhatsApp message into a PDF invoice with a Unified Payments Interface (UPI)
-      pay link. Riffit is built for Indian freelancers billing project work, and it is live today. Croodit is
-      built for a repeating class roster — packs, attendance and the same names every month — and its iPhone app
-      is still early access.
+      pay link. Riffit is built for Indian freelancers billing project work, and runs in any browser. Croodit is
+      built for a repeating class roster — packs, attendance and the same names every month — and is an Android
+      app, with the iPhone version still to come.
     </p>
     <p style="font-size:14px;color:var(--t-50)">
       Last updated {updatedHuman} · Every Riffit figure below was read from riffit.in and riffit.in/pricing on
       that date
     </p>
 
-    <h2>Start with the part that isn't close</h2>
+    <h2>Start with where each one runs</h2>
     <p>
-      <strong>Riffit works today. Croodit does not.</strong> Riffit is a web app at app.riffit.in with a WhatsApp
-      front end — you can sign up this afternoon and send an invoice before dinner. Croodit is an iPhone app that
-      is not on the App Store yet; the only thing you can do here today is join the early-access list, and the
-      Android version is a waitlist behind that.
+      <strong>Riffit runs in a browser. Croodit runs on an Android phone.</strong> Riffit is a web app at app.riffit.in
+      with a WhatsApp front end — you can sign up on any phone or laptop this afternoon. Croodit is
+      <a href={playLink(Astro.url.pathname, "body")}>live on Google Play</a> for Android; the iPhone app comes
+      later, and until then the only thing an iPhone user can do here is join the waitlist.
     </p>
     <p>
-      If you need to invoice someone this week, that is the whole decision and the rest of this page is not for
-      you. Everything below is about which of the two is shaped like your month, for a reader who has time to
+      If you are on an iPhone and need to invoice someone this week, that is the whole decision and the rest of
+      this page is not for you. Everything below is about which of the two is shaped like your month, for a reader who has time to
       choose.
     </p>
 
@@ -263,11 +261,11 @@ const schema = [
 
     <h2>Where Riffit is the better choice — honestly</h2>
     <ul>
-      <li><strong>You need to invoice someone this week.</strong> Riffit is live; Croodit is not. Nothing else on this page outranks that.</li>
+      <li><strong>You are on an iPhone and need to invoice someone this week.</strong> Riffit works in any browser; Croodit's iPhone app is not out yet. Nothing else on this page outranks that.</li>
       <li><strong>Every job is a different job.</strong> A branding project, a shoot, a campaign — different scope and a different number each time. Describing it in a sentence beats maintaining a package list you never reuse.</li>
       <li><strong>You need quotations or signed contracts.</strong> Quote, e-signature, audit trail, convert to invoice. Croodit does none of this.</li>
       <li><strong>You want the chasing to be automatic.</strong> Riffit's WhatsApp reminders and automatic payment triggers send on their own. Croodit deliberately will not.</li>
-      <li><strong>You bill from a laptop.</strong> Riffit is a web dashboard. Croodit is a phone app, iPhone first.</li>
+      <li><strong>You bill from a laptop.</strong> Riffit is a web dashboard. Croodit is a phone app, Android only for now.</li>
     </ul>
 
     <h2>Where Croodit fits instead</h2>
@@ -302,8 +300,8 @@ const schema = [
       never reuse, and the quotation-to-contract flow is a real advantage Croodit has no version of.
     </p>
     <p>
-      <strong>If you need it working today</strong>, take Riffit. Croodit is early access on iPhone and a waitlist
-      on Android, and "it will be better for you later" is not a reason to stay unpaid now.
+      <strong>If you are on an iPhone and need it working today</strong>, take Riffit. Croodit is Android-only until
+      the iPhone app ships, and "it will be better for you later" is not a reason to stay unpaid now.
     </p>
     <p>
       <strong>If you invoice fewer than about five people a month</strong>, you may not need either one. A PDF, a
@@ -350,8 +348,8 @@ const schema = [
       <h2>Built for the roster, not the one-off brief. <span>Croodit.</span></h2>
       <p>Free forever for up to {SITE.freeClients} clients. Your packages, your UPI, your logo.</p>
       <div class="final__cta">
-        <a href={iosHref} class="btn btn--lime">{iosLabel}</a>
-        <a href={SITE.playStoreUrl ?? waitlist("Android")} class="btn btn--glass">Android — join the waitlist</a>
+        <a href={playLink(Astro.url.pathname, "final")} class="btn btn--lime">Get it on Google Play</a>
+        <a href={iphoneHref} class="btn btn--glass">{iphoneLabel}</a>
       </div>
     </div>
   </section>

@@ -1,7 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
 import Mark from "../../components/Mark.astro";
-import { SITE, waitlist } from "../../site";
+import { SITE, playLink, iphoneHref, iphoneLabel } from "../../site";
 import { breadcrumb, orgRef } from "../../data/schema";
 
 const path = "/answers/is-a-upi-screenshot-proof-of-payment";
@@ -13,8 +13,6 @@ const description =
 const updatedISO = "2026-09-17";
 const updatedHuman = "17 September 2026";
 
-const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
-const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
 
 /**
  * Ordered by how often a solo trainer actually meets them — honest mistakes first,
@@ -364,8 +362,8 @@ const schema = [
       <h2>Stop matching screenshots to memory. <span>Match them to an invoice.</span></h2>
       <p>Free forever for up to {SITE.freeClients} clients. Paid, pending and overdue, client by client.</p>
       <div class="final__cta">
-        <a href={iosHref} class="btn btn--lime">{iosLabel}</a>
-        <a href={SITE.playStoreUrl ?? waitlist("Android")} class="btn btn--glass">Android — join the waitlist</a>
+        <a href={playLink(Astro.url.pathname, "final")} class="btn btn--lime">Get it on Google Play</a>
+        <a href={iphoneHref} class="btn btn--glass">{iphoneLabel}</a>
       </div>
     </div>
   </section>

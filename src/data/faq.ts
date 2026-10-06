@@ -41,8 +41,8 @@ export const faq = [
     a: "Yes. Tick who showed up after a class and Croodit counts down each client's 12-class pack or monthly validity. It tells you when a pack is about to run out so you can send the renewal invoice before they drop off.",
   },
   {
-    q: "Is Croodit available on Android?",
-    a: "Croodit launches on iPhone first. Android is in development — join the waitlist at croodit.com and you will get the invite when it opens.",
+    q: "Is Croodit available on Android and iPhone?",
+    a: "Croodit is live on Android now — download it free from the Google Play Store. The iPhone app comes later; join the iPhone waitlist at croodit.com and you will hear the day it opens.",
   },
   {
     q: "Who is Croodit for?",

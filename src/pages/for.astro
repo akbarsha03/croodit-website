@@ -1,7 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import Mark from "../components/Mark.astro";
-import { SITE, waitlist } from "../site";
+import { SITE, playLink, iphoneHref, iphoneLabel } from "../site";
 import { breadcrumb, orgRef } from "../data/schema";
 import { professions } from "../data/professions";
 
@@ -12,11 +12,9 @@ const description =
   "Croodit is built for the solo service provider who gets paid by people, not payroll. Pages for Zumba trainers, yoga teachers, tutors, nutritionists and photographers, plus how it works for personal trainers, makeup artists and creators.";
 
 const publishedISO = "2026-09-11";
-const updatedISO = "2026-09-21";
-const updatedHuman = "18 September 2026";
+const updatedISO = "2026-10-06";
+const updatedHuman = "6 October 2026";
 
-const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
-const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
 
 /** No dedicated page yet — listed honestly rather than turned into thin duplicates. */
 const alsoFor = [
@@ -53,7 +51,7 @@ const faqs = [
   },
   {
     q: "Can I use Croodit today?",
-    a: "Not yet. The iPhone app is in early access and Android is on a waitlist, so the honest answer is that you can put your name down but not download it. In the meantime the manual method genuinely works and we have written it up for free: how to send an invoice on WhatsApp with a UPI payment link, and how to ask a client for payment politely.",
+    a: `On Android, yes — Croodit is live on Google Play and free for up to ${SITE.freeClients} clients. The iPhone app comes later, so on an iPhone you can join the waitlist. Until then the manual method genuinely works and we have written it up for free: how to send an invoice on WhatsApp with a UPI payment link, and how to ask a client for payment politely.`,
   },
 ];
 
@@ -180,8 +178,8 @@ const schema = [
       <strong>Anyone billing project work, where the scope changes every time.</strong> A shoot, a campaign,
       a branding brief — you describe the job in a sentence rather than tapping a saved package, and a
       quotation or an e-signed contract matters more than a class-pack countdown. We set out that fork in
-      <a href="/croodit-vs-riffit">Croodit vs Riffit</a>, including the part where Riffit is live today and
-      Croodit is not.
+      <a href="/croodit-vs-riffit">Croodit vs Riffit</a>, including the part where Riffit works in any browser
+      and Croodit is a phone app, Android only for now.
     </p>
 
     <h2>Common questions before you pick a page</h2>
@@ -214,8 +212,8 @@ const schema = [
       <h2>Get paid by people, not payroll? <span>This one's yours.</span></h2>
       <p>Free forever for up to {SITE.freeClients} clients. You still press send — always.</p>
       <div class="final__cta">
-        <a href={iosHref} class="btn btn--lime">{iosLabel}</a>
-        <a href={SITE.playStoreUrl ?? waitlist("Android")} class="btn btn--glass">Android — join the waitlist</a>
+        <a href={playLink(Astro.url.pathname, "final")} class="btn btn--lime">Get it on Google Play</a>
+        <a href={iphoneHref} class="btn btn--glass">{iphoneLabel}</a>
       </div>
     </div>
   </section>

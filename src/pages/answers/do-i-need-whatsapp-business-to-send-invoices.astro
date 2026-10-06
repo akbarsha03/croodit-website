@@ -1,7 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
 import Mark from "../../components/Mark.astro";
-import { SITE, waitlist } from "../../site";
+import { SITE, playLink, iphoneHref, iphoneLabel } from "../../site";
 import { breadcrumb, orgRef } from "../../data/schema";
 
 const path = "/answers/do-i-need-whatsapp-business-to-send-invoices";
@@ -13,8 +13,6 @@ const description =
 const updatedISO = "2026-09-25";
 const updatedHuman = "25 September 2026";
 
-const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
-const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
 
 /** Checked on AiSensy's own pricing page on updatedISO; Meta's charge plus the provider's, before GST. */
 const API_UTILITY_PAISE = 14.5;
@@ -70,7 +68,7 @@ const faqs = [
   },
   {
     q: "Does Croodit use the WhatsApp Business API?",
-    a: `No. Croodit writes the invoice and the message, then hands them to the WhatsApp on your phone, where you read them and press send yourself. It has no API account, no bot and no template approvals, and it cannot read your chats. Reminders on day 3, 7 and 10 are notifications to you, not messages to your client. Croodit is free forever for up to ${SITE.freeClients} clients, and it is in early access on iPhone.`,
+    a: `No. Croodit writes the invoice and the message, then hands them to the WhatsApp on your phone, where you read them and press send yourself. It has no API account, no bot and no template approvals, and it cannot read your chats. Reminders on day 3, 7 and 10 are notifications to you, not messages to your client. Croodit is free forever for up to ${SITE.freeClients} clients, and it is live on Android through Google Play, with the iPhone app to follow.`,
   },
 ];
 
@@ -267,8 +265,8 @@ const schema = [
     <p>
       Free forever for up to {SITE.freeClients} clients, with unlimited invoices and unlimited reminders to them
       and no card needed. Croodit Pro lifts that to unlimited clients at ₹{SITE.pro.monthly} a month or
-      ₹{SITE.pro.yearly.toLocaleString("en-IN")} a year, after a {SITE.pro.trialDays}-day free trial. The iPhone
-      app is in early access and Android is on a waitlist.
+      ₹{SITE.pro.yearly.toLocaleString("en-IN")} a year, after a {SITE.pro.trialDays}-day free trial. Croodit is
+      <a href={playLink(Astro.url.pathname, "body")}>live on Google Play</a> for Android; the iPhone app comes later.
     </p>
 
     <h2>Questions people ask about WhatsApp Business and invoicing</h2>
@@ -294,8 +292,8 @@ const schema = [
       <h2>Keep your WhatsApp. <span>Add the invoice it can't make.</span></h2>
       <p>Free forever for up to {SITE.freeClients} clients. You still press send — always.</p>
       <div class="final__cta">
-        <a href={iosHref} class="btn btn--lime">{iosLabel}</a>
-        <a href={SITE.playStoreUrl ?? waitlist("Android")} class="btn btn--glass">Android — join the waitlist</a>
+        <a href={playLink(Astro.url.pathname, "final")} class="btn btn--lime">Get it on Google Play</a>
+        <a href={iphoneHref} class="btn btn--glass">{iphoneLabel}</a>
       </div>
     </div>
   </section>
