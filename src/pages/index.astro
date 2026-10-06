@@ -9,7 +9,7 @@ import ScreenHome from "../components/ScreenHome.astro";
 import { SITE, waitlist } from "../site";
 import { faq } from "../data/faq";
 import { orgRef } from "../data/schema";
-import { fitqii } from "../data/comparisons";
+import { fitqii, riffit } from "../data/comparisons";
 
 const title = "Croodit — WhatsApp invoice app with a UPI pay link (India)";
 const description =
@@ -314,6 +314,13 @@ const schema = [
       Fitqii's free plan covers {fitqii.freeClients} clients to our {SITE.freeClients}. The difference is that you can read all of Croodit's
       pricing right here. Every paid Fitqii plan is bought through "Schedule a call". See
       <a href="/compare" style="font-weight:600">every option side by side</a>, with each price read from the company's own site.
+    </p>
+    <p class="lede" style="max-width:640px;font-size:16px">
+      Against Riffit, the invoicing app closest to Croodit, the paid plan costs less. Riffit Pro is ₹{riffit.proMonthly} a month or
+      ₹{riffit.proYearly.toLocaleString("en-IN")} a year; Croodit Pro is ₹{SITE.pro.monthly} or ₹{SITE.pro.yearly.toLocaleString("en-IN")},
+      which saves you ₹{(riffit.proYearly - SITE.pro.yearly).toLocaleString("en-IN")} a year. Riffit's free plan stops at 5 invoices a month; ours has no invoice cap.
+      The honest trade: Riffit Pro sends WhatsApp reminders for you, and Croodit never messages a client by itself. Here's
+      <a href="/croodit-vs-riffit" style="font-weight:600">Croodit vs Riffit, plan by plan</a>.
     </p>
   </section>
 
