@@ -1,7 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import Mark from "../components/Mark.astro";
-import { SITE, waitlist } from "../site";
+import { SITE, playLink, iphoneHref, iphoneLabel } from "../site";
 import { breadcrumb, orgRef } from "../data/schema";
 import { vyapar, verifiedHuman } from "../data/comparisons";
 
@@ -15,8 +15,6 @@ const publishedISO = "2026-09-09";
 const updatedISO = "2026-09-28";
 const updatedHuman = "28 September 2026";
 
-const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
-const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
 
 const yearly = SITE.pro.yearly.toLocaleString("en-IN");
 
@@ -56,7 +54,7 @@ const rows = [
   [
     "Platform",
     "Android, iOS, Windows and Mac, offline and cloud.",
-    `iPhone first. ${SITE.appStoreUrl ? "Available on the App Store." : "Not on the App Store yet — early access; Android is a waitlist."}`,
+    `${SITE.appStoreUrl ? "Android and iPhone apps." : "An Android app, live on Google Play. iPhone comes later — waitlist only."}`,
   ],
   [
     "Entry price",
@@ -213,8 +211,8 @@ const schema = [
       <li><strong>You sell physical things.</strong> A supplement counter at your studio, merchandise, equipment. Stock is a real problem and Croodit does not solve it at all.</li>
       <li><strong>You need e-way bills or e-invoicing against the IRP.</strong> Croodit does neither.</li>
       <li><strong>You want one system for billing and full accounting.</strong> Vyapar is a billing and accounting suite; Croodit is deliberately not one.</li>
-      <li><strong>You bill from a desktop, or a staff member bills for you.</strong> Vyapar runs on Windows and Mac with multi-device sync. Croodit is a phone app, iPhone first.</li>
-      <li><strong>You want it today on Android.</strong> Vyapar ships on Android now. Croodit's Android version is a waitlist.</li>
+      <li><strong>You bill from a desktop, or a staff member bills for you.</strong> Vyapar runs on Windows and Mac with multi-device sync. Croodit is a phone app, Android only for now.</li>
+      <li><strong>You need it on an iPhone today.</strong> Vyapar ships on iOS now. Croodit's iPhone app comes later.</li>
     </ul>
 
     <h2>Where Croodit fits instead</h2>
@@ -279,8 +277,8 @@ const schema = [
       <h2>Built for the roster, not the stockroom. <span>Croodit.</span></h2>
       <p>Free forever for up to {SITE.freeClients} clients. Your packages, your UPI, your logo.</p>
       <div class="final__cta">
-        <a href={iosHref} class="btn btn--lime">{iosLabel}</a>
-        <a href={SITE.playStoreUrl ?? waitlist("Android")} class="btn btn--glass">Android — join the waitlist</a>
+        <a href={playLink(Astro.url.pathname, "final")} class="btn btn--lime">Get it on Google Play</a>
+        <a href={iphoneHref} class="btn btn--glass">{iphoneLabel}</a>
       </div>
     </div>
   </section>

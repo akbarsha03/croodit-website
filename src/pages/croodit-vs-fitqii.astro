@@ -1,7 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import Mark from "../components/Mark.astro";
-import { SITE, waitlist } from "../site";
+import { SITE, playLink, iphoneHref, iphoneLabel } from "../site";
 import { breadcrumb, orgRef } from "../data/schema";
 import { fitqii, inr, verifiedHuman } from "../data/comparisons";
 
@@ -14,8 +14,6 @@ const description =
 const updatedISO = "2026-09-21";
 const updatedHuman = "21 September 2026";
 
-const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
-const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
 
 const yearly = SITE.pro.yearly.toLocaleString("en-IN");
 
@@ -91,7 +89,7 @@ const rows = [
   [
     "Platform",
     "Live today: iOS and Android apps for coaches and clients, plus a web dashboard.",
-    `iPhone first. ${SITE.appStoreUrl ? "Available on the App Store." : "Not on the App Store yet — early access; Android is a waitlist."}`,
+    `${SITE.appStoreUrl ? "Android and iPhone apps." : "An Android app, live on Google Play. iPhone comes later — waitlist only."}`,
   ],
 ];
 
@@ -117,8 +115,8 @@ const faqs = [
     a: "You can, and for some people that is the right answer, but be clear about what you are doing: there is no integration between them, so your roster lives in two places and you maintain it twice. It makes sense when the coaching side genuinely needs programming — a personal trainer writing individual workout and nutrition plans and tracking progress photos week by week. It makes no sense for a group class, where nobody gets an individual programme and the only thing that repeats is the fee.",
   },
   {
-    q: "Fitqii works today and Croodit doesn't. Isn't that the whole decision?",
-    a: `If you need to collect fees this month, largely yes. Fitqii has iOS and Android apps for coaches and clients that are live now. Croodit's iPhone app is early access and not on the App Store yet, and Android is a waitlist — that is the state of things on ${updatedHuman} and no comparison table changes it. In the meantime the manual method costs nothing and takes about two minutes: a PDF, a UPI link and a WhatsApp message. We wrote it up step by step.`,
+    q: "Fitqii is on iPhone and Croodit isn't yet. Isn't that the whole decision?",
+    a: `If you are on an iPhone and need to collect fees this month, largely yes. Fitqii has iOS and Android apps for coaches and clients. Croodit is live on Android through Google Play, but its iPhone app comes later — that is the state of things on ${updatedHuman} and no comparison table changes it. On an iPhone, the manual method costs nothing in the meantime and takes about two minutes: a PDF, a UPI link and a WhatsApp message. We wrote it up step by step. On Android, both are open to you now.`,
   },
   {
     q: "My studio has three instructors and a timetable. Which one?",
@@ -189,9 +187,9 @@ const schema = [
       buried it would not be worth your time.
     </p>
     <p>
-      <strong>Fitqii is also live and Croodit is not.</strong> Fitqii has iOS and Android apps for coaches and
-      clients working today. Croodit's iPhone app is early access and not on the App Store yet; Android is a
-      waitlist. If you need fees collected this month, that settles it.
+      <strong>Fitqii is also on iPhone and Croodit is not yet.</strong> Fitqii has iOS and Android apps for coaches
+      and clients. Croodit is <a href={playLink(Astro.url.pathname, "body")}>live on Google Play</a> for Android;
+      the iPhone app comes later. If you are on an iPhone and need fees collected this month, that settles it.
     </p>
     <p>
       What the rest of this page is about is the thing those two facts do not tell you: the free 25 and the
@@ -290,7 +288,7 @@ const schema = [
       <li><strong>Your clients already live in an app.</strong> If they open it for the workout, paying inside it costs them nothing extra and Fitqii's model is efficient.</li>
       <li><strong>You have staff or a timetable.</strong> Instructor rosters, session managers, per-coach dashboards. Croodit has no concept of a second person.</li>
       <li><strong>You have 25 clients or fewer and want to spend ₹0.</strong> Fitqii Starter is free at that size and Croodit's free tier stops at {SITE.freeClients}.</li>
-      <li><strong>You need it running this month.</strong> Fitqii is live on iOS and Android. Croodit is early access on iPhone and a waitlist on Android.</li>
+      <li><strong>You are on an iPhone and need it running this month.</strong> Fitqii is live on iOS and Android. Croodit is Android-only until its iPhone app ships.</li>
     </ul>
 
     <h2>Where Croodit fits instead</h2>
@@ -367,8 +365,8 @@ const schema = [
       <h2>Your clients install nothing. <span>Croodit.</span></h2>
       <p>Free forever for up to {SITE.freeClients} clients. Your packages, your UPI, your logo.</p>
       <div class="final__cta">
-        <a href={iosHref} class="btn btn--lime">{iosLabel}</a>
-        <a href={SITE.playStoreUrl ?? waitlist("Android")} class="btn btn--glass">Android — join the waitlist</a>
+        <a href={playLink(Astro.url.pathname, "final")} class="btn btn--lime">Get it on Google Play</a>
+        <a href={iphoneHref} class="btn btn--glass">{iphoneLabel}</a>
       </div>
     </div>
   </section>

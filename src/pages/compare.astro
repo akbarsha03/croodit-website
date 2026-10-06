@@ -1,7 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import Mark from "../components/Mark.astro";
-import { SITE, waitlist } from "../site";
+import { SITE, playLink, iphoneHref, iphoneLabel } from "../site";
 import { breadcrumb, orgRef } from "../data/schema";
 import {
   comparisons,
@@ -23,8 +23,6 @@ const publishedISO = "2026-09-24";
 const updatedISO = verifiedDate;
 const updatedHuman = verifiedHuman;
 
-const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
-const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
 
 const yearly = SITE.pro.yearly.toLocaleString("en-IN");
 
@@ -82,7 +80,7 @@ const prices = [
     `Free forever up to ${SITE.freeClients} clients, unlimited invoices`,
     `₹${SITE.pro.monthly} a month or ₹${yearly} a year, after a ${SITE.pro.trialDays}-day trial`,
     "You do. Croodit writes the reminder on day 3, 7 and 10 and never messages a client by itself",
-    SITE.appStoreUrl ? "Yes — iPhone" : "Not yet — iPhone early access; Android is a waitlist",
+    SITE.appStoreUrl ? "Yes — Android and iPhone" : "Yes on Android. iPhone comes later",
   ],
   [
     "WhatsApp, a UPI QR and a notes app",
@@ -113,8 +111,8 @@ const faqs = [
   {
     q: "Can I use Croodit today?",
     a: SITE.appStoreUrl
-      ? "Yes — the iPhone app is on the App Store. Android is a waitlist."
-      : `Not yet. The iPhone app is in early access and Android is a waitlist, so you can put your name down but you cannot install it. ${vyapar.name}, ${fitqii.name} and ${riffit.name} are all live today. If you need to invoice someone this week, the free manual method works: a WhatsApp message with a UPI pay link.`,
+      ? "Yes — Croodit is on Google Play and the App Store."
+      : `On Android, yes — Croodit is live on Google Play. The iPhone app comes later, so on an iPhone you can join the waitlist but not install it yet; ${vyapar.name}, ${fitqii.name} and ${riffit.name} all work on an iPhone today. If you need to invoice someone from an iPhone this week, the free manual method works: a WhatsApp message with a UPI pay link.`,
   },
 ];
 
@@ -304,8 +302,8 @@ const schema = [
       <h2>Same people, same fee, every month? <span>That's the one we built.</span></h2>
       <p>Free forever for up to {SITE.freeClients} clients. You still press send — always.</p>
       <div class="final__cta">
-        <a href={iosHref} class="btn btn--lime">{iosLabel}</a>
-        <a href={SITE.playStoreUrl ?? waitlist("Android")} class="btn btn--glass">Android — join the waitlist</a>
+        <a href={playLink(Astro.url.pathname, "final")} class="btn btn--lime">Get it on Google Play</a>
+        <a href={iphoneHref} class="btn btn--glass">{iphoneLabel}</a>
       </div>
     </div>
   </section>

@@ -1,7 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
 import Mark from "../../components/Mark.astro";
-import { SITE, waitlist } from "../../site";
+import { SITE, playLink, iphoneHref, iphoneLabel } from "../../site";
 import { breadcrumb, orgRef } from "../../data/schema";
 import { professions } from "../../data/professions";
 import { fitqii } from "../../data/comparisons";
@@ -13,11 +13,9 @@ const description =
   "Three rate cards for the same hour: home visits, a studio group and a corporate booking. Croodit remembers each client's rate, sends the invoice on WhatsApp with a UPI pay link, and puts GST only on the invoices that need it.";
 
 const publishedISO = "2026-09-11";
-const updatedISO = "2026-09-22";
-const updatedHuman = "11 September 2026";
+const updatedISO = "2026-10-06";
+const updatedHuman = "6 October 2026";
 
-const iosHref = SITE.appStoreUrl ?? waitlist("iPhone");
-const iosLabel = SITE.appStoreUrl ? "Download for iPhone" : "Get early access on iPhone";
 const others = professions.filter((p) => p.slug !== "yoga-teachers");
 
 const streams = [
@@ -210,7 +208,7 @@ const schema = [
       practice logged between sessions, progress, a chat thread per student — that is coaching software, and
       it collects the fee on the way past. <strong>Fitqii</strong> names yoga instructors on its own homepage
       and is the Indian one to look at; its free tier covers {fitqii.freeClients} clients against Croodit's
-      {" "}{SITE.freeClients}, and it is live on both app stores while Croodit is not. Note that this is a
+      {" "}{SITE.freeClients}, and it is on both app stores, while Croodit is Android-only until the iPhone app ships. Note that this is a
       different concession from the booking one above: a timetable platform replaces your calendar, coaching
       software replaces the WhatsApp thread. Croodit replaces neither — it assumes the thread is where you
       teach from and only puts the invoice in it. The test is whether twelve students would each install an
@@ -232,8 +230,8 @@ const schema = [
       Payments go straight to your own UPI ID — Croodit is not a payment gateway and takes no cut.
     </p>
     <p>
-      The iPhone app is in early access and Android is on a waitlist. Until then, the free manual route is
-      written up step by step: <a href="/answers/how-to-send-an-invoice-on-whatsapp">how to send an invoice
+      Croodit is <a href={playLink(Astro.url.pathname, "body")}>live on Google Play</a> for Android phones; the iPhone app comes later. On an iPhone,
+      the free manual route is written up step by step: <a href="/answers/how-to-send-an-invoice-on-whatsapp">how to send an invoice
       on WhatsApp with a UPI payment link</a>. And if the hard part is the follow-up rather than the
       invoice, read <a href="/answers/how-to-ask-a-client-for-payment-politely">how to ask a client for
       payment politely</a>.
@@ -266,8 +264,8 @@ const schema = [
       <h2>Six rates, twelve students. <span>None of it in your head.</span></h2>
       <p>Free forever for up to {SITE.freeClients} clients. You still press send — always.</p>
       <div class="final__cta">
-        <a href={iosHref} class="btn btn--lime">{iosLabel}</a>
-        <a href={SITE.playStoreUrl ?? waitlist("Android")} class="btn btn--glass">Android — join the waitlist</a>
+        <a href={playLink(Astro.url.pathname, "final")} class="btn btn--lime">Get it on Google Play</a>
+        <a href={iphoneHref} class="btn btn--glass">{iphoneLabel}</a>
       </div>
     </div>
   </section>
