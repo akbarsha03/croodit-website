@@ -21,6 +21,10 @@ export const faq = [
     a: "No. GST is optional and off by default. If you are registered, turn it on and Croodit adds your GSTIN, the tax lines and a monthly CA-ready summary to every invoice. If you are under the threshold, your invoices simply have no tax lines.",
   },
   {
+    q: "Every CA tells me something different about GST and I can't afford one on retainer anyway. If I start sending proper invoices, am I signing up for GST filing?",
+    a: "No. Sending an invoice registers you for nothing. GST registration for a service provider becomes compulsory only once receipts cross ₹20 lakh a year (₹10 lakh in Manipur, Mizoram, Nagaland and Tripura) — a trainer with 20 clients at ₹2,500 a month is at about ₹6 lakh. Below the line there are no GST returns to file, and Croodit keeps GST off, so your invoices carry no tax lines. Income tax is separate and applies whether you use an app, a notebook or nothing. What an app changes is what you have in March: a numbered list of every invoice, who paid and when, instead of a year of WhatsApp chats and bank credits to match up. That makes a one-off visit to a CA short, or lets you file a simple return yourself. Croodit Pro adds a monthly CA-ready export in Excel, PDF or Tally format. Croodit is not a tax adviser: if you are near the threshold or earn from clients abroad, pay for the CA.",
+  },
+  {
     q: "Which UPI apps can my clients pay with?",
     a: "Any of them. The pay link opens a standard UPI intent, so Google Pay, PhonePe, Paytm, BHIM and every bank app work. Clients can also scan the QR on the invoice or copy your UPI ID. If they pay you in cash or directly, you tap \"Mark paid\" and the invoice closes.",
   },
