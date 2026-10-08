@@ -1,6 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
 import Mark from "../../components/Mark.astro";
+import MoreAnswers from "../../components/MoreAnswers.astro";
 import { SITE, playLink, iphoneHref, iphoneLabel } from "../../site";
 import { breadcrumb, orgRef } from "../../data/schema";
 
@@ -355,6 +356,8 @@ const schema = [
       advice, it is not a substitute for a chartered accountant, and thresholds, rates and rules change. Check
       your own position before acting on it.
     </p>
+
+    <MoreAnswers current="do-i-need-a-gst-number-to-send-an-invoice" />
   </article>
 
   <section class="wrap final">

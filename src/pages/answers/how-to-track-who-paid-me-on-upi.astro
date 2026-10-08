@@ -1,6 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
 import Mark from "../../components/Mark.astro";
+import MoreAnswers from "../../components/MoreAnswers.astro";
 import { SITE, playLink, iphoneHref, iphoneLabel } from "../../site";
 import { breadcrumb, orgRef } from "../../data/schema";
 
@@ -370,6 +371,8 @@ const schema = [
       {updatedHuman}. UPI transaction reference numbers, dispute routes and bank statement formats may vary
       by bank and app.
     </p>
+
+    <MoreAnswers current="how-to-track-who-paid-me-on-upi" />
   </article>
 
   <section class="wrap final">

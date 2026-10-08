@@ -1,0 +1,16 @@
+---
+import { answers } from "../data/answers";
+
+const { current } = Astro.props as { current: string };
+const others = answers.filter((a) => a.slug !== current);
+---
+<h2>More answers</h2>
+<ul>
+  {others.map((a) => (
+    <li><a href={`/answers/${a.slug}`}>{a.question}</a></li>
+  ))}
+</ul>
+<p>
+  Or start from <a href="/answers">how to get paid on time as a trainer, coach or tutor</a>, which puts them
+  in order.
+</p>
