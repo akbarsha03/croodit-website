@@ -1,6 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
 import Mark from "../../components/Mark.astro";
+import MoreAnswers from "../../components/MoreAnswers.astro";
 import { SITE, playLink, iphoneHref, iphoneLabel } from "../../site";
 import { breadcrumb, orgRef } from "../../data/schema";
 
@@ -283,6 +284,8 @@ const schema = [
       WhatsApp features, Meta's pricing and provider prices are as they stood on {updatedHuman}. Per-message
       rates in particular change often, so check the current rate card before you budget against it.
     </p>
+
+    <MoreAnswers current="do-i-need-whatsapp-business-to-send-invoices" />
   </article>
 
   <section class="wrap final">

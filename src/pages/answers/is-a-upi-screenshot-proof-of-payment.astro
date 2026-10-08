@@ -1,6 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
 import Mark from "../../components/Mark.astro";
+import MoreAnswers from "../../components/MoreAnswers.astro";
 import { SITE, playLink, iphoneHref, iphoneLabel } from "../../site";
 import { breadcrumb, orgRef } from "../../data/schema";
 
@@ -353,6 +354,8 @@ const schema = [
       timelines and escalation routes are set by your bank, NPCI and the RBI and can change — check the current
       process in your own UPI app before relying on the timings here.
     </p>
+
+    <MoreAnswers current="is-a-upi-screenshot-proof-of-payment" />
   </article>
 
   <section class="wrap final">

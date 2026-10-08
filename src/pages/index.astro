@@ -10,6 +10,7 @@ import { SITE, playLink, iphoneHref, iphoneLabel } from "../site";
 import { faq } from "../data/faq";
 import { orgRef } from "../data/schema";
 import { fitqii, riffit } from "../data/comparisons";
+import { answers } from "../data/answers";
 
 const title = "Croodit — WhatsApp invoice app with a UPI pay link (India)";
 const description =
@@ -354,6 +355,12 @@ const schema = [
       <a href="/answers/will-i-get-a-gst-notice-for-taking-fees-on-upi" style="font-weight:600">will I get a GST notice for taking fees on UPI?</a>
       has the threshold that actually applies to a trainer. Want it in your own terms? Start with
       <a href="/for" style="font-weight:600">who Croodit is built for</a>.
+    </p>
+    <p style="max-width:640px;font-size:16px;color:var(--t-70)">
+      Every free guide, in the order the problem arrives:
+      {answers.map((a, i) => (
+        <span>{i > 0 ? " " : ""}<a href={`/answers/${a.slug}`}>{a.question}</a>{i < answers.length - 1 ? " · " : ""}</span>
+      ))}
     </p>
   </section>
 

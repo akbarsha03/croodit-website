@@ -1,6 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
 import Mark from "../../components/Mark.astro";
+import MoreAnswers from "../../components/MoreAnswers.astro";
 import { SITE, playLink, iphoneHref, iphoneLabel } from "../../site";
 import { breadcrumb, orgRef } from "../../data/schema";
 
@@ -244,6 +245,8 @@ const schema = [
         </details>
       ))}
     </div>
+
+    <MoreAnswers current="how-to-send-an-invoice-on-whatsapp" />
   </article>
 
   <section class="wrap final">
