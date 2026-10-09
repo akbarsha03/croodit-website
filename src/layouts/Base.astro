@@ -24,6 +24,11 @@ const {
   schema = [],
 } = Astro.props;
 
+// Google cuts snippets at ~155 chars and rewrites longer ones itself; 19 pages had drifted to 185–399.
+if (description.length > 160) {
+  throw new Error(`Meta description for ${path} is ${description.length} chars; keep it to 155.`);
+}
+
 const site = Astro.site ?? new URL("https://croodit.com");
 const clean = path === "/index" ? "/" : path;
 // Root keeps its slash; every other path has none, matching astro.config trailingSlash.
