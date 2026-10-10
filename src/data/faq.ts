@@ -1,4 +1,9 @@
 /** Answer-engine copy: each answer must stand alone when quoted out of context. */
+import { SITE } from "../site";
+
+const { freeClients, pro } = SITE;
+const yearly = pro.yearly.toLocaleString("en-IN");
+// ponytail: "${freeClients + 1}th" is right for 8; fix the suffix if the cap ever makes it 21st/22nd/23rd.
 export const faq = [
   {
     q: "What is Croodit?",
@@ -10,11 +15,11 @@ export const faq = [
   },
   {
     q: "How much does Croodit cost?",
-    a: "Croodit is free forever for up to 7 clients — unlimited invoices to them, unlimited reminders, no card and no GST registration needed. Croodit Pro lifts the limit to unlimited clients at ₹199 per month or ₹1,599 per year, after a 14-day free trial. Pro also adds monthly GST reports for your CA, your own pay-link domain and attendance QR check-in.",
+    a: `Croodit is free forever for up to ${freeClients} clients — unlimited invoices to them, unlimited reminders, no card and no GST registration needed. Croodit Pro lifts the limit to unlimited clients at ₹${pro.monthly} per month or ₹${yearly} per year, after a ${pro.trialDays}-day free trial. Pro also adds monthly GST reports for your CA, your own pay-link domain and attendance QR check-in.`,
   },
   {
-    q: "What happens when I get my 8th client?",
-    a: "Nothing breaks. The 7 clients you already have keep working exactly as before — their invoices, history and reminders are untouched. Adding an 8th client is what starts your 14-day Pro trial, and Pro is ₹199 per month or ₹1,599 per year for unlimited clients. If you never go past 7 clients, you never pay anything.",
+    q: `What happens when I get my ${freeClients + 1}th client?`,
+    a: `Nothing breaks. The ${freeClients} clients you already have keep working exactly as before — their invoices, history and reminders are untouched. Adding an ${freeClients + 1}th client is what starts your ${pro.trialDays}-day Pro trial, and Pro is ₹${pro.monthly} per month or ₹${yearly} per year for unlimited clients. If you never go past ${freeClients} clients, you never pay anything.`,
   },
   {
     q: "Do I need GST registration to use Croodit?",
