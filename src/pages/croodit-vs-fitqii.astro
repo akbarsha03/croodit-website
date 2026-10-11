@@ -11,8 +11,9 @@ const title = "Croodit vs Fitqii: do you need fitness management software, or ju
 const description =
   "Fitqii runs your whole practice and collects fees in its own app. Croodit only gets you paid, on your own WhatsApp. Fitqii's 2026 prices, from fitqii.com.";
 
-const updatedISO = "2026-09-21";
-const updatedHuman = "21 September 2026";
+const publishedISO = "2026-09-21";
+const updatedISO = "2026-10-11";
+const updatedHuman = "11 October 2026";
 
 
 const yearly = SITE.pro.yearly.toLocaleString("en-IN");
@@ -131,7 +132,7 @@ const schema = [
     headline: title,
     description,
     inLanguage: "en-IN",
-    datePublished: updatedISO,
+    datePublished: publishedISO,
     dateModified: updatedISO,
     mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE.url}${path}` },
     author: orgRef,
@@ -238,6 +239,12 @@ const schema = [
       On sourcing: Fitqii shows a struck-through higher figure beside each plan (Pro at ₹5,999, Prime at
       ₹19,999). The lower number is what it charges, so the lower number is what is used above. Ask them for
       the solo-coach price before you compare anything — we are not going to invent it for you.
+    </p>
+    <p style="font-size:14px;color:var(--t-50)">
+      Re-checked {updatedHuman}: every plan price above, the solo-coach slider with no amount beside it, the
+      "no service charges or commissions" payment line and the absence of any mention of GST were read again
+      from fitqii.com and its personal trainer, Zumba trainer and yoga instructor pages. Nothing had changed
+      since this page first went up on 21 September 2026.
     </p>
 
     <h2>The real fork: where your client has to be</h2>
