@@ -22,8 +22,8 @@ import { SITE } from "../site";
  * own site. When re-verifying, update this date and the individual figures. Omit
  * anything that no longer checks out rather than guessing.
  */
-export const verifiedDate = "2026-10-05";
-export const verifiedHuman = "5 October 2026";
+export const verifiedDate = "2026-10-11";
+export const verifiedHuman = "11 October 2026";
 
 /* ------------------------------------------------------------------ */
 /*  Competitor pricing — the single source of truth                    */
@@ -37,6 +37,7 @@ export const vyapar = {
     'Free for life on mobile, with "essential billing features"; desktop is a free trial',
   androidSilverYearly: 699,
   androidGoldYearly: 799,
+  desktopSilverYearly: 3799,
   /**
    * Full plan table, as read from the live plans endpoint.
    * [plan name, list price string, selling price string]
@@ -96,7 +97,7 @@ export const riffit = {
 export const fitqii = {
   name: "Fitqii",
   url: "https://fitqii.com",
-  /** Source: fitqii.com on 2026-09-21. */
+  /** Source: fitqii.com on 2026-09-21, re-read unchanged on 2026-10-11. */
   freeClients: 25,
   proMonthly: 3749,
   proClients: 100,
