@@ -8,6 +8,7 @@ import {
   vyapar,
   riffit,
   fitqii,
+  bhardo,
   inr,
   verifiedDate,
   verifiedHuman,
@@ -17,11 +18,11 @@ const path = "/compare";
 const crumb = "Compare";
 const title = "Fee collection and invoicing apps for trainers, coaches and tutors in India, compared";
 const description =
-  "Software that runs your classes, or only software that gets you paid? Vyapar, Fitqii, Riffit and Croodit compared, priced from each company's own site.";
+  "Software that runs your classes, or just software that gets you paid? Vyapar, Fitqii, Riffit, Bhar Do and Croodit, priced from each company's own site.";
 
 const publishedISO = "2026-09-24";
-const updatedISO = verifiedDate;
-const updatedHuman = verifiedHuman;
+const updatedISO = bhardo.verified > verifiedDate ? bhardo.verified : verifiedDate;
+const updatedHuman = new Date(updatedISO).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
 
 
 const yearly = SITE.pro.yearly.toLocaleString("en-IN");
@@ -76,6 +77,13 @@ const prices = [
     riffit.usableToday,
   ],
   [
+    bhardo.name,
+    bhardo.freeDescription,
+    `${inr(bhardo.proMonthly)} a month (Pro, ${bhardo.trialDays}-day trial); the first ${bhardo.foundingSeats} "Founding Members" pay ${inr(bhardo.foundingMonthly)} a month or ${inr(bhardo.foundingYearly)} a year, locked`,
+    bhardo.sendsReminder,
+    bhardo.usableToday,
+  ],
+  [
     "Croodit",
     `Free forever up to ${SITE.freeClients} clients, unlimited invoices`,
     `₹${SITE.pro.monthly} a month or ₹${yearly} a year, after a ${SITE.pro.trialDays}-day trial`,
@@ -94,11 +102,11 @@ const prices = [
 const faqs = [
   {
     q: "I have about 20 students paying me monthly and I just want the fees to come in without chasing. Which of these is cheapest?",
-    a: `Two of them cost nothing at 20 students. ${fitqii.name}'s Starter plan is free up to ${fitqii.freeClients} clients, but your students move into the ${fitqii.name} app, and that is where they pay you. ${vyapar.name}'s mobile app is free for life, but it is built around stock, so your batches go in as items, and ${vyapar.name} does not list which features the free plan leaves out. Its cheapest paid plan is ${inr(vyapar.androidSilverYearly)} a year on Android. Croodit is free only up to ${SITE.freeClients} clients, so at 20 you would pay ₹${yearly} a year for Croodit Pro, and ${riffit.name} Pro is ${inr(riffit.proYearly)} billed annually. Decide which one fits the shape of your month first. The price gap between them is smaller than the gap between the products.`,
+    a: `Two of them cost nothing at 20 students. ${fitqii.name}'s Starter plan is free up to ${fitqii.freeClients} clients, but your students move into the ${fitqii.name} app, and that is where they pay you. ${vyapar.name}'s mobile app is free for life, but it is built around stock, so your batches go in as items, and ${vyapar.name} does not list which features the free plan leaves out. Its cheapest paid plan is ${inr(vyapar.androidSilverYearly)} a year on Android. Croodit is free only up to ${SITE.freeClients} clients, so at 20 you would pay ₹${yearly} a year for Croodit Pro, and ${riffit.name} Pro is ${inr(riffit.proYearly)} billed annually. ${bhardo.name}'s free plan stops at ${bhardo.freeClients} clients, and its Pro is ${inr(bhardo.proMonthly)} a month, unless you get one of its first ${bhardo.foundingSeats} founding seats at ${inr(bhardo.foundingYearly)} a year, which is less than Croodit Pro. Decide which one fits the shape of your month first. The price gap between them is smaller than the gap between the products.`,
   },
   {
     q: "Which of these apps sends the payment reminder to my client for me?",
-    a: `${vyapar.name}, ${fitqii.name} and ${riffit.name} all send reminders to your clients themselves. Croodit is the only one here that never does. On day 3, 7 and 10 after an unpaid invoice it notifies you with the message already written, and you press send from your own WhatsApp. That is deliberate. An automated chaser to someone you teach at 6am tomorrow is the message most trainers would never have sent themselves. If you want the reminder fully automated, Croodit is the wrong choice.`,
+    a: `${vyapar.name}, ${fitqii.name} and ${riffit.name} all send reminders to your clients themselves. ${bhardo.name} describes its reminders as "ready-made reminder cards" you forward in one tap, though its plan list calls them "automated payment reminders on WhatsApp", so ask it which one you would be getting. Croodit never messages a client. On day 3, 7 and 10 after an unpaid invoice it notifies you with the message already written, and you press send from your own WhatsApp. That is deliberate. An automated chaser to someone you teach at 6am tomorrow is the message most trainers would never have sent themselves. If you want the reminder fully automated, Croodit is the wrong choice.`,
   },
   {
     q: "Do my clients have to download an app to pay me?",
@@ -112,7 +120,7 @@ const faqs = [
     q: "Can I use Croodit today?",
     a: SITE.appStoreUrl
       ? "Yes — Croodit is on Google Play and the App Store."
-      : `On Android, yes — Croodit is live on Google Play. The iPhone app comes later, so on an iPhone you can join the waitlist but not install it yet; ${vyapar.name}, ${fitqii.name} and ${riffit.name} all work on an iPhone today. If you need to invoice someone from an iPhone this week, the free manual method works: a WhatsApp message with a UPI pay link.`,
+      : `On Android, yes — Croodit is live on Google Play. The iPhone app comes later, so on an iPhone you can join the waitlist but not install it yet; ${vyapar.name}, ${fitqii.name} and ${riffit.name} all work on an iPhone today, and ${bhardo.name} runs inside WhatsApp, so it needs no app at all. If you need to invoice someone from an iPhone this week, the free manual method works: a WhatsApp message with a UPI pay link.`,
   },
 ];
 
@@ -132,6 +140,7 @@ const schema = [
       { "@type": "SoftwareApplication", name: vyapar.name, url: vyapar.url },
       { "@type": "SoftwareApplication", name: fitqii.name, url: fitqii.url },
       { "@type": "SoftwareApplication", name: riffit.name, url: riffit.url },
+      { "@type": "SoftwareApplication", name: bhardo.name, url: bhardo.url },
     ],
     mainEntity: {
       "@type": "ItemList",
@@ -175,7 +184,7 @@ const schema = [
       same fee every month: you only need to get paid.
     </p>
     <p style="font-size:14px;color:var(--t-50)">
-      Last updated {updatedHuman} · Every competitor price re-read from that company's own site on this date
+      Last updated {updatedHuman} · Vyapar, Fitqii and Riffit prices re-read from each company's own site on {verifiedHuman}; Bhar Do's on {bhardo.verifiedHuman}
     </p>
 
     <h2>What does your client do between payments?</h2>
@@ -203,13 +212,15 @@ const schema = [
       The first three rows are tools that do more than collect a fee: they run your stock, your practice or
       your projects, and billing is one feature among many. Croodit sits in the fourth row. It sends the
       invoice, tracks who has paid, counts down class packs and writes the reminder. It has no stock, no
-      workout plans, no booking and no contracts.
+      workout plans, no booking and no contracts. Bhar Do sits there too, and has
+      <a href="#bhar-do">its own section below</a>.
     </p>
 
     <h2>What each one costs, side by side</h2>
     <p>
-      Every competitor figure was read on {updatedHuman} from the company's own site, not from a review
-      aggregator. Each comparison page linked below says where the other product is the better buy.
+      Every competitor figure was read from the company's own site, not from a review aggregator: Bhar Do's
+      on {bhardo.verifiedHuman}, the rest on {verifiedHuman}. Each comparison page linked below says where the
+      other product is the better buy.
     </p>
     <table>
       <thead>
@@ -221,6 +232,30 @@ const schema = [
         ))}
       </tbody>
     </table>
+
+    <h2 id="bhar-do">The one closest to Croodit: Bhar Do</h2>
+    <p>
+      Bhar Do, from 2001 Labs in Mumbai, sits in the same row as Croodit. It is built for the same people
+      (tutors, personal trainers and fitness coaches who bill per session or per month) and works the same
+      way: the invoice goes from your own WhatsApp number, carries your UPI QR, and the money lands in your
+      bank with nothing for the client to install. The difference is where you work. Bhar Do is a WhatsApp
+      chat you type into ("Taught Priya maths, 2 hours"), and it also has a client booking page. Croodit is
+      a phone app built around a roster and class packs that count themselves down.
+    </p>
+    <p>
+      <strong>Where Bhar Do wins.</strong> It works on any phone with WhatsApp today, including an iPhone,
+      while Croodit is on Android only. If you get one of its first {bhardo.foundingSeats} founding seats, a
+      year of Pro is {inr(bhardo.foundingYearly)} against Croodit Pro's ₹{yearly}. If you log one-off
+      sessions rather than a fixed monthly fee, typing a line into a chat is the faster habit.
+    </p>
+    <p>
+      <strong>Where Croodit wins.</strong> Its free plan covers {SITE.freeClients} clients with unlimited
+      invoices, where Bhar Do Starter stops at {bhardo.freeClients} clients and {bhardo.freeInvoicesMonthly}
+      invoices a month. Pro is ₹{SITE.pro.monthly} a month against Bhar Do's {inr(bhardo.proMonthly)} once the
+      founding seats are gone. And on reminders, Croodit's line is fixed: it notifies you on day 3, 7 and 10
+      and never messages a client by itself. Bhar Do's own pages describe its reminders both as cards you
+      forward and as "automated", so ask before you rely on either.
+    </p>
 
     <h2>Five rosters, five honest answers</h2>
     <ul>
