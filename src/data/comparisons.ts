@@ -136,6 +136,33 @@ export const fitqii = {
   ] as const,
 } as const;
 
+/**
+ * Bhar Do (2001 Labs) — the closest competitor: same buyer, same WhatsApp + UPI channel.
+ * No comparison page yet, so it appears on the /compare hub only (no `comparisons` row).
+ * Source: bhardo.com and bhardo.com/founding, read on `verified`. Its own pages describe
+ * reminders two ways — "ready-made reminder cards … forward in one tap" and, in the plan
+ * list, "Automated payment reminders on WhatsApp" — so the site quotes both, not a verdict.
+ */
+export const bhardo = {
+  name: "Bhar Do",
+  url: "https://bhardo.com",
+  verified: "2026-10-12",
+  verifiedHuman: "12 October 2026",
+  freeClients: 3,
+  freeInvoicesMonthly: 5,
+  freeSessionsMonthly: 10,
+  proMonthly: 399,
+  trialDays: 14,
+  /** Founding Member offer, first 50 seats: price locked for life. */
+  foundingMonthly: 199,
+  foundingYearly: 999,
+  foundingSeats: 50,
+  freeDescription: "Starter, free forever: 3 clients, 5 invoices and 10 sessions a month",
+  sendsReminder:
+    'You forward it. Bhar Do prepares "reminder cards" you forward in one tap; its plan list calls them "automated payment reminders"',
+  usableToday: "Yes — it runs inside WhatsApp, so any phone with WhatsApp",
+} as const;
+
 /* ------------------------------------------------------------------ */
 /*  Helpers                                                            */
 /* ------------------------------------------------------------------ */
