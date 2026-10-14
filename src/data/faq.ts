@@ -50,6 +50,10 @@ export const faq = [
     a: "Yes. Tick who showed up after a class and Croodit counts down each client's 12-class pack or monthly validity. It tells you when a pack is about to run out so you can send the renewal invoice before they drop off.",
   },
   {
+    q: "A parent says their child missed 4 tuition classes this month and wants to pay less. I charge a flat monthly fee. How do I handle missed classes without an argument every month?",
+    a: "Decide the rule once, tell every family before the month starts, and apply it to everyone. There are two honest rules. A monthly fee pays for a reserved seat, not for attendance: the batch runs and the seat is held whether or not the child comes, so the fee stays the same, and you can offer a make-up class if you want to. A class pack is paid per class: a 12-class pack with a validity date means missed classes carry over until the date runs out, so the parent who expects to miss a lot pays for what they use. Most tutoring policies online are written for agencies with signed contracts, and you do not have one, so put your rule in the first invoice message instead — one line such as \"Fee is for the month; missed classes are not deducted, make-ups on Saturdays.\" Croodit supports both models: a monthly package, or a class pack it counts down as you tick who showed up after each class. That attendance list is what you show a parent who remembers 4 absences when there were 2. Croodit does not change a fee by itself or message the parent; you decide, and you send.",
+  },
+  {
     q: "Is Croodit available on Android and iPhone?",
     a: "Croodit is live on Android now — download it free from the Google Play Store. The iPhone app comes later; join the iPhone waitlist at croodit.com and you will hear the day it opens.",
   },
