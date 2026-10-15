@@ -11,6 +11,7 @@ import { faq } from "../data/faq";
 import { orgRef } from "../data/schema";
 import { fitqii, riffit } from "../data/comparisons";
 import { answers } from "../data/answers";
+import { professions } from "../data/professions";
 
 const title = "Croodit — WhatsApp invoice app with a UPI pay link (India)";
 const description =
@@ -249,10 +250,10 @@ const schema = [
     <ul class="pills">{audiences.map(([label, cls]) => <li class={cls}>{label}</li>)}</ul>
     <p class="lede" style="max-width:640px;font-size:16px">
       Your month has its own shape. See it spelled out for
-      <a href="/for/zumba-trainers" style="font-weight:600">Zumba trainers</a>,
-      <a href="/for/yoga-teachers" style="font-weight:600">yoga teachers</a> and
-      <a href="/for/tutors" style="font-weight:600">tutors</a> — or
-      <a href="/for" style="font-weight:600">everyone Croodit is built for</a>.
+      {professions.map((p, i) => (
+        <span>{i > 0 ? " · " : ""}<a href={`/for/${p.slug}`} style="font-weight:600">{p.label}</a></span>
+      ))}
+      — or <a href="/for" style="font-weight:600">everyone Croodit is built for</a>.
     </p>
     <div class="feats">
       <article class="feat">
