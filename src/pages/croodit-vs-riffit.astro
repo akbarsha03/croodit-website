@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import Mark from "../components/Mark.astro";
+import MoreComparisons from "../components/MoreComparisons.astro";
 import { SITE, playLink, iphoneHref, iphoneLabel } from "../site";
 import { breadcrumb, orgRef } from "../data/schema";
 import { riffit } from "../data/comparisons";
@@ -339,6 +340,8 @@ const schema = [
       Riffit is a trademark of its owner and is not affiliated with Croodit. Everything above was taken from
       Riffit's public site on {updatedHuman} and may have changed since.
     </p>
+
+    <MoreComparisons current="croodit-vs-riffit" />
   </article>
 
   <section class="wrap final">

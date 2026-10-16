@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import Mark from "../components/Mark.astro";
+import MoreComparisons from "../components/MoreComparisons.astro";
 import { SITE, playLink, iphoneHref, iphoneLabel } from "../site";
 import { breadcrumb, orgRef } from "../data/schema";
 import { fitqii, inr, verifiedHuman } from "../data/comparisons";
@@ -363,6 +364,8 @@ const schema = [
       Fitqii is a trademark of its owner and is not affiliated with Croodit. Everything above was taken from
       Fitqii's public site on {updatedHuman} and may have changed since — check fitqii.com before you pay.
     </p>
+
+    <MoreComparisons current="croodit-vs-fitqii" />
   </article>
 
   <section class="wrap final">

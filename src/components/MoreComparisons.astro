@@ -1,0 +1,16 @@
+---
+import { comparisons } from "../data/comparisons";
+
+const { current } = Astro.props as { current: string };
+const others = comparisons.filter((c) => c.slug !== current);
+---
+<h2>More comparisons</h2>
+<ul>
+  {others.map((c) => (
+    <li><a href={c.href}>{c.name}</a> — {c.blurb}</li>
+  ))}
+</ul>
+<p>
+  Or start from <a href="/compare">every fee collection and invoicing app for trainers, coaches and tutors,
+  compared</a>, which adds Bhar Do and the WhatsApp-plus-UPI-QR default.
+</p>
