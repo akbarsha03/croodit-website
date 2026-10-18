@@ -95,7 +95,7 @@ const schema = [
           <svg width="18" height="18" viewBox="0 0 24 24" fill="#D9FF4A" aria-hidden="true"><path d={playSvg} /></svg>
           Get it on Google Play
         </a>
-        <p class="hero__fine">Free forever for up to {SITE.freeClients} clients.<br />No card. No GST needed.<br />On Android now. iPhone is coming later.</p>
+        <p class="hero__fine">Free forever for up to {SITE.freeClients} clients.<br />No card. No GST needed.<br />On Android now. {SITE.appStoreUrl ? <a href={iphoneHref}>{iphoneLabel}</a> : <>On an iPhone? <a href={iphoneHref}>Join the waitlist</a>.</>}</p>
       </div>
       <ul class="hero__proof">
         <li><span class="tick">✓</span>Works with the WhatsApp you already use</li>
