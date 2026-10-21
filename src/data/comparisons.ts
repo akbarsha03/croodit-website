@@ -59,10 +59,13 @@ export const riffit = {
   name: "Riffit",
   url: "https://riffit.in",
   /**
-   * Source: riffit.in/pricing on 2026-10-05.
+   * Source: riffit.in/pricing on 2026-10-05, re-read unchanged on `verified`.
    * Monthly price is now ₹249. The annual rate is ₹199/mo billed yearly (₹2,388/year).
    * The blog and the pricing page now agree at ₹249/month.
+   * Riffit has its own date because it was re-read later than the shared `verifiedDate`.
    */
+  verified: "2026-10-21",
+  verifiedHuman: "21 October 2026",
   freeDescription: "Free forever, 5 invoices a month and 5 active clients",
   proMonthly: 249,
   proYearly: 2388,
@@ -71,7 +74,7 @@ export const riffit = {
   sendsReminder:
     "Riffit sends — email on the free plan, WhatsApp on Pro",
   usableToday: "Yes — a web app",
-  /** Riffit Free tier features, read from riffit.in/pricing on 2026-10-05. */
+  /** Riffit Free tier features, read from riffit.in/pricing on 2026-10-05 and 2026-10-21. */
   freeFeatures: [
     "5 invoices a month (drafts count)",
     "5 active clients in total",
@@ -81,8 +84,9 @@ export const riffit = {
     "Unlimited quotations, client accepts online",
     "3 contracts lifetime, with e-signature and an audit trail",
     "Email delivery and email reminder on the due date only",
+    "A reminder you send yourself, by email, once a day per document",
   ] as const,
-  /** Riffit Pro tier features, read from riffit.in/pricing on 2026-10-05. */
+  /** Riffit Pro tier features, read from riffit.in/pricing on 2026-10-05 and 2026-10-21. */
   proFeatures: [
     "Unlimited invoices, clients, contracts and saved services",
     "AI natural-language invoicing — describe the job in a sentence or a voice note (10 a day)",
@@ -90,6 +94,7 @@ export const riffit = {
     "Six PDF designs (Classic, Minimal, Poster, Bracket, Ink, Headline)",
     "WhatsApp delivery of invoices, quotes and contracts",
     "Full reminder schedule — before, on and after the due date, email and WhatsApp",
+    "A reminder you send yourself, by email or WhatsApp, once a day per document",
     "Unlimited quotations with AI creation in WhatsApp",
   ] as const,
 } as const;

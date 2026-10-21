@@ -13,8 +13,8 @@ const description =
   "Riffit and Croodit both send an invoice with a UPI link on WhatsApp. Riffit's 2026 prices, what it does that Croodit doesn't, and who each one fits.";
 
 const publishedISO = "2026-09-15";
-const updatedISO = "2026-10-05";
-const updatedHuman = "5 October 2026";
+const updatedISO = riffit.verified;
+const updatedHuman = riffit.verifiedHuman;
 
 
 const yearly = SITE.pro.yearly.toLocaleString("en-IN");
@@ -56,7 +56,7 @@ const rows = [
   ],
   [
     "Reminders to clients",
-    "Sent by Riffit. Email on the due date on the free plan; WhatsApp reminders and automatic payment triggers on Pro.",
+    "Sent by Riffit. Email on the due date on the free plan; on Pro, a schedule before, on and after the due date, by email and WhatsApp. Both plans also let you send one yourself, once a day per document.",
     `Croodit never messages a client by itself. On day 3, 7 and 10 it notifies you with the reminder already written; you read it, edit it, press send.`,
   ],
   [
@@ -96,7 +96,7 @@ const faqs = [
   },
   {
     q: "Riffit sends the payment reminder for me. Croodit makes me press send myself. Isn't that worse?",
-    a: "It is slower, and for some people it is genuinely worse — if you are billing a client you have never met for a one-off project, an automatic reminder on the due date is exactly right, and Riffit's automatic payment triggers do that well. The case for pressing send yourself is about who is on the other end. You see your students on Monday morning. A system-generated reminder to someone who is in your 7am class reads as a collections notice from a stranger. Croodit writes the message and hands it to you so the words are still yours. It is a deliberate constraint, not a missing feature, and if you would rather it were automatic then Riffit is the better fit for you.",
+    a: "It is slower, and for some people it is genuinely worse — if you are billing a client you have never met for a one-off project, an automatic reminder on the due date is exactly right, and Riffit Pro's schedule (before, on and after the due date, by email and WhatsApp) does that well. Riffit also has a button to send a reminder yourself, so the real difference is the default: Riffit chases unless you stop it, and Croodit sends nothing unless you do. The case for pressing send yourself is about who is on the other end. You see your students on Monday morning. A system-generated reminder to someone who is in your 7am class reads as a collections notice from a stranger. Croodit writes the message and hands it to you so the words are still yours. It is a deliberate constraint, not a missing feature, and if you would rather it were automatic then Riffit is the better fit for you.",
   },
   {
     q: "I'm a photographer taking an advance and a balance for each shoot. Which one is that?",
@@ -226,10 +226,18 @@ const schema = [
       Pick on whether you bill projects or a roster; the price follows from that.
     </p>
     <p style="font-size:14px;color:var(--t-50)">
-      Correction, {updatedHuman}: On 15 September 2026, Riffit's pricing page said ₹199 a month while
+      Correction, 5 October 2026: On 15 September 2026, Riffit's pricing page said ₹199 a month while
       its blog said ₹249. This page used the pricing-page figure and flagged the disagreement. As of today
       riffit.in/pricing says ₹249 a month (or ₹{riffitAnnualMonthly}/mo billed yearly), so the two surfaces now agree,
       and the monthly price is no longer identical to Croodit's.
+    </p>
+    <p style="font-size:14px;color:var(--t-50)">
+      Re-checked {updatedHuman}: both plans, both prices, the 14-day Pro trial and every free-plan limit were read
+      again from riffit.in and riffit.in/pricing, and none had changed since 5 October 2026. One claim on this
+      page was wrong and is corrected. It said Riffit Pro had "automatic payment triggers". Riffit's pricing page
+      lists automatic payment tracking as planned and "coming soon": your client pays your own UPI ID, Riffit
+      never sees the payment, and you mark the invoice paid yourself when the money lands. The re-read also
+      added a line to each plan above: a reminder you send yourself, once a day per document.
     </p>
 
     <h2>The free plans are shaped differently, and that is the real fork</h2>
@@ -265,7 +273,7 @@ const schema = [
       <li><strong>You are on an iPhone and need to invoice someone this week.</strong> Riffit works in any browser; Croodit's iPhone app is not out yet. Nothing else on this page outranks that.</li>
       <li><strong>Every job is a different job.</strong> A branding project, a shoot, a campaign — different scope and a different number each time. Describing it in a sentence beats maintaining a package list you never reuse.</li>
       <li><strong>You need quotations or signed contracts.</strong> Quote, e-signature, audit trail, convert to invoice. Croodit does none of this.</li>
-      <li><strong>You want the chasing to be automatic.</strong> Riffit's WhatsApp reminders and automatic payment triggers send on their own. Croodit deliberately will not.</li>
+      <li><strong>You want the chasing to be automatic.</strong> Riffit Pro's reminders go out on their own, by email and WhatsApp, before, on and after the due date. Croodit deliberately will not.</li>
       <li><strong>You bill from a laptop.</strong> Riffit is a web dashboard. Croodit is a phone app, Android only for now.</li>
     </ul>
 
