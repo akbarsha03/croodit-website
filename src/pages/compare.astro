@@ -21,7 +21,7 @@ const description =
   "Software that runs your classes, or just software that gets you paid? Vyapar, Fitqii, Riffit, Bhar Do and Croodit, priced from each company's own site.";
 
 const publishedISO = "2026-09-24";
-const updatedISO = bhardo.verified > verifiedDate ? bhardo.verified : verifiedDate;
+const updatedISO = [verifiedDate, bhardo.verified, riffit.verified].sort().at(-1)!;
 const updatedHuman = new Date(updatedISO).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
 
 
@@ -184,7 +184,7 @@ const schema = [
       same fee every month: you only need to get paid.
     </p>
     <p style="font-size:14px;color:var(--t-50)">
-      Last updated {updatedHuman} · Vyapar, Fitqii and Riffit prices re-read from each company's own site on {verifiedHuman}; Bhar Do's on {bhardo.verifiedHuman}
+      Last updated {updatedHuman} · Vyapar and Fitqii prices re-read from each company's own site on {verifiedHuman}; Bhar Do's on {bhardo.verifiedHuman}; Riffit's on {riffit.verifiedHuman}
     </p>
 
     <h2>What does your client do between payments?</h2>
@@ -219,7 +219,7 @@ const schema = [
     <h2>What each one costs, side by side</h2>
     <p>
       Every competitor figure was read from the company's own site, not from a review aggregator: Bhar Do's
-      on {bhardo.verifiedHuman}, the rest on {verifiedHuman}. Each comparison page linked below says where the
+      on {bhardo.verifiedHuman}, Riffit's on {riffit.verifiedHuman}, the rest on {verifiedHuman}. Each comparison page linked below says where the
       other product is the better buy.
     </p>
     <table>
