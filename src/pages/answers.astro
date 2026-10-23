@@ -3,6 +3,7 @@ import Base from "../layouts/Base.astro";
 import Mark from "../components/Mark.astro";
 import { SITE, playLink, iphoneHref, iphoneLabel } from "../site";
 import { breadcrumb, orgRef } from "../data/schema";
+import { answers as answerIndex } from "../data/answers";
 
 const path = "/answers";
 const crumb = "Answers";
@@ -110,32 +111,13 @@ const schema = [
     mainEntity: {
       "@type": "ItemList",
       name: "Croodit answers — getting paid in India",
-      itemListElement: [
-        ...answers.map((a, i) => ({
-          "@type": "ListItem",
-          position: i + 1,
-          name: a.headline,
-          url: `${SITE.url}/answers/${a.slug}`,
-        })),
-        {
-          "@type": "ListItem",
-          position: answers.length + 1,
-          name: "How do I tell my students I'm raising the fees?",
-          url: `${SITE.url}/answers/${RAISE_SLUG}`,
-        },
-        {
-          "@type": "ListItem",
-          position: answers.length + 2,
-          name: "Do I need WhatsApp Business or the WhatsApp Business API to send invoices?",
-          url: `${SITE.url}/answers/${WAB_SLUG}`,
-        },
-        {
-          "@type": "ListItem",
-          position: answers.length + 3,
-          name: "How to track who paid me on UPI when everyone pays the same amount",
-          url: `${SITE.url}/answers/${TRACK_SLUG}`,
-        },
-      ],
+      // Generated from the cluster index, so a new answer page is listed the day it has an answers.ts row.
+      itemListElement: answerIndex.map((a, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: a.question,
+        url: `${SITE.url}/answers/${a.slug}`,
+      })),
     },
   },
   {
