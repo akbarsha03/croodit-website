@@ -8,13 +8,13 @@ import { fitqii } from "../../data/comparisons";
 
 const path = "/for/zumba-trainers";
 const crumb = "Zumba trainers";
-const title = "Fee collection app for Zumba trainers in India — invoice a batch on WhatsApp";
+const title = "Invoice app for Zumba trainers in India — class-pack fees on WhatsApp";
 const description =
   "Collect class-pack fees from two Zumba batches without chasing 24 people. WhatsApp invoices with a UPI pay link, pack countdowns, reminders you send.";
 
 const publishedISO = "2026-09-11";
-const updatedISO = "2026-10-06";
-const updatedHuman = "6 October 2026";
+const updatedISO = "2026-10-28";
+const updatedHuman = "28 October 2026";
 
 const others = professions.filter((p) => p.slug !== "zumba-trainers");
 
@@ -50,6 +50,10 @@ const month = [
 ];
 
 const faqs = [
+  {
+    q: "Is there an invoice app made for Zumba trainers in India, or do I have to use a GST billing app like Vyapar?",
+    a: `There is one: Croodit is built for trainers who sell class packs and get paid over UPI. Most results for this search are general GST billing apps such as Vyapar, myBillBook and Zoho Invoice, or US studio-management software. They work, but they model stock or a staff timetable, not a 12-class pack that 24 people each pay into your own UPI ID. Croodit saves your packs once, sends each invoice through your own WhatsApp with a UPI pay link, counts the pack down as you mark attendance, and drafts the reminder for you to send. It is free for up to ${SITE.freeClients} clients, and Croodit Pro is ₹${SITE.pro.monthly} a month for unlimited clients. It is on Android now; the iPhone app comes later.`,
+  },
   {
     q: "I run two Zumba batches and about 24 people pay me monthly — how do I stop chasing them one by one?",
     a: "Send a real invoice on day one instead of a number in the chat, then let a status list do the remembering. In Croodit your packs are saved once, so each invoice is pick-the-client, tap 12-class pack, press send in WhatsApp — about 30 seconds each rather than an hour of copy-paste. After that every client shows as paid, pending or overdue, so you stop holding ten names in your head. On day 3, 7 and 10 Croodit notifies you with the reminder already written; you read it and press send. It never messages anyone on its own.",
@@ -121,12 +125,11 @@ const schema = [
       <span aria-hidden="true">&rsaquo;</span>
       <span>{crumb}</span>
     </nav>
-    <h1>Fee collection app for Zumba trainers in India</h1>
+    <h1>Invoice app for Zumba trainers in India</h1>
     <p class="lede">
-      Croodit lets a Zumba trainer invoice a whole batch on WhatsApp instead of chasing it. Save your
-      12-class and 8-class packs once, pick a client, and WhatsApp opens with the invoice and a UPI pay
-      link ready in about 30 seconds. It then counts each pack down, marks who is pending, and writes the
-      reminder for you to press send.
+      Croodit is an invoice app built for Zumba trainers in India. Save your 12-class and 8-class packs
+      once, pick a client, and WhatsApp opens with the invoice and a UPI pay link in about 30 seconds. It
+      then counts each pack down, shows who is still pending, and writes the reminder. You press send.
     </p>
     <p style="font-size:14px;color:var(--t-50)">
       Last updated {updatedHuman} · Free forever for up to {SITE.freeClients} clients
