@@ -8,7 +8,7 @@ export const professions = [
     slug: "zumba-trainers",
     emoji: "💃",
     label: "Zumba trainers",
-    headline: "Fee collection app for Zumba trainers in India",
+    headline: "Invoice app for Zumba trainers in India",
     blurb:
       "Two batches, 24 people, one ₹2,000 monthly pack each, and a ledger that lives in your head. Class-pack countdown, per-batch rosters and a reminder you press send on.",
   },
