@@ -16,7 +16,7 @@ export const professions = [
     slug: "yoga-teachers",
     emoji: "🧘",
     label: "Yoga teachers",
-    headline: "Invoice and fee tracking app for yoga teachers in India",
+    headline: "Billing app for yoga teachers in India",
     blurb:
       "Home visits, a studio group and a corporate booking all pay differently for the same hour. Per-client rates, GST only on the invoices that need it, UPI on the ones that don't.",
   },

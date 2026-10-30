@@ -8,13 +8,13 @@ import { fitqii } from "../../data/comparisons";
 
 const path = "/for/yoga-teachers";
 const crumb = "Yoga teachers";
-const title = "Invoice and fee tracking app for yoga teachers in India — WhatsApp and UPI";
+const title = "Billing app for yoga teachers in India — per-client rates, WhatsApp and UPI";
 const description =
-  "Home visits, studio groups, corporate work: three rates for one hour. Croodit remembers each client's rate, invoices on WhatsApp, adds GST only if due.";
+  "A billing app for yoga teachers in India: one rate per student for home, studio and corporate classes, invoices on WhatsApp with UPI, GST only if due.";
 
 const publishedISO = "2026-09-11";
-const updatedISO = "2026-10-06";
-const updatedHuman = "6 October 2026";
+const updatedISO = "2026-10-30";
+const updatedHuman = "30 October 2026";
 
 const others = professions.filter((p) => p.slug !== "yoga-teachers");
 
@@ -53,6 +53,10 @@ const streams = [
 
 const faqs = [
   {
+    q: "Is there a billing app made for yoga teachers in India, or do I have to use studio software like Momoyoga or a GST billing app?",
+    a: `There is one: Croodit is built for solo yoga teachers who are paid over UPI. Most results for this search are studio-management software such as Momoyoga, where students book and pay inside the studio's app, or general invoicing and GST billing tools that expect one price per item. Neither fits a teacher whose same hour costs ₹1,200 at a student's home, ₹2,400 a month in a studio group and ₹6,000 to a company. Croodit keeps a rate on each client, sends each invoice through your own WhatsApp with a UPI pay link to your own UPI ID, adds GST only where you switch it on, and drafts the reminder for you to send. It is free for up to ${SITE.freeClients} clients, and Croodit Pro is ₹${SITE.pro.monthly} a month for unlimited clients. It is on Android now; the iPhone app comes later.`,
+  },
+  {
     q: "I teach yoga at a studio, at three clients' homes and one corporate batch — how do I keep the fees straight without a spreadsheet?",
     a: "Save a rate per client rather than one price for yourself. In Croodit each client carries their own package, so a home student's 8-session pack, a studio group's monthly fee and a corporate booking's per-session rate all live on the client instead of in your memory. Invoicing then never involves recalling what you quoted someone in March: you pick the client, tap what they bought, and WhatsApp opens with the message and a UPI pay link ready. The tracking screen shows paid, pending and overdue across all four streams at once.",
   },
@@ -74,7 +78,7 @@ const faqs = [
   },
   {
     q: "I'm a solo teacher with about six regular students — is this going to cost me anything?",
-    a: "No. Free forever for up to seven clients covers you outright: unlimited invoices, unlimited reminders to them, no card. The paid tier exists for the eighth client, not for the eighth invoice. If you do cross over, Croodit Pro is ₹199 a month or ₹1,599 a year after a 14-day free trial — roughly one home session a year.",
+    a: `No. Free forever for up to ${SITE.freeClients} clients covers you outright: unlimited invoices, unlimited reminders to them, no card. The paid tier exists for the client after that, not for the next invoice. If you do cross over, Croodit Pro is ₹${SITE.pro.monthly} a month or ₹${SITE.pro.yearly.toLocaleString("en-IN")} a year after a ${SITE.pro.trialDays}-day free trial.`,
   },
 ];
 
@@ -123,12 +127,12 @@ const schema = [
       <span aria-hidden="true">&rsaquo;</span>
       <span>{crumb}</span>
     </nav>
-    <h1>Fee tracking and invoicing for yoga teachers in India</h1>
+    <h1>Billing app for yoga teachers in India</h1>
     <p class="lede">
-      Croodit saves a different rate for every yoga student — a home one-to-one, a studio group, a
-      corporate batch — and sends each invoice on WhatsApp with a UPI pay link in about 30 seconds. GST
-      goes on only the invoices that need it. It tracks paid, pending and overdue, and writes the reminder
-      for you to press send.
+      Croodit is a billing app built for yoga teachers in India. It saves a different rate for each
+      student — home one-to-one, studio group, corporate batch — and sends each invoice through your
+      WhatsApp with a UPI pay link in about 30 seconds. GST goes only on invoices that need it. It tracks
+      who has paid and writes the reminder. You press send.
     </p>
     <p style="font-size:14px;color:var(--t-50)">
       Last updated {updatedHuman} · Free forever for up to {SITE.freeClients} clients
