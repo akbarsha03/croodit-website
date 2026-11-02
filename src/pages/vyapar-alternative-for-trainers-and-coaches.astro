@@ -4,17 +4,17 @@ import Mark from "../components/Mark.astro";
 import MoreComparisons from "../components/MoreComparisons.astro";
 import { SITE, playLink, iphoneHref, iphoneLabel } from "../site";
 import { breadcrumb, orgRef } from "../data/schema";
-import { vyapar, verifiedHuman } from "../data/comparisons";
+import { vyapar } from "../data/comparisons";
 
 const path = "/vyapar-alternative-for-trainers-and-coaches";
 const crumb = "Vyapar alternative for trainers and coaches";
 const title = "Vyapar alternative for trainers and coaches in India";
 const description =
-  "An honest Vyapar vs Croodit comparison for trainers, coaches and tutors: Vyapar's 2026 prices, where it genuinely wins, and where a class-pack app fits.";
+  "The Vyapar alternative for trainers and coaches in India counts class packs, not stock. Vyapar's live prices, where it wins, and who should stay with it.";
 
 const publishedISO = "2026-09-09";
-const updatedISO = "2026-09-28";
-const updatedHuman = "28 September 2026";
+const updatedISO = "2026-11-02";
+const updatedHuman = "2 November 2026";
 
 
 const yearly = SITE.pro.yearly.toLocaleString("en-IN");
@@ -66,12 +66,16 @@ const rows = [
 
 const faqs = [
   {
+    q: "I'm a fitness coach in India and everyone tells me to use Vyapar. Is there an alternative made for trainers and coaches, not shops?",
+    a: `Yes. Vyapar is built for businesses that sell stock, so a trainer ends up entering batches as items. Croodit is built for the roster instead: save your packages once, send the invoice on WhatsApp with a UPI pay link, see who has paid, and count down class packs. It is free forever for up to ${SITE.freeClients} clients, then ₹${SITE.pro.monthly} a month or ₹${yearly} a year. Vyapar's paid Android plans cost less, so if price is all you care about, stay with Vyapar.`,
+  },
+  {
     q: "I'm a Zumba trainer with about 20 students paying monthly. Is Vyapar overkill for me?",
     a: "Probably, but not because it is a bad product. Vyapar is built around items and stock — you create products, track quantities, and bill them with GST. A trainer has no stock. What you actually track is who is on a ten-class pack, how many sessions they have left, and who has not paid for September. That model is not what Vyapar's data structure is shaped around, so you end up entering your batches as inventory items and ignoring most of the app.",
   },
   {
     q: "Is Croodit cheaper than Vyapar?",
-    a: `No, and it would be dishonest to pretend otherwise. Vyapar says its mobile app is free for life, with "essential billing features", and its paid Android plans were ₹${vyapar.androidSilverYearly.toLocaleString("en-IN")} (Silver) and ₹${vyapar.androidGoldYearly.toLocaleString("en-IN")} (Gold) a year on ${updatedHuman}. Croodit Pro is ₹${yearly} a year. Croodit is also free forever, but only for up to ${SITE.freeClients} clients, so a coach with a small roster pays nothing for either. If you have 30 clients and price is the only thing you care about, Vyapar costs less.`,
+    a: `No, and it would be dishonest to pretend otherwise. Vyapar says its mobile app is free for life, with "essential billing features", and its paid Android plans were ₹${vyapar.androidSilverYearly.toLocaleString("en-IN")} (Silver) and ₹${vyapar.androidGoldYearly.toLocaleString("en-IN")} (Gold) a year on ${vyapar.verifiedHuman}. Croodit Pro is ₹${yearly} a year. Croodit is also free forever, but only for up to ${SITE.freeClients} clients, so a coach with a small roster pays nothing for either. If you have 30 clients and price is the only thing you care about, Vyapar costs less.`,
   },
   {
     q: "Vyapar already sends WhatsApp payment reminders. Why would I want an app that makes me press send myself?",
@@ -79,7 +83,7 @@ const faqs = [
   },
   {
     q: "Is Vyapar free?",
-    a: `On mobile, yes. Vyapar's own FAQ now says the app "is free to use on mobile lifetime and on system offers a free trial", and its homepage advertises a "Lifetime Free Plan" with "essential billing features at no cost". The desktop app is a free trial. Vyapar does not list on its site which features the free mobile plan leaves out, so check that in the app before you rely on it. Paid Android plans started at ₹${vyapar.androidSilverYearly.toLocaleString("en-IN")} a year when we checked on ${updatedHuman}, and desktop plans at ₹${vyapar.desktopSilverYearly.toLocaleString("en-IN")}. Check vyaparapp.in for today's numbers before you buy; Indian billing software discounts move often.`,
+    a: `On mobile, yes. Vyapar's own FAQ says: "${vyapar.freeQuote}" Its homepage advertises a "Lifetime Free Plan" with "essential billing features at no cost". The desktop app is a free trial. Vyapar does not list on its site which features the free mobile plan leaves out, so check that in the app before you rely on it. Paid Android plans started at ₹${vyapar.androidSilverYearly.toLocaleString("en-IN")} a year when we checked on ${vyapar.verifiedHuman}, and desktop plans at ₹${vyapar.desktopSilverYearly.toLocaleString("en-IN")}. Check vyaparapp.in for today's numbers before you buy; Indian billing software discounts move often.`,
   },
   {
     q: "I need GST invoices and my CA wants proper reports. Can Croodit do that or should I stay with Vyapar?",
@@ -137,14 +141,19 @@ const schema = [
     </nav>
     <h1>Vyapar alternative for trainers and coaches</h1>
     <p class="lede">
-      Vyapar is GST billing and inventory software for businesses that sell goods. If you teach classes, the
-      part that does not fit is stock — you track class packs and attendance, not quantities. Croodit is the
-      alternative built for that: invoice on WhatsApp, get paid by Unified Payments Interface (UPI), track who
-      still owes you.
+      A Vyapar alternative for trainers and coaches in India should count clients and class packs, not stock.
+      Croodit does that: it sends the invoice on WhatsApp with a Unified Payments Interface (UPI) pay link,
+      tracks who has paid, and writes the reminder for you to send. It is free for up to {SITE.freeClients}{" "}
+      clients. Vyapar's paid plans cost less.
     </p>
     <p style="font-size:14px;color:var(--t-50)">
       Last updated {updatedHuman} · All Vyapar figures below were read from vyaparapp.in and Vyapar's own
-      live plans endpoint on that date
+      live plans endpoint on {vyapar.verifiedHuman}
+    </p>
+    <p style="font-size:14px;color:var(--t-50)">
+      <strong>Re-checked 2 November 2026:</strong> all seven paid prices in the table below are unchanged
+      since 11 October 2026. Vyapar's FAQ now words its free plan as "a lifetime free plan with basic
+      features" for mobile and "a free trial version" for desktop. The quotes on this page use that wording.
     </p>
     <p style="font-size:14px;color:var(--t-50)">
       <strong>Correction, 28 September 2026:</strong> earlier versions of this page said Vyapar's free access
@@ -168,10 +177,10 @@ const schema = [
 
     <h2>What Vyapar costs</h2>
     <p>
-      Vyapar's own FAQ answers the free question this way: the app "is free to use on mobile lifetime and on
-      system offers a free trial". So the mobile app has a free plan with no end date, which Vyapar describes as
+      Vyapar's own FAQ answers the free question this way: "{vyapar.freeQuote}" So the mobile app has a free
+      plan with no end date, which Vyapar describes as
       "essential billing features at no cost", and the desktop app is a trial. These were the live paid prices
-      on {updatedHuman}:
+      on {vyapar.verifiedHuman}:
     </p>
     <table>
       <thead>
@@ -267,7 +276,7 @@ const schema = [
 
     <p style="font-size:14px;color:var(--t-50)">
       Vyapar is a trademark of its owner and is not affiliated with Croodit. Everything above was taken from
-      Vyapar's public site on {updatedHuman} and may have changed since.
+      Vyapar's public site on {vyapar.verifiedHuman} and may have changed since.
     </p>
 
     <MoreComparisons current="vyapar-alternative-for-trainers-and-coaches" />

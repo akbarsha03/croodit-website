@@ -32,7 +32,16 @@ export const verifiedHuman = "11 October 2026";
 export const vyapar = {
   name: "Vyapar",
   url: "https://vyaparapp.in",
-  /** Source: vyaparapp.in/pricing and the live plans endpoint (api1.vyaparapp.in). */
+  /**
+   * Source: vyaparapp.in, its FAQ, and the live plans endpoint (api1.vyaparapp.in/api/ns/tp/plans,
+   * devicePlatform=ANDROID). Re-read on `verified`: all seven plans below unchanged since 2026-10-11.
+   * Vyapar has its own date because it was re-read later than the shared `verifiedDate`.
+   */
+  verified: "2026-11-02",
+  verifiedHuman: "2 November 2026",
+  /** Vyapar's homepage FAQ answer to "Is Vyapar a free billing software?", verbatim on `verified`. */
+  freeQuote:
+    "Yes, Vyapar is a free billing software for mobile users, which offers a lifetime free plan with basic features. It also offers a free trial version for desktop users.",
   freeDescription:
     'Free for life on mobile, with "essential billing features"; desktop is a free trial',
   androidSilverYearly: 699,
