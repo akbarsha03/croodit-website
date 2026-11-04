@@ -1,0 +1,274 @@
+---
+import Base from "../../layouts/Base.astro";
+import Mark from "../../components/Mark.astro";
+import { SITE, playLink, iphoneHref, iphoneLabel } from "../../site";
+import { breadcrumb, orgRef } from "../../data/schema";
+import { professions } from "../../data/professions";
+import { fitqii } from "../../data/comparisons";
+
+const path = "/for/personal-trainers";
+const crumb = "Personal trainers";
+const title = "Fee collection app for personal trainers in India — session packs on WhatsApp";
+const description =
+  "Collect personal training fees without chasing clients. Session-pack invoices on WhatsApp with a UPI pay link, sessions counted down, reminders you send.";
+
+const publishedISO = "2026-11-04";
+const updatedISO = "2026-11-04";
+const updatedHuman = "4 November 2026";
+
+const others = professions.filter((p) => p.slug !== "personal-trainers");
+
+const packages = [
+  ["12-session monthly pack", "₹12,000", "Three mornings a week for a month. The default for a client who trains with you on the gym floor."],
+  ["24-session pack", "₹21,600", "Two months paid up front at a lower per-session rate. The client who has already decided."],
+  ["Single session", "₹1,200", "A trial, a one-off before a trip, or the client who will not commit to a pack yet."],
+  ["Home session", "₹1,500", "Training at the client's building, with your travel priced in rather than absorbed."],
+  ["Couple session", "₹1,800", "Two people, one hour, one payer. One invoice, two attendance ticks."],
+  ["Online coaching, monthly", "₹3,000", "A plan, weekly check-ins on WhatsApp, no sessions to count. Billed on the date it started."],
+];
+
+const sessions = [
+  [
+    "The client pays for 12 and you are on session 9",
+    "They think they have five left. You think three. Without a count you both trust, the renewal conversation starts with an argument about arithmetic.",
+  ],
+  [
+    "A 6am cancellation at 5:40am",
+    "Your hour is gone either way. Whether it counts as a session is your rule to set — but it has to be written down before it happens, not invented on the morning.",
+  ],
+  [
+    "The pack ran out last Tuesday",
+    "They have trained twice since. Nobody raised it, so now you are asking for money for sessions already given, which feels like a bill rather than a renewal.",
+  ],
+  [
+    "Three weeks away for a wedding",
+    "The client asks you to hold the remaining sessions. Fair — but agree the new end date in the chat and put it on the next invoice, or it becomes a dispute in March.",
+  ],
+];
+
+const faqs = [
+  {
+    q: "Is there an app for personal trainers in India to collect fees from clients, or do I have to use gym management software?",
+    a: `There is one: Croodit is built for trainers paid personally by each client over UPI. Most results for this search are gym management software, made for an owner with members, staff and a front desk, or global personal-training apps priced in dollars. Croodit saves your session packs once, sends each invoice through your own WhatsApp with a UPI pay link, counts sessions down as you mark attendance, and drafts the reminder for you to send. It is free for up to ${SITE.freeClients} clients, and Croodit Pro is ₹${SITE.pro.monthly} a month for unlimited clients. It is on Android now; the iPhone app comes later.`,
+  },
+  {
+    q: "I train 10 clients on 12-session packs and every one of them renews on a different date — how do I keep track of who owes me?",
+    a: "Invoice the pack when it starts, and let the session count tell you when the next one is due. In Croodit each client's pack counts down as you tick attendance after a session, and you get a renewal prompt before it reaches zero, so the renewal is raised while they still have sessions left rather than after they ran out. Every invoice then shows as paid, pending or overdue on one screen. On day 3, 7 and 10 after an unpaid invoice Croodit notifies you with the reminder written; you read it and press send. It never messages a client on its own.",
+  },
+  {
+    q: "A client cancels 20 minutes before a 6am session — should that count as one of their sessions?",
+    a: "That is your rule, and the only fair version is one the client heard before it happened. Most trainers count a cancellation inside a set window — commonly 12 or 24 hours — as a session used, and waive the first one. Put the rule in the message you send with the first invoice, in one line, so it is on record in the chat. Then when it happens you mark the session as attended in Croodit and the pack counts it; there is no second conversation to have.",
+  },
+  {
+    q: "I train clients at a commercial gym — do I invoice them, or does the gym?",
+    a: "It depends on who collects. If the gym bills the member for personal training and pays you a share, the gym is your client and you invoice the gym, not the member — that is a monthly payout, not a roster, and Croodit adds little. If you are a freelance trainer who pays the gym a floor fee or simply trains clients who are already members, and the client pays you directly, then each client is yours to invoice and Croodit fits exactly. Check your gym's rules before collecting directly on its floor.",
+  },
+  {
+    q: "My clients pay ₹12,000 a month — shouldn't I be using a payment gateway rather than a UPI link?",
+    a: "Not for that. A UPI transfer of ₹12,000 from a client's own bank app is normal, and a gateway would take a cut of every renewal and settle the money to you a day or more later. Croodit is not a payment gateway: it puts a standard UPI pay link, your UPI QR and your UPI ID on the invoice, the client pays from Google Pay, PhonePe, Paytm, BHIM or their bank app, and the money goes straight to your own UPI ID. Croodit holds nothing and takes no cut. You confirm it landed and tap Mark paid.",
+  },
+  {
+    q: "Some of my clients I train online with a monthly plan and no sessions to count — does that still work?",
+    a: "Yes. Save online coaching as a monthly package instead of a session pack and invoice it on the date the client started, not on the 1st, so renewals spread across the month rather than landing on one day. If the plan itself — workouts, logs, progress photos — is what the client pays for and they want it in an app, a fitness coaching platform is the better home for it; see who Croodit is not for, below.",
+  },
+  {
+    q: "I pay a gym floor fee and buy equipment for home sessions — can I see what I actually earn?",
+    a: "Yes. Log the floor fee, travel, equipment and certification renewals as expenses, and the earnings summary shows what each month cleared, not only what it collected. GST is optional and off by default; most individual trainers are well under the ₹20 lakh registration threshold for services, though that is not tax advice and your own CA decides.",
+  },
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: title,
+    description,
+    url: `${SITE.url}${path}`,
+    inLanguage: "en-IN",
+    datePublished: publishedISO,
+    dateModified: updatedISO,
+    isPartOf: { "@type": "CollectionPage", "@id": `${SITE.url}/for` },
+    about: { "@type": "Thing", name: "Personal training fee collection" },
+    audience: {
+      "@type": "Audience",
+      audienceType: "Freelance personal trainers in India",
+      geographicArea: { "@type": "Country", name: "India" },
+    },
+    publisher: orgRef,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  },
+  breadcrumb([
+    ["Croodit", "/"],
+    ["Who it's for", "/for"],
+    [crumb, path],
+  ]),
+];
+---
+
+<Base title={`${title} — Croodit`} description={description} path={path} schema={schema}>
+  <article class="wrap prose">
+    <nav class="eyebrow" aria-label="Breadcrumb" style="color:#6B4EFF">
+      <a href="/" style="color:inherit">Croodit</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <a href="/for" style="color:inherit">Who it's for</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <span>{crumb}</span>
+    </nav>
+    <h1>Fee collection app for personal trainers in India</h1>
+    <p class="lede">
+      Croodit is a fee collection app built for personal trainers in India who are paid by each client
+      over UPI. Save your session packs once, pick a client, and WhatsApp opens with the invoice and a UPI
+      pay link in about 30 seconds. It then counts sessions down as you mark attendance, shows who is
+      pending, and writes the reminder. You press send.
+    </p>
+    <p style="font-size:14px;color:var(--t-50)">
+      Last updated {updatedHuman} · Free forever for up to {SITE.freeClients} clients
+    </p>
+
+    <h2>Ten clients, ten renewal dates, and a count only you are keeping</h2>
+    <p>
+      A personal trainer's money does not arrive on the 1st. Each client bought a pack of sessions on the
+      day they started, so ten clients means ten different renewal dates, each one decided by how many
+      sessions they have actually turned up for. The fee is large — often five figures a month — and it is
+      owed by someone you stand next to for an hour, three mornings a week.
+    </p>
+    <p>
+      That is why gym management software feels wrong for a freelance trainer even when it works. It is
+      built for a gym owner: members, a front desk, staff and a membership that renews on a date. Your
+      business is a session count per person, and the question you need answered at 5:30am is whose pack
+      runs out this week.
+    </p>
+
+    <h2>Where the money actually goes missing</h2>
+    <table>
+      <thead>
+        <tr><th>The moment</th><th>Why it costs you</th></tr>
+      </thead>
+      <tbody>
+        {sessions.map(([when, what]) => (
+          <tr><td><strong>{when}</strong></td><td>{what}</td></tr>
+        ))}
+      </tbody>
+    </table>
+    <p>
+      None of these is a late payment. Each one is a session given without a matching invoice, which is
+      worse: by the time you raise it, the client feels billed for the past rather than asked to continue.
+    </p>
+
+    <h2>Your packs, saved once</h2>
+    <p>
+      Save the way you actually sell — per pack, per session, at home, online — and invoicing becomes
+      pick-the-client, tap the pack. A worked menu for a freelance trainer in a metro, to swap for your own:
+    </p>
+    <table>
+      <thead>
+        <tr><th>Package</th><th>Price</th><th>What it's for</th></tr>
+      </thead>
+      <tbody>
+        {packages.map(([name, price, what]) => (
+          <tr><td><strong>{name}</strong></td><td>{price}</td><td>{what}</td></tr>
+        ))}
+      </tbody>
+    </table>
+    <p style="font-size:14px;color:var(--t-50)">
+      Amounts above are an illustration, not a rate card. Set your own — Croodit has no opinion about what
+      you charge, and each client can carry the rate you agreed with them.
+    </p>
+
+    <h2>The three things that matter for a PT roster</h2>
+    <ul>
+      <li>
+        <strong>The pack counts itself down.</strong> Tick attendance after each session and the client's
+        12 drops to 11, 10, 9. Croodit prompts you to renew before it reaches zero, so the next invoice goes
+        out while they still have sessions left — a renewal, not a bill for sessions already given.
+      </li>
+      <li>
+        <strong>Every client has a status.</strong> Paid, pending, overdue on one screen, so the count of
+        who owes what leaves your head.
+      </li>
+      <li>
+        <strong>The reminder is written, but you send it.</strong> On day 3, 7 and 10 Croodit notifies
+        <em>you</em> with a drafted message for that client's chat. <strong>Croodit never messages a client
+        by itself.</strong> A machine chasing ₹12,000 from someone you will spot on the bench press tomorrow
+        is a message you would not have sent.
+      </li>
+    </ul>
+
+    <h2>Who this fits, and who it doesn't</h2>
+    <p>
+      <strong>If you are a freelance trainer and clients pay you directly</strong> — at a gym where you
+      pay a floor fee, in their building, in a park, or online — Croodit is built for that. It assumes one
+      person training and invoicing, from a phone.
+    </p>
+    <p>
+      <strong>If you are on a gym's payroll, or the gym bills your clients and pays you a share</strong>,
+      you have one client: the gym. You do not need a roster app; you need the gym's payout statement.
+    </p>
+    <p>
+      <strong>If you own the gym</strong> — members, trainers on staff, a front desk, memberships and
+      biometric entry — you need gym management software. Croodit has no concept of staff or members.
+    </p>
+    <p>
+      <strong>If your product is the programme in an app</strong> — workouts, logs, progress photos and
+      chat that clients open daily — fee collection should ride along inside that app. Fitqii is the Indian
+      example, free for up to {fitqii.freeClients} clients against Croodit's {SITE.freeClients}; we set out
+      that fork in <a href="/croodit-vs-fitqii">Croodit vs Fitqii</a>.
+    </p>
+
+    <h2>What it costs</h2>
+    <p>
+      Free forever for up to {SITE.freeClients} clients — unlimited invoices and unlimited reminders to
+      them, no card. Croodit Pro lifts the limit to unlimited clients for ₹{SITE.pro.monthly} a month or
+      ₹{SITE.pro.yearly.toLocaleString("en-IN")} a year, after a {SITE.pro.trialDays}-day free trial — a
+      fraction of one client's single session. Money goes straight to your own UPI ID; Croodit is not a
+      payment gateway and takes no cut. GST is optional and off by default.
+    </p>
+    <p>
+      Croodit is <a href={playLink(Astro.url.pathname, "body")}>live on Google Play</a> for Android phones;
+      the iPhone app comes later. Until then, the manual method works: <a href="/answers/how-to-send-an-invoice-on-whatsapp">how
+      to send an invoice on WhatsApp with a UPI payment link</a>, and
+      <a href="/answers/how-to-ask-a-client-for-payment-politely">how to ask a client for payment
+      politely</a> when a renewal is a week late.
+    </p>
+
+    <h2>Questions personal trainers ask</h2>
+    <div class="faq__list" style="margin-top:6px">
+      {faqs.map((item, i) => (
+        <details open={i === 0}>
+          <summary>{item.q}</summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+
+    <h2>Not a personal trainer?</h2>
+    <p>
+      The app is the same; the packages and the awkwardness differ.
+      {others.map((p, i) => (
+        <span>{i > 0 ? " " : ""}<a href={`/for/${p.slug}`}>{p.label}</a>{i < others.length - 1 ? ", " : ". "}</span>
+      ))}
+      Or see <a href="/for">everyone Croodit is built for</a>.
+    </p>
+  </article>
+
+  <section class="wrap final">
+    <div class="final__box">
+      <div class="blob blob--violet anim-blobA" style="width:520px;height:520px;top:-260px;right:-160px;filter:blur(60px);opacity:.7"></div>
+      <div class="final__logo"><Mark id="p1" width={50} /></div>
+      <h2>Train the client. <span>Let the count keep itself.</span></h2>
+      <p>Free forever for up to {SITE.freeClients} clients. You still press send — always.</p>
+      <div class="final__cta">
+        <a href={playLink(Astro.url.pathname, "final")} class="btn btn--lime">Get it on Google Play</a>
+        <a href={iphoneHref} class="btn btn--glass">{iphoneLabel}</a>
+      </div>
+    </div>
+  </section>
+</Base>

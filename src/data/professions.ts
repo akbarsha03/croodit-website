@@ -13,6 +13,14 @@ export const professions = [
       "Two batches, 24 people, one ₹2,000 monthly pack each, and a ledger that lives in your head. Class-pack countdown, per-batch rosters and a reminder you press send on.",
   },
   {
+    slug: "personal-trainers",
+    emoji: "🏋️",
+    label: "Personal trainers",
+    headline: "Fee collection app for personal trainers in India",
+    blurb:
+      "Ten clients on ₹12,000 session packs, each renewing on a different date decided by attendance. Sessions counted down, a renewal raised before the pack runs out, and a reminder you press send on.",
+  },
+  {
     slug: "yoga-teachers",
     emoji: "🧘",
     label: "Yoga teachers",
