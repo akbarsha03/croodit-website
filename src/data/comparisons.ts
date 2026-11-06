@@ -177,6 +177,39 @@ export const bhardo = {
   usableToday: "Yes — it runs inside WhatsApp, so any phone with WhatsApp",
 } as const;
 
+/**
+ * KhataStudio — attendance and fee management for coaching centres.
+ * Source: khatastudio.com, read on `verified`. The app is free ("completely free to use,
+ * no charges at all"). UPI fee collection via Razorpay payment links (UPI, cards,
+ * netbanking). WhatsApp receipts and low-balance reminders are sent automatically under
+ * the studio's name. Also does attendance with class-credit deduction, teacher payroll
+ * via UPI, and P&L accounting with PDF exports.
+ */
+export const khatastudio = {
+  name: "KhataStudio",
+  url: "https://khatastudio.com",
+  verified: "2026-11-06",
+  verifiedHuman: "6 November 2026",
+  freeDescription: "Completely free — no paid plan listed",
+  sendsReminder:
+    "KhataStudio sends. Parents get receipts and low-balance reminders on WhatsApp automatically, under the studio's name",
+  usableToday: "Web app and Android APK. No iOS app yet",
+  /** KhataStudio's FAQ: "Is KhataStudio really free?" — "Yes — the app is completely free to use. No charges at all." */
+  freeQuote:
+    "Yes — the app is completely free to use. No charges at all. We also help you in setup if needed, all for free.",
+  /** Razorpay-powered: UPI, cards, netbanking. User adds their own UPI ID and payee name. */
+  paymentMethod: "Razorpay payment links — UPI, cards, netbanking",
+  /** Key features that Croodit does not have. */
+  features: [
+    "Attendance tracking with auto class-credit deduction",
+    "Teacher payroll via UPI — per-class, percentage or fixed models",
+    "P&L accounting with PDF export for taxation",
+    "Batch management with student grouping",
+    "WhatsApp receipts sent automatically under the studio name",
+    "Low-balance reminders sent to parents automatically",
+  ] as const,
+} as const;
+
 /* ------------------------------------------------------------------ */
 /*  Helpers                                                            */
 /* ------------------------------------------------------------------ */
@@ -214,5 +247,14 @@ export const comparisons = [
     blurb:
       "Riffit is WhatsApp invoicing for freelancers, with quotations and e-signed contracts. Read it if every job is quoted, signed and priced differently.",
     competitor: riffit,
+  },
+  {
+    slug: "croodit-vs-khatastudio",
+    href: "/croodit-vs-khatastudio",
+    name: "Croodit vs KhataStudio",
+    pole: "The class-management pole",
+    blurb:
+      "KhataStudio is free attendance and fee management for coaching centres — batches, teacher payroll and P&L. Read it if you run a multi-teacher academy, not a solo practice.",
+    competitor: khatastudio,
   },
 ] as const;

@@ -9,6 +9,7 @@ import {
   riffit,
   fitqii,
   bhardo,
+  khatastudio,
   inr,
   verifiedDate,
   verifiedHuman,
@@ -18,10 +19,10 @@ const path = "/compare";
 const crumb = "Compare";
 const title = "Fee collection and invoicing apps for trainers, coaches and tutors in India, compared";
 const description =
-  "Software that runs your classes, or just software that gets you paid? Vyapar, Fitqii, Riffit, Bhar Do and Croodit, priced from each company's own site.";
+  "Software that runs your classes, or just gets you paid? Vyapar, Fitqii, Riffit, Bhar Do, KhataStudio and Croodit, priced from each company's site.";
 
 const publishedISO = "2026-09-24";
-const updatedISO = [verifiedDate, vyapar.verified, bhardo.verified, riffit.verified].sort().at(-1)!;
+const updatedISO = [verifiedDate, vyapar.verified, bhardo.verified, riffit.verified, khatastudio.verified].sort().at(-1)!;
 const updatedHuman = new Date(updatedISO).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
 
 
@@ -45,6 +46,12 @@ const shapes = [
     "Freelance invoicing with quotations and contracts",
     riffit.name,
     comparisons[2].href,
+  ],
+  [
+    "Comes to a coaching centre or academy with multiple teachers and batches",
+    "Attendance and fee management for coaching centres",
+    khatastudio.name,
+    comparisons[3].href,
   ],
   [
     "Comes to class, and pays the same fee again next month",
@@ -82,6 +89,13 @@ const prices = [
     `${inr(bhardo.proMonthly)} a month (Pro, ${bhardo.trialDays}-day trial); the first ${bhardo.foundingSeats} "Founding Members" pay ${inr(bhardo.foundingMonthly)} a month or ${inr(bhardo.foundingYearly)} a year, locked`,
     bhardo.sendsReminder,
     bhardo.usableToday,
+  ],
+  [
+    khatastudio.name,
+    khatastudio.freeDescription,
+    "No paid plan listed — the app says it is completely free",
+    khatastudio.sendsReminder,
+    khatastudio.usableToday,
   ],
   [
     "Croodit",
@@ -141,6 +155,7 @@ const schema = [
       { "@type": "SoftwareApplication", name: fitqii.name, url: fitqii.url },
       { "@type": "SoftwareApplication", name: riffit.name, url: riffit.url },
       { "@type": "SoftwareApplication", name: bhardo.name, url: bhardo.url },
+      { "@type": "SoftwareApplication", name: khatastudio.name, url: khatastudio.url },
     ],
     mainEntity: {
       "@type": "ItemList",
@@ -184,7 +199,7 @@ const schema = [
       same fee every month: you only need to get paid.
     </p>
     <p style="font-size:14px;color:var(--t-50)">
-      Last updated {updatedHuman} · Prices re-read from each company's own site: Vyapar's on {vyapar.verifiedHuman}; Fitqii's on {verifiedHuman}; Bhar Do's on {bhardo.verifiedHuman}; Riffit's on {riffit.verifiedHuman}
+      Last updated {updatedHuman} · Prices re-read from each company's own site: Vyapar's on {vyapar.verifiedHuman}; Fitqii's on {verifiedHuman}; Bhar Do's on {bhardo.verifiedHuman}; Riffit's on {riffit.verifiedHuman}; KhataStudio's on {khatastudio.verifiedHuman}
     </p>
 
     <h2>What does your client do between payments?</h2>
@@ -209,8 +224,8 @@ const schema = [
       </tbody>
     </table>
     <p>
-      The first three rows are tools that do more than collect a fee: they run your stock, your practice or
-      your projects, and billing is one feature among many. Croodit sits in the fourth row. It sends the
+      The first four rows are tools that do more than collect a fee: they run your stock, your practice, your
+      projects, or your academy, and billing is one feature among many. Croodit sits in the fifth row. It sends the
       invoice, tracks who has paid, counts down class packs and writes the reminder. It has no stock, no
       workout plans, no booking and no contracts. Bhar Do sits there too, and has
       <a href="#bhar-do">its own section below</a>.
@@ -219,7 +234,7 @@ const schema = [
     <h2>What each one costs, side by side</h2>
     <p>
       Every competitor figure was read from the company's own site, not from a review aggregator: Bhar Do's
-      on {bhardo.verifiedHuman}, Riffit's on {riffit.verifiedHuman}, Vyapar's on {vyapar.verifiedHuman}, Fitqii's on {verifiedHuman}. Each comparison page linked below says where the
+      on {bhardo.verifiedHuman}, Riffit's on {riffit.verifiedHuman}, Vyapar's on {vyapar.verifiedHuman}, Fitqii's on {verifiedHuman}, KhataStudio's on {khatastudio.verifiedHuman}. Each comparison page linked below says where the
       other product is the better buy.
     </p>
     <table>
