@@ -1,0 +1,300 @@
+---
+import Base from "../layouts/Base.astro";
+import Mark from "../components/Mark.astro";
+import MoreComparisons from "../components/MoreComparisons.astro";
+import { SITE, playLink, iphoneHref, iphoneLabel } from "../site";
+import { breadcrumb, orgRef } from "../data/schema";
+import { khatastudio } from "../data/comparisons";
+
+const path = "/croodit-vs-khatastudio";
+const crumb = "Croodit vs KhataStudio";
+const title = "Croodit vs KhataStudio: invoicing app or class management for Indian coaches";
+const description =
+  "KhataStudio is free class management for coaching centres. Croodit is WhatsApp invoicing for solo trainers. Features, prices and who fits where.";
+
+const publishedISO = "2026-11-06";
+const updatedISO = khatastudio.verified;
+const updatedHuman = khatastudio.verifiedHuman;
+
+const yearly = SITE.pro.yearly.toLocaleString("en-IN");
+
+const rows = [
+  [
+    "Who it names as its buyer",
+    "Coaching centres, tuition classes, dance studios and academies — the homepage says \"Run your dance, yoga, or coaching classes like a pro.\"",
+    "One person selling their own time on a repeating roster — Zumba and fitness trainers, yoga and dance coaches, personal trainers, tutors, nutritionists, photographers.",
+  ],
+  [
+    "What it tracks between payments",
+    "Attendance. Students are marked present or absent each session, class credits deduct automatically, and low-balance alerts go out to parents.",
+    "Class packs and invoices. Ten sessions bought, six used, four left, renewal due. The invoice carries the count.",
+  ],
+  [
+    "Teacher payroll",
+    "Yes — track teacher batches and pay them via UPI. Per-class, percentage or fixed models.",
+    "No. Croodit is for the person getting paid, not the person paying teachers.",
+  ],
+  [
+    "Accounting and P&L",
+    "Yes — revenue, expenses, net earnings by month, with PDF export for taxation.",
+    "Earnings summaries and CA-ready exports (Excel, PDF, Tally) on Pro, but not a P&L ledger.",
+  ],
+  [
+    "How the fee reaches you",
+    "Razorpay payment links — UPI, cards and netbanking. KhataStudio says you add your UPI ID and payee name; it generates the link.",
+    "A standard UPI intent from the invoice. Google Pay, PhonePe, Paytm, BHIM and bank apps all work. Straight into your own UPI ID — Croodit is not a payment gateway, holds nothing, takes no cut.",
+  ],
+  [
+    "Reminders to clients",
+    "Sent automatically. Parents get low-balance reminders on WhatsApp under the studio's name.",
+    "Croodit never messages a client by itself. On day 3, 7 and 10 it notifies you with the reminder already written; you read it, edit it, press send.",
+  ],
+  [
+    "WhatsApp receipts",
+    "Sent automatically under the studio name after payment.",
+    "The invoice itself goes via WhatsApp from your own number. No automatic receipt after payment.",
+  ],
+  [
+    "Price",
+    `Free. KhataStudio's FAQ says: "${khatastudio.freeQuote.split('.')[0]}."`,
+    `Free forever for up to ${SITE.freeClients} clients, unlimited invoices. Pro lifts the limit: ₹${SITE.pro.monthly} a month or ₹${yearly} a year after a ${SITE.pro.trialDays}-day trial.`,
+  ],
+  [
+    "Platform",
+    "Web app and an Android APK download. No iOS app yet; the FAQ says it is planned.",
+    `${SITE.appStoreUrl ? "Android and iPhone apps." : "An Android app, live on Google Play. iPhone comes later — waitlist only."}`,
+  ],
+];
+
+const faqs = [
+  {
+    q: "KhataStudio is free and Croodit Pro costs money. Why would I pay?",
+    a: `Because they solve different problems. KhataStudio manages a coaching centre — batches, attendance, teacher payroll and a P&L report. It is a good fit if you run a multi-teacher academy. Croodit does none of those things. It sends an invoice on WhatsApp with a UPI pay link, tracks who has paid, counts down class packs, and writes each reminder for you to approve. If you are a solo trainer whose only problem is getting paid on time, Croodit's free plan covers up to ${SITE.freeClients} clients with unlimited invoices and costs nothing. The paid plan exists for when you outgrow that number.`,
+  },
+  {
+    q: "I run two dance batches with 18 students and one assistant teacher. Which one?",
+    a: `If paying your assistant teacher is a monthly task you want the app to handle, KhataStudio does teacher payroll via UPI and Croodit does not. If the assistant is on a fixed informal arrangement and your real problem is that 18 people each owe you ₹2,000 and you spend the evening chasing, then Croodit fits — it tracks paid, pending and overdue per person and writes the follow-up message for you. At 18 students, Croodit Pro is ₹${SITE.pro.monthly} a month or ₹${yearly} a year. KhataStudio is free.`,
+  },
+  {
+    q: "Does KhataStudio send reminders automatically, or do I send them?",
+    a: "KhataStudio sends them. Its homepage says parents get low-balance reminders on WhatsApp automatically, under the studio's name. Croodit never messages a client by itself — it notifies you on day 3, 7 and 10 with the message already written, and you press send from your own WhatsApp. If you want automatic reminders, KhataStudio or one of the other tools on our comparison hub does that. Croodit's constraint is deliberate.",
+  },
+  {
+    q: "I'm a solo yoga teacher with 10 regulars. I don't have batches, teachers or a P&L to manage. Which one is this?",
+    a: `Croodit. KhataStudio's whole structure is built around batches, attendance tracking and teacher payroll — features that make sense for an academy but are overhead for a solo teacher. Croodit saves your per-client rates once, sends each invoice on WhatsApp with a UPI link, and tracks who has paid. At 10 regulars your roster is above the free tier of ${SITE.freeClients} clients, so you would be on Croodit Pro at ₹${SITE.pro.monthly} a month.`,
+  },
+  {
+    q: "KhataStudio uses Razorpay payment links. Does Croodit use a payment gateway too?",
+    a: "No. Croodit generates a standard UPI intent — the same link format Google Pay, PhonePe, Paytm and BHIM all understand. The money goes straight to your UPI ID. Croodit is not a payment gateway, holds no money and takes no cut. KhataStudio says you add your UPI ID and payee name, and it generates Razorpay payment links that support UPI, cards and netbanking.",
+  },
+  {
+    q: "Can I use both — KhataStudio for attendance and Croodit for invoicing?",
+    a: "There is no integration between them, so you would be entering students in two places and tracking payments in two places. If attendance and teacher payroll are the things your evening is spent on, use KhataStudio. If the problem is the invoice and the follow-up message, use Croodit. Picking one problem and solving it is a better answer than splitting your records.",
+  },
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: title,
+    description,
+    inLanguage: "en-IN",
+    datePublished: publishedISO,
+    dateModified: updatedISO,
+    mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE.url}${path}` },
+    author: orgRef,
+    publisher: orgRef,
+    about: [
+      { "@type": "SoftwareApplication", name: "KhataStudio", applicationCategory: "BusinessApplication" },
+      { "@type": "Thing", name: "Invoicing" },
+      { "@type": "Thing", name: "Unified Payments Interface (UPI)" },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  },
+  breadcrumb([
+    ["Croodit", "/"],
+    ["Compare", "/compare"],
+    [crumb, path],
+  ]),
+];
+---
+
+<Base title={`${title} — Croodit`} description={description} path={path} schema={schema}>
+  <article class="wrap prose">
+    <nav class="eyebrow" aria-label="Breadcrumb" style="color:#6B4EFF">
+      <a href="/" style="color:inherit">Croodit</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <a href="/compare" style="color:inherit">Compare</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <span>{crumb}</span>
+    </nav>
+    <h1>Croodit vs KhataStudio</h1>
+    <p class="lede">
+      KhataStudio is free attendance and fee management for Indian coaching centres — batches, teacher payroll,
+      WhatsApp receipts and a P&L report. Croodit is a WhatsApp invoicing app for solo trainers and coaches who
+      need to get paid, not manage a centre. KhataStudio runs the academy. Croodit sends the invoice.
+    </p>
+    <p style="font-size:14px;color:var(--t-50)">
+      Published {updatedHuman} · Every KhataStudio detail below was read from khatastudio.com on that date
+    </p>
+
+    <h2>The short answer: they solve different problems</h2>
+    <p>
+      If you run a coaching centre with batches, multiple teachers, and need attendance registers plus a P&L
+      report, KhataStudio is built for that and it is free. If you are a solo trainer, yoga teacher or tutor
+      whose real problem is that people owe you money and you spend the evening working out who has paid and
+      writing messages to the ones who have not, Croodit is built for that.
+    </p>
+    <p>
+      Both work in India, both use UPI, and both use WhatsApp. The overlap ends there. One is a class
+      management tool. The other is an invoicing tool.
+    </p>
+
+    <h2>What KhataStudio is</h2>
+    <p>
+      KhataStudio calls itself "Attendance &amp; Fee Management for Indian Coaching Centers". It is made for
+      dance, yoga and coaching classes, tuition classes and academies. Its homepage lists five things it does:
+    </p>
+    <ul>
+      <li><strong>Attendance in one tap</strong> — mark students present or absent, auto-deduct class credits, audit trail of every session.</li>
+      <li><strong>UPI fee collection</strong> — Razorpay payment links for parents. UPI, cards and netbanking. You add your UPI ID and payee name.</li>
+      <li><strong>WhatsApp receipts and reminders</strong> — parents get payment receipts and low-balance reminders on WhatsApp automatically, under the studio name.</li>
+      <li><strong>Teacher payroll</strong> — track teacher batches, pay via UPI. Per-class, percentage or fixed models.</li>
+      <li><strong>Accounting and P&L</strong> — revenue, expenses, net earnings by month. PDF export for taxation.</li>
+    </ul>
+    <p>
+      It is available as a web app and as an Android APK download. The FAQ says an iOS and Google Play Store
+      release is planned. It says it is "completely free to use. No charges at all."
+    </p>
+
+    <h2>What Croodit does not do that KhataStudio does</h2>
+    <p>
+      Croodit has no attendance register. No teacher payroll. No batch management with student grouping. No
+      P&L report. No automatic WhatsApp receipts after payment. If those are the problems eating your
+      evening, KhataStudio answers them and Croodit does not.
+    </p>
+
+    <h2>What Croodit does that KhataStudio does not</h2>
+    <p>
+      Croodit generates a per-client invoice with a Unified Payments Interface (UPI) pay link, sends it on
+      WhatsApp from your own number, and tracks paid, pending and overdue per person. It counts down class
+      packs — ten sessions bought, six used, four left — with a renewal prompt before zero. It writes each
+      follow-up reminder for you to approve and send on day 3, 7 and 10. Croodit never messages a client by
+      itself, which is a deliberate choice, not a missing feature.
+    </p>
+    <p>
+      KhataStudio collects fees through Razorpay payment links generated for each parent, but it is not an
+      invoicing tool — it does not create a named invoice document with line items that a client receives as
+      a PDF. If what you need is a paper trail showing this person was charged this amount on this date for
+      this package, that is the invoice gap.
+    </p>
+
+    <h2>KhataStudio and Croodit, side by side</h2>
+    <table>
+      <thead>
+        <tr><th>&nbsp;</th><th>KhataStudio</th><th>Croodit</th></tr>
+      </thead>
+      <tbody>
+        {rows.map(([label, ks, c]) => (
+          <tr><td><strong>{label}</strong></td><td>{ks}</td><td>{c}</td></tr>
+        ))}
+      </tbody>
+    </table>
+
+    <h2>Where KhataStudio is the better choice — honestly</h2>
+    <ul>
+      <li><strong>You run a coaching centre with multiple teachers.</strong> Teacher payroll via UPI — per-class, percentage or fixed — is a real feature Croodit has no version of. If paying your instructors is part of the monthly problem, KhataStudio solves it.</li>
+      <li><strong>Attendance is the thing you need to track.</strong> KhataStudio marks students present or absent, deducts class credits automatically, and keeps an audit trail. Croodit counts class packs but has no attendance register.</li>
+      <li><strong>You want a P&L report for your academy.</strong> Revenue, expenses and net earnings by month, with a PDF export. Croodit has earnings summaries, but not a proper accounting view.</li>
+      <li><strong>You want automatic reminders and receipts.</strong> KhataStudio sends low-balance reminders and payment receipts to parents on WhatsApp automatically, under the studio name. Croodit deliberately will not message a client by itself.</li>
+      <li><strong>You want it free, full stop.</strong> KhataStudio says it is completely free with no charges at all. Croodit's free tier is limited to {SITE.freeClients} clients.</li>
+    </ul>
+
+    <h2>Where Croodit fits instead</h2>
+    <p>
+      The buyer this page is written for is not running an academy. She is a solo Zumba trainer with 24
+      people across three batches, or a yoga teacher with 10 regulars each on their own rate, or a tutor
+      with 8 families where the parent pays. She does not have teachers to pay or a P&L to show anyone.
+    </p>
+    <p>
+      Her problem is simpler and more personal: knowing that Priya's ₹2,000 pack ran out on the 4th, that
+      Ravi's September fee never arrived, and then writing the message to someone she will see at class
+      tomorrow morning. An automated "low balance" alert from a system is not the message she wants
+      reaching that person.
+    </p>
+    <p>
+      Croodit saves her packages and rates once. She picks a client, taps what they bought, and it opens
+      WhatsApp with the message written, the invoice PDF attached and a UPI pay link ready. She presses
+      send. On day 3, 7 and 10, Croodit notifies <em>her</em> with the follow-up already drafted — but
+      nothing reaches the client until she decides to send it.
+    </p>
+
+    <h2>Who should pick which</h2>
+    <p>
+      <strong>If you run a coaching centre, dance academy or tuition class with teachers on your payroll and
+      batches you need to manage,</strong> KhataStudio fits because it does attendance, payroll and
+      accounting in one free tool. Croodit would have you track payments one by one without the management
+      layer you actually need.
+    </p>
+    <p>
+      <strong>If you are a solo trainer, coach or tutor whose problem is getting paid on time and writing
+      the follow-up message,</strong> Croodit fits because it is built around the invoice and the
+      person-by-person payment trail. KhataStudio's batch-and-payroll structure is overhead for someone
+      who teaches every class herself.
+    </p>
+    <p>
+      <strong>If you sell physical goods or need GST filing support,</strong> neither of these is your tool.
+      Look at Vyapar — we compared it{" "}
+      <a href="/vyapar-alternative-for-trainers-and-coaches">for trainers and coaches here</a>.
+    </p>
+    <p>
+      <strong>If you need quotations, signed contracts or e-signatures,</strong> neither does that. Riffit
+      does — <a href="/croodit-vs-riffit">our Riffit comparison</a> covers that case.
+    </p>
+    <p>
+      Not sure which shape your month takes? <a href="/for">Who Croodit is built for</a> has the version
+      for Zumba trainers, yoga teachers, tutors, photographers, personal trainers and nutritionists, each
+      with that profession's real numbers. And <a href="/answers">how to get paid on time as a trainer,
+      coach or tutor in India</a> covers the questions that come before the software.
+    </p>
+
+    <h2>Questions people ask before they choose</h2>
+    <div class="faq__list" style="margin-top:6px">
+      {faqs.map((item, i) => (
+        <details open={i === 0}>
+          <summary>{item.q}</summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+
+    <p style="font-size:14px;color:var(--t-50)">
+      KhataStudio is a trademark of its owner and is not affiliated with Croodit. Everything above was taken
+      from KhataStudio's public site on {updatedHuman} and may have changed since.
+    </p>
+
+    <MoreComparisons current="croodit-vs-khatastudio" />
+  </article>
+
+  <section class="wrap final">
+    <div class="final__box">
+      <div class="blob blob--violet anim-blobA" style="width:520px;height:520px;top:-260px;right:-160px;filter:blur(60px);opacity:.7"></div>
+      <div class="final__logo"><Mark id="a1" width={50} /></div>
+      <h2>Solo trainer? The invoice is the job. <span>Croodit.</span></h2>
+      <p>Free forever for up to {SITE.freeClients} clients. Your packages, your UPI, your WhatsApp.</p>
+      <div class="final__cta">
+        <a href={playLink(Astro.url.pathname, "final")} class="btn btn--lime">Get it on Google Play</a>
+        <a href={iphoneHref} class="btn btn--glass">{iphoneLabel}</a>
+      </div>
+    </div>
+  </section>
+</Base>
