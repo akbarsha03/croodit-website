@@ -5,6 +5,7 @@ import MoreComparisons from "../components/MoreComparisons.astro";
 import { SITE, playLink, iphoneHref, iphoneLabel } from "../site";
 import { breadcrumb, orgRef } from "../data/schema";
 import { fitqii, inr, verifiedHuman } from "../data/comparisons";
+import { professions } from "../data/professions";
 
 const path = "/croodit-vs-fitqii";
 const crumb = "Croodit vs Fitqii";
@@ -326,9 +327,10 @@ const schema = [
       <strong>If your product is the class and the only repeating thing is the fee</strong> — a batch turns up,
       dances for an hour, goes home, and pays monthly — Croodit fits because the invoice, the pack countdown and
       the reminder are the entire job, and nobody has to install anything to pay you. The version with your
-      trade's real numbers is at <a href="/for/zumba-trainers">fee collection for Zumba trainers</a>,{" "}
-      <a href="/for/yoga-teachers">yoga teachers</a>, <a href="/for/tutors">tutors</a>,{" "}
-      <a href="/for/nutritionists">nutritionists</a> and <a href="/for/photographers">photographers</a>.
+      trade's real numbers is at{" "}
+      {professions.map((p, i) => (
+        <span>{i > 0 ? (i === professions.length - 1 ? " and " : ", ") : ""}<a href={`/for/${p.slug}`}>{p.slug === "zumba-trainers" ? "fee collection for Zumba trainers" : p.label.toLowerCase()}</a></span>
+      ))}.
     </p>
     <p>
       <strong>If you bill project work with quotations and signed contracts</strong>, neither of these is

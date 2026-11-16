@@ -5,6 +5,7 @@ import MoreComparisons from "../components/MoreComparisons.astro";
 import { SITE, playLink, iphoneHref, iphoneLabel } from "../site";
 import { breadcrumb, orgRef } from "../data/schema";
 import { khatastudio } from "../data/comparisons";
+import { professions } from "../data/professions";
 
 const path = "/croodit-vs-khatastudio";
 const crumb = "Croodit vs KhataStudio";
@@ -262,8 +263,10 @@ const schema = [
     </p>
     <p>
       Not sure which shape your month takes? <a href="/for">Who Croodit is built for</a> has the version
-      for Zumba trainers, yoga teachers, tutors, photographers, personal trainers and nutritionists, each
-      with that profession's real numbers. And <a href="/answers">how to get paid on time as a trainer,
+      for{" "}
+      {professions.map((p, i) => (
+        <span>{i > 0 ? (i === professions.length - 1 ? " and " : ", ") : ""}<a href={`/for/${p.slug}`}>{p.slug === "zumba-trainers" ? p.label : p.label.toLowerCase()}</a></span>
+      ))}, each with that profession's real numbers. And <a href="/answers">how to get paid on time as a trainer,
       coach or tutor in India</a> covers the questions that come before the software.
     </p>
 

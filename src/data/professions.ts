@@ -1,6 +1,7 @@
 /**
  * The /for cluster index. One source for the hub page, the homepage "Who it's for" links, the cross-links at the foot of
- * each profession page — so they cannot drift. A new page also needs its row in `pages` in facts.ts (the build checks).
+ * each profession page, and the profession lists on /answers and the comparison pages — so they cannot drift.
+ * A new page also needs its row in `pages` in facts.ts (the build checks).
  * Only add a row here when a real page exists at that path.
  */
 export const professions = [
