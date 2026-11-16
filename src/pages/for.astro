@@ -46,7 +46,7 @@ const faqs = [
   },
   {
     q: "What does Croodit cost, and is there a free plan?",
-    a: "Free forever for up to seven clients, with unlimited invoices and unlimited reminders to them and no card required. Croodit Pro lifts the limit to unlimited clients at ₹199 a month or ₹1,599 a year, after a 14-day free trial. The paid tier is triggered by an eighth client, not by an invoice count — you will never hit a wall mid-month for sending too many invoices.",
+    a: `Free forever for up to ${SITE.freeClients} clients, with unlimited invoices and unlimited reminders to them and no card required. Croodit Pro lifts the limit to unlimited clients at ₹${SITE.pro.monthly} a month or ₹${SITE.pro.yearly.toLocaleString("en-IN")} a year, after a ${SITE.pro.trialDays}-day free trial. The paid tier is triggered by an eighth client, not by an invoice count — you will never hit a wall mid-month for sending too many invoices.`,
   },
   {
     q: "Can I use Croodit today?",
@@ -159,7 +159,8 @@ const schema = [
     <p>
       <strong>A studio or institute with staff.</strong> Instructor payouts, class booking, timetables and
       admissions are a different product — look at a studio or coaching management platform such as
-      Momoyoga or Bookee. Croodit has no concept of staff.
+      Momoyoga or Bookee, or a free coaching-centre tool that handles batches and teacher payroll (we set out
+      that fork in <a href="/croodit-vs-khatastudio">Croodit vs KhataStudio</a>). Croodit has no concept of staff.
     </p>
     <p>
       <strong>Anyone whose product is the programme, not the class.</strong> If you write individual workout

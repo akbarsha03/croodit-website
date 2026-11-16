@@ -4,6 +4,7 @@ import Mark from "../components/Mark.astro";
 import { SITE, playLink, iphoneHref, iphoneLabel } from "../site";
 import { breadcrumb, orgRef } from "../data/schema";
 import { answers as answerIndex } from "../data/answers";
+import { professions } from "../data/professions";
 
 const path = "/answers";
 const crumb = "Answers";
@@ -234,8 +235,10 @@ const schema = [
       <strong>They are the wrong guides if</strong> you sell goods out of inventory — a shop needs purchase
       entries and a stock ledger, and we say so on our
       <a href="/vyapar-alternative-for-trainers-and-coaches">Vyapar alternative page</a>, including the part
-      where Vyapar's Android plan costs less per year than Croodit Pro. If you run a studio with staff and
-      timetables, look at a studio management platform such as Momoyoga or Bookee. If what you want is
+      where Vyapar's Android plan costs less per year than Croodit Pro. If you run a studio or coaching centre
+      with staff, batches and teacher payroll, look at a studio management platform such as Momoyoga or Bookee,
+      or a free class-management app — <a href="/croodit-vs-khatastudio">Croodit vs KhataStudio</a> covers that
+      split. If what you want is
       software that runs the coaching itself — workout plans, nutrition plans, scheduling, progress tracking —
       and collects the fee inside its own app, that is a different category again;
       <a href="/croodit-vs-fitqii">Croodit vs Fitqii</a> sets out that choice, including the part where
@@ -251,9 +254,10 @@ const schema = [
     <h2>Doing it by profession instead?</h2>
     <p>
       The same money looks different depending on what you teach. We have written the profession-shaped
-      versions for <a href="/for/zumba-trainers">Zumba trainers</a>,
-      <a href="/for/yoga-teachers">yoga teachers</a> and <a href="/for/tutors">tutors</a>, and
-      <a href="/for">who Croodit is built for</a> indexes the rest.
+      versions for{" "}
+      {professions.map((p, i) => (
+        <span>{i > 0 ? (i === professions.length - 1 ? " and " : ", ") : ""}<a href={`/for/${p.slug}`}>{p.slug === "zumba-trainers" ? p.label : p.label.toLowerCase()}</a></span>
+      ))}, and <a href="/for">who Croodit is built for</a> puts them side by side.
     </p>
   </article>
 

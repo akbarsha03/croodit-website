@@ -5,6 +5,7 @@ import MoreComparisons from "../components/MoreComparisons.astro";
 import { SITE, playLink, iphoneHref, iphoneLabel } from "../site";
 import { breadcrumb, orgRef } from "../data/schema";
 import { riffit } from "../data/comparisons";
+import { professions } from "../data/professions";
 
 const path = "/croodit-vs-riffit";
 const crumb = "Croodit vs Riffit";
@@ -327,8 +328,10 @@ const schema = [
     </p>
     <p>
       Still deciding whether a roster is what you actually have? The money looks different by trade —
-      <a href="/for">who Croodit is built for</a> has the version for Zumba trainers, yoga teachers, tutors,
-      photographers and nutritionists, each with that profession's real numbers. And
+      <a href="/for">who Croodit is built for</a> has the version for{" "}
+      {professions.map((p, i) => (
+        <span>{i > 0 ? (i === professions.length - 1 ? " and " : ", ") : ""}<a href={`/for/${p.slug}`}>{p.slug === "zumba-trainers" ? p.label : p.label.toLowerCase()}</a></span>
+      ))}, each with that profession's real numbers. And
       <a href="/answers">how to get paid on time as a trainer, coach or tutor in India</a> covers the
       questions that come before the software: whether a UPI screenshot counts as proof, whether taking
       fees on UPI puts you on the GST radar, and whether you need a GST number to send an invoice at all.
