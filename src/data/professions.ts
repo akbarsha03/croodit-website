@@ -33,7 +33,7 @@ export const professions = [
     slug: "tutors",
     emoji: "📚",
     label: "Tutors and tuition teachers",
-    headline: "Tuition fee collection app for tutors in India",
+    headline: "Invoice app for tutors and coaching classes in India",
     blurb:
       "You teach the student and invoice the parent, per subject, on a term cycle. Sibling rates, quarterly-in-advance, and a reminder that goes to the right phone.",
   },
