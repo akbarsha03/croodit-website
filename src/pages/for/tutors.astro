@@ -7,12 +7,13 @@ import { professions } from "../../data/professions";
 
 const path = "/for/tutors";
 const crumb = "Tutors and tuition teachers";
-const title = "Tuition fee collection app for tutors in India — invoice the parent on WhatsApp";
+const title = "Invoice app for tutors and coaching classes in India — parent WhatsApp and UPI";
 const description =
-  "Teach the student, invoice the parent. Croodit sends term-fee invoices to the parent's WhatsApp with a UPI pay link, tracks who paid, and drafts reminders.";
+  "An invoice app for tutors and coaching classes in India: bill the parent on WhatsApp with a UPI pay link, per subject or term, and send reminders yourself.";
 
-const updatedISO = "2026-10-06";
-const updatedHuman = "6 October 2026";
+const publishedISO = "2026-09-11";
+const updatedISO = "2026-11-18";
+const updatedHuman = "18 November 2026";
 
 const others = professions.filter((p) => p.slug !== "tutors");
 
@@ -51,6 +52,10 @@ const cycles = [
 
 const faqs = [
   {
+    q: "Is there invoicing software or an invoice app made for tutors and coaching classes in India, or do I have to use a coaching ERP or a GST billing app like myBillBook?",
+    a: `There is one: Croodit is built for solo tutors and small tuition classes who are paid by parents over UPI. Most results for this search are coaching-institute ERPs (FastFee, Teachmint, Wise) built for multi-teacher centres with student logins, or general GST billing apps (myBillBook, Vyapar, Zoho Invoice) that treat a student like a retail customer. Neither models the core tuition split: you teach the student, but you invoice the parent, often for two or three subjects or two siblings on one bill. Croodit puts the parent's WhatsApp number on the client record, lists the student and saved subject packages on one invoice with a UPI pay link to your own UPI ID, tracks paid and pending per family, and drafts the reminder for you to send — never messaging a parent automatically. It is free for up to ${SITE.freeClients} families, and Croodit Pro is ₹${SITE.pro.monthly} a month or ₹${SITE.pro.yearly.toLocaleString("en-IN")} a year after a ${SITE.pro.trialDays}-day free trial. It is on Android now; the iPhone app comes later.`,
+  },
+  {
     q: "I teach 18 tuition students and the parents pay, not the students — how do I send the fee reminder to the right person?",
     a: "Invoice the payer and keep the student as the subject line. In Croodit the client is the parent, with their own WhatsApp number, and the invoice names the student and the subjects — so a reminder always goes to the phone that can actually pay, and never into a student's chat. That one separation removes most of the awkwardness in tuition: you are never asking a fourteen-year-old about money, and the parent gets a document rather than a message from their child.",
   },
@@ -84,7 +89,7 @@ const schema = [
     description,
     url: `${SITE.url}${path}`,
     inLanguage: "en-IN",
-    datePublished: updatedISO,
+    datePublished: publishedISO,
     dateModified: updatedISO,
     isPartOf: { "@type": "CollectionPage", "@id": `${SITE.url}/for` },
     about: { "@type": "Thing", name: "Tuition fee collection" },
@@ -121,11 +126,12 @@ const schema = [
       <span aria-hidden="true">&rsaquo;</span>
       <span>{crumb}</span>
     </nav>
-    <h1>Tuition fee collection app for tutors in India</h1>
+    <h1>Invoice app for tutors and coaching classes in India</h1>
     <p class="lede">
-      Croodit sends a tuition fee invoice to the parent's WhatsApp with a UPI pay link, naming the student
-      and every subject on one document. Subjects are saved as packages, so an invoice takes about 30
-      seconds. It tracks paid, pending and overdue per family and writes the reminder for you to press send.
+      Croodit is an invoice app built for private tutors and solo coaching classes in India. The parent is
+      the client, and the student and subjects sit on one invoice sent to the parent's WhatsApp with a UPI
+      pay link in about 30 seconds. It tracks paid, pending and overdue per family and writes the reminder.
+      You press send.
     </p>
     <p style="font-size:14px;color:var(--t-50)">
       Last updated {updatedHuman} · Free forever for up to {SITE.freeClients} clients
@@ -209,7 +215,7 @@ const schema = [
     <h2>What it costs</h2>
     <p>
       Free forever for up to {SITE.freeClients} clients — and remember the client is the family, not the
-      student, so a tutor with seven families and eleven children pays nothing. Unlimited invoices,
+      student, so a tutor with {SITE.freeClients} families and eleven children pays nothing. Unlimited invoices,
       unlimited reminders, no card. Croodit Pro removes the limit at ₹{SITE.pro.monthly} a month or
       ₹{SITE.pro.yearly.toLocaleString("en-IN")} a year after a {SITE.pro.trialDays}-day free trial — about
       one month of one subject for one student. Money goes straight to your own UPI ID; Croodit is not a
