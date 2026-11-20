@@ -7,12 +7,13 @@ import { professions } from "../../data/professions";
 
 const path = "/for/photographers";
 const crumb = "Photographers";
-const title = "Invoicing app for photographers in India — advance and balance on WhatsApp";
+const title = "Invoice app for photographers in India — advance and balance on WhatsApp";
 const description =
-  "The booking advance and the balance, as two WhatsApp invoices with a UPI pay link. Croodit tracks what's outstanding and drafts the reminders for you.";
+  "An invoice app for photographers in India: send the booking advance and the balance as WhatsApp invoices with a UPI pay link, and send reminders yourself.";
 
-const updatedISO = "2026-10-06";
-const updatedHuman = "6 October 2026";
+const publishedISO = "2026-09-16";
+const updatedISO = "2026-11-20";
+const updatedHuman = "20 November 2026";
 
 const others = professions.filter((p) => p.slug !== "photographers");
 
@@ -51,6 +52,10 @@ const bookings = [
 
 const faqs = [
   {
+    q: "Is there an invoice app for photographers in India that handles the booking advance and balance payment, or do I have to use a studio CRM or a GST billing app?",
+    a: `There is one: Croodit is built for solo photographers and videographers in India who are paid by families over UPI. Most results for this search are global photography CRMs priced in dollars and wired to Stripe or PayPal (HoneyBook, Studio Ninja, Plutio), or general GST billing apps built around items and stock (Vyapar, myBillBook, Zoho Invoice). Neither fits a booking paid in two parts over WhatsApp. Croodit saves your shoot packages once, sends the advance invoice when you lock the date and the balance invoice when it falls due — both under the same client with a UPI pay link to your own UPI ID — tracks what is outstanding across your diary, and drafts the reminder for you to send, never messaging a couple automatically. It is free for up to ${SITE.freeClients} clients, and Croodit Pro is ₹${SITE.pro.monthly} a month or ₹${SITE.pro.yearly.toLocaleString("en-IN")} a year after a ${SITE.pro.trialDays}-day free trial. It is on Android now; the iPhone app comes later.`,
+  },
+  {
     q: "I shoot weddings and take a 30% advance to block the date — how do I invoice that on WhatsApp without it looking casual?",
     a: "Send the advance as its own invoice, not as a number in a chat message. In Croodit the booking is a saved package, so a two-day wedding at ₹85,000 with a ₹25,000 advance becomes a proper document with your name on it, the shoot dates, the amount due now and a UPI pay link — sent into the couple's WhatsApp in about 30 seconds. The reason this matters is not paperwork. An advance asked for in a chat bubble reads as a favour and gets negotiated; the same amount on an invoice reads as the terms of a booking and gets paid.",
   },
@@ -88,7 +93,7 @@ const schema = [
     description,
     url: `${SITE.url}${path}`,
     inLanguage: "en-IN",
-    datePublished: updatedISO,
+    datePublished: publishedISO,
     dateModified: updatedISO,
     isPartOf: { "@type": "CollectionPage", "@id": `${SITE.url}/for` },
     about: { "@type": "Thing", name: "Photography booking advance and balance invoicing" },
@@ -125,12 +130,12 @@ const schema = [
       <span aria-hidden="true">&rsaquo;</span>
       <span>{crumb}</span>
     </nav>
-    <h1>Invoicing app for photographers in India</h1>
+    <h1>Invoice app for photographers in India</h1>
     <p class="lede">
-      A photography booking is one job paid in two parts, months apart. Croodit sends the advance invoice
-      when you block the date and the balance invoice when it falls due — both to the same client's
-      WhatsApp, each with a UPI pay link — then tracks what is still outstanding and drafts the reminder for
-      you to press send.
+      Croodit is an invoice app built for photographers in India who take a booking advance and a balance
+      payment months apart. Send the advance invoice when you block the date and the balance invoice before
+      delivery — both to the client's WhatsApp with a UPI pay link — track what is outstanding across your
+      diary, and press send on the reminder yourself.
     </p>
     <p style="font-size:14px;color:var(--t-50)">
       Last updated {updatedHuman} · Free forever for up to {SITE.freeClients} clients
@@ -235,7 +240,7 @@ const schema = [
       Free forever for up to {SITE.freeClients} clients, with unlimited invoices and reminders and no card.
       Be warned that this tier suits you less well than it suits a yoga teacher: she has the same fifteen
       regulars all year, while you take a new couple every fortnight. A wedding photographer shooting twenty
-      weddings a season passes seven clients in the first two months, so treat the free tier as a real trial
+      weddings a season passes {SITE.freeClients} clients in the first two months, so treat the free tier as a real trial
       rather than a permanent home.
     </p>
     <p>
