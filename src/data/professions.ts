@@ -41,7 +41,7 @@ export const professions = [
     slug: "nutritionists",
     emoji: "🥗",
     label: "Nutritionists and dietitians",
-    headline: "Invoicing app for nutritionists and dietitians in India",
+    headline: "Invoice app for nutritionists and dietitians in India",
     blurb:
       "Your chat is your clinic, so the plan, the daily check-ins and the money share one thread — and you have nothing to withhold when a month goes unpaid. Programmes that count down to their end date and a renewal drafted before day 90.",
   },

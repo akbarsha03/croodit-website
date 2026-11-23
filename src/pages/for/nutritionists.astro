@@ -8,13 +8,13 @@ import { fitqii } from "../../data/comparisons";
 
 const path = "/for/nutritionists";
 const crumb = "Nutritionists and dietitians";
-const title = "Invoicing app for nutritionists and dietitians in India — bill the programme, not the hour";
+const title = "Invoice app for nutritionists and dietitians in India — WhatsApp and UPI";
 const description =
-  "Croodit sends a nutrition programme's invoice on WhatsApp with a UPI pay link, counts it down to its end date, and drafts the renewal for you to send.";
+  "An invoice app for nutritionists and dietitians in India: send programme invoices on WhatsApp with a UPI pay link, track expiry dates and draft renewals.";
 
 const publishedISO = "2026-09-18";
-const updatedISO = "2026-10-06";
-const updatedHuman = "6 October 2026";
+const updatedISO = "2026-11-23";
+const updatedHuman = "23 November 2026";
 
 const others = professions.filter((p) => p.slug !== "nutritionists");
 
@@ -52,6 +52,10 @@ const packages = [
 ];
 
 const faqs = [
+  {
+    q: "Is there an invoice app or billing software for nutritionists and dietitians in India, or do I have to use clinic software like Practo, a coaching app like Fitqii, or a GST billing app?",
+    a: `There is one: Croodit is built for solo nutritionists, dietitians and health coaches in India who deliver plans and daily check-ins on WhatsApp and are paid over UPI. Most results for this search are physical-clinic software (Practo), US dietitian platforms priced in dollars and wired to Stripe (Healthie, Practice Better), all-in-one coaching apps where the client must install an app (Fitqii), or general GST billing tools built around items and stock (Vyapar, myBillBook, Zoho Invoice). Croodit stays on the money side of the WhatsApp thread you already coach in: it saves each client's privately quoted programme rate, sends an invoice PDF with a UPI pay link to your own UPI ID in about 30 seconds, counts a 4-week or 12-week programme down to its end date so you raise the renewal before day 90, and drafts reminders for you to send — never messaging a client automatically inside a health conversation. It is free for up to ${SITE.freeClients} clients, and Croodit Pro is ₹${SITE.pro.monthly} a month or ₹${SITE.pro.yearly.toLocaleString("en-IN")} a year after a ${SITE.pro.trialDays}-day free trial. It is on Android now; the iPhone app comes later.`,
+  },
   {
     q: "I run a 12-week nutrition programme that clients pay for upfront, so nothing is ever overdue — what would an invoicing app actually do for me?",
     a: "Tell you when the programme ends, which is the only thing you cannot see. Prepaid work has no chase, so the money you lose is not late money — it is the renewal that never got asked for, because week 12 arrived while you were replying to someone's thyroid report. In Croodit a programme is a saved package with a validity, and Croodit counts it down and prompts you before it runs out, so the renewal conversation happens on day 80 rather than three weeks after the client quietly stopped messaging. The invoice itself is a side benefit: a ₹4,999 programme sent as a real document with a UPI pay link gets paid more often than the same amount typed into a chat.",
@@ -131,12 +135,12 @@ const schema = [
       <span aria-hidden="true">&rsaquo;</span>
       <span>{crumb}</span>
     </nav>
-    <h1>Invoicing app for nutritionists and dietitians in India</h1>
+    <h1>Invoice app for nutritionists and dietitians in India</h1>
     <p class="lede">
-      Croodit invoices nutrition programmes inside the same WhatsApp thread you already coach in. Save your
-      consultation, monthly plan and 12-week programme as packages, send a proper invoice with a UPI
-      (Unified Payments Interface) pay link in about 30 seconds, and let Croodit count the programme down
-      and draft the renewal before it quietly expires.
+      Croodit is an invoice app built for nutritionists and dietitians in India who coach over WhatsApp and
+      get paid by UPI (Unified Payments Interface). Save your consultation, monthly plan and 12-week
+      programme once, send an invoice PDF with a UPI pay link in about 30 seconds, count each programme down
+      to its end date, and send the renewal yourself.
     </p>
     <p style="font-size:14px;color:var(--t-50)">
       Last updated {updatedHuman} · Free forever for up to {SITE.freeClients} clients
@@ -282,7 +286,7 @@ const schema = [
     <p>
       Free forever for up to {SITE.freeClients} clients, with unlimited invoices and reminders and no card.
       The catch here is not volume, it is turnover: a yoga teacher keeps the same fifteen regulars all year,
-      while your roster replaces itself. Three-month programmes mean seven slots can cycle through several
+      while your roster replaces itself. Three-month programmes mean {SITE.freeClients} slots can cycle through several
       sets of people in a year, so treat the free tier as a genuine trial of the workflow rather than a
       permanent home.
     </p>
