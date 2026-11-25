@@ -17,7 +17,7 @@ export const professions = [
     slug: "personal-trainers",
     emoji: "🏋️",
     label: "Personal trainers",
-    headline: "Fee collection app for personal trainers in India",
+    headline: "Invoice and fee collection app for personal trainers in India",
     blurb:
       "Ten clients on ₹12,000 session packs, each renewing on a different date decided by attendance. Sessions counted down, a renewal raised before the pack runs out, and a reminder you press send on.",
   },

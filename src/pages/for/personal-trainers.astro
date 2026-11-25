@@ -8,13 +8,13 @@ import { fitqii } from "../../data/comparisons";
 
 const path = "/for/personal-trainers";
 const crumb = "Personal trainers";
-const title = "Fee collection app for personal trainers in India — session packs on WhatsApp";
+const title = "Invoice and fee collection app for personal trainers in India";
 const description =
-  "Collect personal training fees without chasing clients. Session-pack invoices on WhatsApp with a UPI pay link, sessions counted down, reminders you send.";
+  "An invoice and fee collection app for personal trainers in India: send session-pack invoices on WhatsApp with a UPI pay link, count sessions and send reminders.";
 
 const publishedISO = "2026-11-04";
-const updatedISO = "2026-11-04";
-const updatedHuman = "4 November 2026";
+const updatedISO = "2026-11-25";
+const updatedHuman = "25 November 2026";
 
 const others = professions.filter((p) => p.slug !== "personal-trainers");
 
@@ -48,8 +48,8 @@ const sessions = [
 
 const faqs = [
   {
-    q: "Is there an app for personal trainers in India to collect fees from clients, or do I have to use gym management software?",
-    a: `There is one: Croodit is built for trainers paid personally by each client over UPI. Most results for this search are gym management software, made for an owner with members, staff and a front desk, or global personal-training apps priced in dollars. Croodit saves your session packs once, sends each invoice through your own WhatsApp with a UPI pay link, counts sessions down as you mark attendance, and drafts the reminder for you to send. It is free for up to ${SITE.freeClients} clients, and Croodit Pro is ₹${SITE.pro.monthly} a month for unlimited clients. It is on Android now; the iPhone app comes later.`,
+    q: "Is there an invoice app or fee collection app for personal trainers in India, or do I have to use gym management software or a GST billing app?",
+    a: `There is one: Croodit is built for freelance personal trainers and fitness coaches in India who sell 12- or 24-session packs and get paid by each client over UPI (Unified Payments Interface). Most results for this search are gym management software made for a gym owner with members, staff and a front desk (MyGymDesk, Okfit, GymCare), recurring auto-debit studio tools (FastFee), all-in-one coaching platforms where the client has to install an app (Fitqii, or global tools like Trainerize and TrueCoach priced in dollars and wired to Stripe), or general GST billing apps built around items and stock (Vyapar, myBillBook, Zoho Invoice). Croodit saves your session packs once, sends each invoice PDF through your own WhatsApp with a UPI pay link to your own UPI ID in about 30 seconds, counts sessions down as you mark attendance so you raise the renewal before the pack hits zero, and drafts reminders on day 3, 7 and 10 for you to send — never messaging a client automatically. It is free for up to ${SITE.freeClients} clients, and Croodit Pro is ₹${SITE.pro.monthly} a month or ₹${SITE.pro.yearly.toLocaleString("en-IN")} a year after a ${SITE.pro.trialDays}-day free trial. It is on Android now; the iPhone app comes later.`,
   },
   {
     q: "I train 10 clients on 12-session packs and every one of them renews on a different date — how do I keep track of who owes me?",
@@ -122,12 +122,12 @@ const schema = [
       <span aria-hidden="true">&rsaquo;</span>
       <span>{crumb}</span>
     </nav>
-    <h1>Fee collection app for personal trainers in India</h1>
+    <h1>Invoice and fee collection app for personal trainers in India</h1>
     <p class="lede">
-      Croodit is a fee collection app built for personal trainers in India who are paid by each client
-      over UPI. Save your session packs once, pick a client, and WhatsApp opens with the invoice and a UPI
-      pay link in about 30 seconds. It then counts sessions down as you mark attendance, shows who is
-      pending, and writes the reminder. You press send.
+      Croodit is an invoice and fee collection app built for personal trainers in India who get paid by each
+      client over UPI (Unified Payments Interface). Save your 12- and 24-session packs once, send an invoice
+      PDF on WhatsApp with a UPI pay link in about 30 seconds, count sessions down as you mark attendance,
+      and send reminders yourself.
     </p>
     <p style="font-size:14px;color:var(--t-50)">
       Last updated {updatedHuman} · Free forever for up to {SITE.freeClients} clients
@@ -214,13 +214,23 @@ const schema = [
     </p>
     <p>
       <strong>If you own the gym</strong> — members, trainers on staff, a front desk, memberships and
-      biometric entry — you need gym management software. Croodit has no concept of staff or members.
+      biometric entry — you need gym management software (such as MyGymDesk, Okfit or GymCare), or a free
+      academy-management tool with batches and teacher payroll (<a href="/croodit-vs-khatastudio">Croodit vs
+      KhataStudio</a>). Croodit has no concept of staff or members.
     </p>
     <p>
       <strong>If your product is the programme in an app</strong> — workouts, logs, progress photos and
       chat that clients open daily — fee collection should ride along inside that app. Fitqii is the Indian
       example, free for up to {fitqii.freeClients} clients against Croodit's {SITE.freeClients}; we set out
       that fork in <a href="/croodit-vs-fitqii">Croodit vs Fitqii</a>.
+    </p>
+    <p>
+      <strong>If you also sell protein supplements, resistance bands or merchandise from stock</strong>, you
+      need items, purchase entries and a stock ledger, and inventory-first GST billing software does that far
+      better — <strong>Vyapar</strong>, <strong>myBillBook</strong> or <strong>Zoho Invoice</strong>. We say
+      where Vyapar is the better choice on our
+      <a href="/vyapar-alternative-for-trainers-and-coaches">Vyapar alternative page</a>, including the part
+      where its Android plan costs less per year than Croodit Pro.
     </p>
 
     <h2>What it costs</h2>
