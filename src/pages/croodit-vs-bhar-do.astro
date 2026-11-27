@@ -1,0 +1,437 @@
+---
+import Base from "../layouts/Base.astro";
+import Mark from "../components/Mark.astro";
+import MoreComparisons from "../components/MoreComparisons.astro";
+import { SITE, playLink, iphoneHref, iphoneLabel } from "../site";
+import { breadcrumb, orgRef } from "../data/schema";
+import { bhardo, inr } from "../data/comparisons";
+import { professions } from "../data/professions";
+
+const path = "/croodit-vs-bhar-do";
+const crumb = "Croodit vs Bhar Do";
+const title = "Croodit vs Bhar Do: WhatsApp invoicing for tutors and trainers in India";
+const description =
+  "Croodit vs Bhar Do: both send WhatsApp invoices with your UPI QR for Indian tutors and trainers. Bhar Do's 2026 prices, free caps, and where each one wins.";
+
+const publishedISO = "2026-11-27";
+const updatedISO = bhardo.verified;
+const updatedHuman = bhardo.verifiedHuman;
+
+const yearly = SITE.pro.yearly.toLocaleString("en-IN");
+const bhardoStandardYearly = (bhardo.proMonthly * 12).toLocaleString("en-IN");
+const monthlyGap = (bhardo.proMonthly - SITE.pro.monthly).toLocaleString("en-IN");
+const standardYearGap = (bhardo.proMonthly * 12 - SITE.pro.yearly).toLocaleString("en-IN");
+const foundingYearGap = (SITE.pro.yearly - bhardo.foundingYearly).toLocaleString("en-IN");
+
+const rows = [
+  [
+    "Who it names as its buyer",
+    "Independent tutors, tuition teachers, personal trainers, fitness coaches, yoga teachers and solo freelancers in India.",
+    "One person selling their own time on a repeating roster — Zumba and fitness trainers, yoga and dance coaches, personal trainers, tutors, nutritionists, photographers.",
+  ],
+  [
+    "Where you do the work",
+    "Inside a WhatsApp chat with the Bhar Do assistant. You type \"Taught Priya maths, 2 hours\" or \"PT session with Karan, 1 hour\" in English or Hinglish, and it logs the session and returns a PDF to forward.",
+    "In a dedicated phone app. You save your packages and per-client rates once, pick a client, tap what they bought, and WhatsApp opens with the message, PDF and pay link ready.",
+  ],
+  [
+    "What it counts between payments",
+    "Logged sessions and hours at each client's saved rate, plus a client booking page where slots auto-log into sessions.",
+    "Class packs and attendance. Twelve sessions bought, eight used, four left, with a renewal prompt before the pack hits zero.",
+  ],
+  [
+    "Client booking page",
+    "Yes, on Pro — share a link, clients pick a slot, and sessions auto-log.",
+    "No. Croodit has no booking page or calendar scheduling.",
+  ],
+  [
+    "How the money moves",
+    "Straight to your bank account via your own Unified Payments Interface (UPI) ID and QR code on the invoice. Not a payment gateway; no per-invoice commission.",
+    "A standard UPI intent, QR code and UPI ID on the invoice, straight into your own UPI ID. Croodit is not a payment gateway, holds nothing and takes no cut.",
+  ],
+  [
+    "Reminders to clients",
+    "Described two ways on bhardo.com: the homepage and FAQ say it prepares \"ready-made reminder cards\" you forward in one tap, while the Pro plan list and tutor page say \"Automated payment reminders on WhatsApp\" and \"Reminders go out without you\".",
+    "Croodit never messages a client by itself. On day 3, 7 and 10 it notifies you with the reminder already written; you read it, edit it, and press send from your own WhatsApp.",
+  ],
+  [
+    "GST and CA exports",
+    "Not mentioned on bhardo.com's homepage, pricing or profession pages.",
+    "Optional and off by default. Turn it on per client or per invoice, with monthly CA-ready exports in Excel, PDF and Tally format.",
+  ],
+  [
+    "Free plan",
+    `Starter — ₹0 forever: up to ${bhardo.freeClients} clients, ${bhardo.freeInvoicesMonthly} invoices a month and ${bhardo.freeSessionsMonthly} sessions a month.`,
+    `Free forever for up to ${SITE.freeClients} clients, with unlimited invoices and unlimited reminders to them.`,
+  ],
+  [
+    "Paid plan",
+    `Pro is ${inr(bhardo.proMonthly)} a month (${bhardo.trialDays}-day free trial, no card). Founding Member offer (first ${bhardo.foundingSeats} seats): ${inr(bhardo.foundingMonthly)} a month or ${inr(bhardo.foundingYearly)} a year, locked forever.`,
+    `Croodit Pro is ₹${SITE.pro.monthly} a month or ₹${yearly} a year, after a ${SITE.pro.trialDays}-day free trial, no card.`,
+  ],
+  [
+    "Platform",
+    "Runs inside WhatsApp — works on any phone (iPhone or Android) with nothing to install.",
+    `${SITE.appStoreUrl ? "Android and iPhone apps." : "An Android app, live on Google Play. iPhone comes later — waitlist only."}`,
+  ],
+];
+
+const faqs = [
+  {
+    q: "How does Croodit compare to Bhar Do for a tutor or personal trainer in India?",
+    a: `Both are built for the same person — an Indian tutor, personal trainer or coach paid by individuals over UPI — and both send a PDF invoice on WhatsApp with your own UPI ID and QR code so your client installs nothing and you pay zero commission. The difference is how you work and where the free tier stops. Bhar Do is an AI chat assistant inside WhatsApp: you text it "Taught Priya maths, 2 hours", and it logs the session and returns an invoice PDF to forward, plus a client booking page on Pro. Croodit is a phone app built around a roster: you save your subject fees or 12-session packs once, tap to invoice, tick attendance as packs count down, and send day 3, 7 and 10 reminders yourself. Bhar Do works on an iPhone today (because it lives inside WhatsApp) and its ${bhardo.foundingSeats}-seat Founding Member offer is ${inr(bhardo.foundingYearly)} a year against Croodit Pro's ₹${yearly}. Croodit's free plan covers ${SITE.freeClients} clients with unlimited invoices (against Bhar Do Starter's ${bhardo.freeClients} clients, ${bhardo.freeInvoicesMonthly} invoices and ${bhardo.freeSessionsMonthly} sessions a month), and standard Croodit Pro is ₹${SITE.pro.monthly} a month against Bhar Do Pro's ${inr(bhardo.proMonthly)}.`,
+  },
+  {
+    q: "I'm on an iPhone. Should I use Bhar Do or wait for Croodit?",
+    a: `Use Bhar Do if you want a tool running this week. Because Bhar Do operates as a chat inside WhatsApp, it works on an iPhone today with nothing to download from the App Store. Croodit is live on Android via Google Play, and its iPhone app comes later — that is the state of things on ${updatedHuman}, and joining our waitlist will not send this month's invoices for you. If you are on an iPhone and have ${bhardo.freeClients} or fewer clients (or are happy to pay for Bhar Do Pro), start there, or use the free manual WhatsApp-plus-UPI-link method we wrote up step by step.`,
+  },
+  {
+    q: "I have 6 students paying me monthly. Which free plan actually covers me?",
+    a: `Croodit's does, and Bhar Do's does not. Bhar Do's Starter plan is free forever, but it caps you at ${bhardo.freeClients} clients, ${bhardo.freeInvoicesMonthly} invoices a month and ${bhardo.freeSessionsMonthly} logged sessions a month, read from bhardo.com on ${updatedHuman}. Even a single student you teach three times a week is 12 sessions a month, which passes Bhar Do's 10-session free cap inside one month — and 6 students passes both its 3-client cap and its 5-invoice cap. Croodit's free tier is free forever for up to ${SITE.freeClients} clients with unlimited invoices and unlimited reminders to them. At 6 regular students (or 6 tuition families), you pay ₹0 on Croodit indefinitely.`,
+  },
+  {
+    q: "Which one is cheaper once I outgrow the free tier — Croodit Pro or Bhar Do Pro?",
+    a: `It depends on whether Bhar Do's Founding Member seats are still open when you sign up. At standard prices, Croodit Pro is half the monthly cost: ₹${SITE.pro.monthly} a month (or ₹${yearly} a year) against Bhar Do Pro at ${inr(bhardo.proMonthly)} a month (₹${bhardoStandardYearly} across twelve months), saving ₹${monthlyGap} a month or ₹${standardYearGap} a year. However, Bhar Do's Founding Member offer at bhardo.com/founding gives its first ${bhardo.foundingSeats} users full Pro for ${inr(bhardo.foundingMonthly)} a month or ${inr(bhardo.foundingYearly)} a year, locked forever. If you claim one of those ${bhardo.foundingSeats} seats, Bhar Do matches Croodit's ₹${SITE.pro.monthly} monthly price and beats Croodit Pro on the annual plan by ₹${foundingYearGap} a year. Both offer a ${SITE.pro.trialDays}-day free trial with no card required.`,
+  },
+  {
+    q: "Does Bhar Do send payment reminders automatically, or do I forward them myself?",
+    a: `Bhar Do's own site describes this two ways, so you should check how it behaves before you rely on either. Its homepage and FAQ say that when payment is due, Bhar Do prepares "polite reminder cards you forward with one tap". Its Pro plan list, its Founding Member page, and its tuition-teacher page say "Automated payment reminders on WhatsApp" and "Reminders go out without you. When a fee is overdue, Bhar Do sends a polite reminder — in Hinglish or English — with the payment link attached." Croodit makes a single, fixed promise: it never messages a client by itself. On day 3, 7 and 10 after an unpaid invoice, Croodit notifies you on your phone with the reminder drafted, and nothing reaches a client or parent until you press send from your own WhatsApp.`,
+  },
+  {
+    q: "What is the difference between logging sessions in a WhatsApp chat and tracking class packs in an app?",
+    a: `They suit two different teaching habits. In Bhar Do, you send a message to the assistant after a class — "Taught Rohan physics, 1 hour" — and it adds the session to Rohan's running bill at his saved rate. That is fast when you bill in arrears for variable hours taught. In Croodit, most trainers and coaches sell a package up front — a 12-class Zumba pack, a 12-session personal training pack, or a monthly subject fee — and tick attendance as sessions happen so the pack counts down from 12 to 0 and prompts a renewal before it runs out. Typing a chat line after every class is great for ad-hoc hourly sessions; a roster screen with pack countdowns is calmer when 20 regulars all bought a pack at the start of the month.`,
+  },
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: title,
+    description,
+    inLanguage: "en-IN",
+    datePublished: publishedISO,
+    dateModified: updatedISO,
+    mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE.url}${path}` },
+    author: orgRef,
+    publisher: orgRef,
+    about: [
+      { "@type": "SoftwareApplication", name: bhardo.name, url: bhardo.url, applicationCategory: "BusinessApplication" },
+      { "@type": "Thing", name: "Invoicing" },
+      { "@type": "Thing", name: "Unified Payments Interface (UPI)" },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  },
+  breadcrumb([
+    ["Croodit", "/"],
+    ["Compare", "/compare"],
+    [crumb, path],
+  ]),
+];
+---
+
+<Base title={`${title} — Croodit`} description={description} path={path} schema={schema}>
+  <article class="wrap prose">
+    <nav class="eyebrow" aria-label="Breadcrumb" style="color:#6B4EFF">
+      <a href="/" style="color:inherit">Croodit</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <a href="/compare" style="color:inherit">Compare</a>
+      <span aria-hidden="true">&rsaquo;</span>
+      <span>{crumb}</span>
+    </nav>
+    <h1>Croodit vs Bhar Do: WhatsApp invoicing for tutors and trainers in India</h1>
+    <p class="lede">
+      Bhar Do and Croodit are built for the same Indian tutors, personal trainers and coaches, and both send a
+      PDF invoice on WhatsApp with a Unified Payments Interface (UPI) pay link straight to your bank. Bhar Do
+      is a chat assistant inside WhatsApp; Croodit is a roster and class-pack app where you press send.
+    </p>
+    <p style="font-size:14px;color:var(--t-50)">
+      Published {updatedHuman} · Every Bhar Do figure below was read from bhardo.com and bhardo.com/founding on
+      that date
+    </p>
+
+    <h2>Start with where Bhar Do is genuinely ahead</h2>
+    <p>
+      Every other comparison on this site argues against a tool built for a different buyer — inventory software
+      for shops, practice-management apps for gyms, contract invoicing for agency freelancers, or multi-teacher
+      academy software. Bhar Do, built by 2001 Labs in Mumbai, is none of those. It is built for the exact same
+      solo tutors, personal trainers and coaches as Croodit, on the same channel (WhatsApp) and the same payment
+      rail (your own UPI ID, with nothing for your client to install).
+    </p>
+    <p>
+      Because the two products are this close, the honest concessions come first:
+    </p>
+    <ul>
+      <li>
+        <strong>Bhar Do works on an iPhone today, and Croodit does not.</strong> Bhar Do runs entirely as a
+        conversation inside WhatsApp, so any phone that has WhatsApp can use it this afternoon. Croodit is{" "}
+        <a href={playLink(Astro.url.pathname, "body")}>live on Google Play</a> for Android; the iPhone app is
+        still on a waitlist.
+      </li>
+      <li>
+        <strong>Bhar Do's Founding Member annual price is cheaper than Croodit Pro.</strong> While Bhar Do's
+        normal Pro price is {inr(bhardo.proMonthly)} a month, its first {bhardo.foundingSeats} Founding Members
+        can lock in full Pro at {inr(bhardo.foundingMonthly)} a month or {inr(bhardo.foundingYearly)} a year
+        forever — ₹{foundingYearGap} less per year than Croodit Pro's ₹{yearly}.
+      </li>
+      <li>
+        <strong>Bhar Do includes a client booking page.</strong> On its Pro plan, you can share a booking link
+        where clients pick a slot and sessions auto-log. Croodit has no booking page and no calendar scheduling.
+      </li>
+    </ul>
+
+    <h2>What Bhar Do is</h2>
+    <p>
+      Bhar Do (styled <em>Bha₹ Do</em>, tagline <em>"Type karo. Bhej do. Bhar do."</em>) calls itself a
+      "WhatsApp-native invoicing assistant for India's independent tutors, trainers, and freelancers." It has
+      dedicated pages for tuition teachers, personal trainers and fitness coaches, and freelancers.
+    </p>
+    <p>
+      Instead of installing a separate app or filling out an invoice form, you message Bhar Do's number on
+      WhatsApp in English or Hinglish — its own worked examples are <em>"Taught Priya maths, 2 hours"</em>,{" "}
+      <em>"PT session with Karan, 1 hour"</em> and <em>"Yoga class — Priya, Neha, Anjali · 1 hr"</em>. The
+      assistant logs the session at that client's saved rate, generates a PDF invoice with your UPI QR code and
+      bank details in about 14 seconds, and lets you text <em>"Who owes me?"</em> anytime to see outstanding
+      balances across your clients.
+    </p>
+
+    <h2>What Bhar Do costs</h2>
+    <p>
+      These were the plans on bhardo.com and bhardo.com/founding on {updatedHuman}:
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Starter — ₹0 forever</th>
+          <th>Pro — {inr(bhardo.proMonthly)}/month ({bhardo.trialDays}-day free trial)</th>
+          <th>Founding Member — first {bhardo.foundingSeats} seats</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <ul style="margin:0;padding-left:18px">
+              {bhardo.freeFeatures.map((f) => <li>{f}</li>)}
+            </ul>
+          </td>
+          <td>
+            <ul style="margin:0;padding-left:18px">
+              {bhardo.proFeatures.map((f) => <li>{f}</li>)}
+            </ul>
+          </td>
+          <td>
+            <p style="margin:0">
+              Full Pro for <strong>{inr(bhardo.foundingMonthly)}/month</strong> or{" "}
+              <strong>{inr(bhardo.foundingYearly)}/year</strong>, price locked forever. Includes a 7-day
+              money-back guarantee.
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      Two numbers in that table decide the price comparison against Croodit:
+    </p>
+    <p>
+      <strong>1. The free tier cap.</strong> Bhar Do Starter stops at <strong>{bhardo.freeClients} clients,{" "}
+      {bhardo.freeInvoicesMonthly} invoices a month and {bhardo.freeSessionsMonthly} sessions a month</strong>.
+      For a tutor or personal trainer, 10 sessions a month is how many times you see <em>one</em> regular
+      student who comes three mornings a week. Even if you only bill monthly and skip per-session logging, the{" "}
+      {bhardo.freeClients}-client cap means your fourth student moves you to Pro. Croodit's free plan covers{" "}
+      <strong>up to {SITE.freeClients} clients forever, with unlimited invoices and unlimited reminders</strong>{" "}
+      to them. A solo tutor with {SITE.freeClients} families or a personal trainer with {SITE.freeClients}{" "}
+      morning clients pays ₹0 on Croodit for good.
+    </p>
+    <p>
+      <strong>2. The Pro price before and after the {bhardo.foundingSeats} founding seats.</strong> At standard
+      rates, Croodit Pro is ₹{SITE.pro.monthly} a month or ₹{yearly} a year, while Bhar Do Pro is{" "}
+      {inr(bhardo.proMonthly)} a month (₹{bhardoStandardYearly} over twelve months) — Croodit costs half as much
+      monthly and ₹{standardYearGap} less across a year. While Bhar Do's first {bhardo.foundingSeats} Founding
+      Member seats remain available, its monthly price matches Croodit's ₹{SITE.pro.monthly} and its{" "}
+      {inr(bhardo.foundingYearly)} annual lock beats Croodit Pro by ₹{foundingYearGap} a year.
+    </p>
+
+    <h2>The real fork: a chat thread you type into, or a roster that counts packs down</h2>
+    <p>
+      Because both tools end with a WhatsApp message carrying a PDF invoice and a UPI QR code from your own
+      number, your client's experience is nearly identical. The difference is your own evening.
+    </p>
+    <p>
+      <strong>Bhar Do is shaped around logging sessions as you talk.</strong> You finish an hour of physics
+      tuition, open your WhatsApp chat with Bhar Do, and type <em>"Taught Rohan physics, 1 hour."</em> At the
+      end of the month you type <em>"bill Rohan"</em>, and Bhar Do totals the hours and gives you the PDF. If
+      you teach variable hours and bill in arrears for the sessions that actually happened, typing a sentence
+      right after class is a natural habit.
+    </p>
+    <p>
+      <strong>Croodit is shaped around packages paid in advance and a visible roster.</strong> Most Zumba
+      trainers, yoga teachers, personal trainers and batch tutors in India do not bill in arrears by the hour.
+      They sell a 12-class monthly pack for ₹2,000, a 12-session PT pack for ₹12,000, or a monthly subject fee
+      on the 1st. In Croodit, your packages and per-client rates are saved on a visual screen. You pick the
+      client, tap the pack, and send the invoice in about 30 seconds. Then, as you tick attendance after class,
+      the pack counts down from 12 to 11 to 10 and prompts a renewal before it hits zero — and one screen shows
+      every client as paid, pending or overdue without querying a chatbot.
+    </p>
+
+    <h2>A note on who actually sends the reminder</h2>
+    <p>
+      How a tool chases an overdue fee matters when the person who owes you money is someone you will see at 6am
+      tomorrow, or the parent of a child sitting in your living room.
+    </p>
+    <p>
+      Bhar Do's public pages describe its follow-ups in two different ways. On its homepage and in its FAQ, it
+      says Bhar Do prepares <em>"ready-made reminder cards with a payment link — forward in two taps"</em> and{" "}
+      <em>"polite reminder cards you forward with one tap"</em>. In its Pro plan feature list and on its
+      tuition-teacher page, it says <em>"Automated payment reminders on WhatsApp"</em> and{" "}
+      <em>"Reminders go out without you. When a fee is overdue, Bhar Do sends a polite reminder — in Hinglish or
+      English — with the payment link attached."</em> Whether you forward every card yourself or the system
+      sends them automatically on Pro is something you should confirm in the product before turning it on for a
+      live roster.
+    </p>
+    <p>
+      Croodit has one rule across the entire product: <strong>Croodit never messages a client by itself.</strong>{" "}
+      On day 3, day 7 and day 10 after an unpaid invoice, Croodit sends a notification to <em>your</em> phone
+      with the reminder already written. You tap it, WhatsApp opens to that client's chat with the words and
+      pay link in the message box, you change a word if you want, and you press send. Nothing ever leaves your
+      phone or reaches a client behind your back.
+    </p>
+
+    <h2>Bhar Do and Croodit, side by side</h2>
+    <table>
+      <thead>
+        <tr><th>&nbsp;</th><th>Bhar Do</th><th>Croodit</th></tr>
+      </thead>
+      <tbody>
+        {rows.map(([label, b, c]) => (
+          <tr><td><strong>{label}</strong></td><td>{b}</td><td>{c}</td></tr>
+        ))}
+      </tbody>
+    </table>
+
+    <h2>Where Bhar Do is the better choice — honestly</h2>
+    <ul>
+      <li>
+        <strong>You use an iPhone and need to invoice clients today.</strong> Bhar Do lives inside WhatsApp, so
+        it works on iOS right now. Croodit is Android-only until our iPhone app ships.
+      </li>
+      <li>
+        <strong>You bill by the hour in arrears and want to log sessions by text.</strong> If your month is a
+        running tally of one-off hours taught at different times, texting <em>"Taught Priya maths, 2 hours"</em>{" "}
+        into a WhatsApp bot right after class is faster than opening any app.
+      </li>
+      <li>
+        <strong>You want a client booking link.</strong> Bhar Do Pro gives you a shareable booking page where
+        clients pick a slot and sessions auto-log. Croodit does not do scheduling.
+      </li>
+      <li>
+        <strong>You grab one of its first {bhardo.foundingSeats} Founding Member seats for a year.</strong> At{" "}
+        {inr(bhardo.foundingYearly)} a year locked forever, that founding offer beats Croodit Pro's ₹{yearly} a
+        year by ₹{foundingYearGap}.
+      </li>
+      <li>
+        <strong>You never want to install another app on your phone.</strong> Bhar Do is a contact in your
+        WhatsApp list.
+      </li>
+    </ul>
+
+    <h2>Where Croodit fits instead</h2>
+    <ul>
+      <li>
+        <strong>You have 4 to {SITE.freeClients} regular clients or families and want to pay ₹0 forever.</strong>{" "}
+        Bhar Do's free plan stops at {bhardo.freeClients} clients, {bhardo.freeInvoicesMonthly} invoices and{" "}
+        {bhardo.freeSessionsMonthly} sessions a month. Croodit's free plan covers up to {SITE.freeClients}{" "}
+        clients with no cap on invoices, sessions or reminders.
+      </li>
+      <li>
+        <strong>You sell class packs, session packs or fixed monthly fees.</strong> A 12-class Zumba pack, a
+        12-session PT pack that renews on attendance, or a three-subject tuition bill to a parent is easier to
+        manage on a visual roster that counts packs down than inside a scrolling chat thread.
+      </li>
+      <li>
+        <strong>You want a guaranteed rule that no bot will ever message your clients.</strong> Croodit drafts
+        the day 3, 7 and 10 reminders for you and never sends anything without your thumb on the send button.
+      </li>
+      <li>
+        <strong>You need optional GST invoices or monthly CA-ready exports.</strong> Croodit keeps GST off by
+        default, lets you switch it on for the corporate batch or client that asks for a tax invoice, and
+        exports monthly summaries in Excel, PDF and Tally format, plus tracks your studio or floor-fee expenses.
+      </li>
+      <li>
+        <strong>You are comparing standard monthly Pro prices.</strong> At standard rates, Croodit Pro is
+        ₹{SITE.pro.monthly} a month against Bhar Do Pro's {inr(bhardo.proMonthly)} a month.
+      </li>
+    </ul>
+
+    <h2>Who should pick which</h2>
+    <p>
+      <strong>If you prefer talking to a chat assistant after each session, want a slot-booking link for
+      clients, or are on an iPhone today,</strong> start with Bhar Do. It is built with real care for Indian
+      solo operators, keeps your money on your own UPI ID with zero cut, and removes form-filling altogether.
+    </p>
+    <p>
+      <strong>If you run a repeating roster on Android — class packs, session packs, per-client rates or parent
+      tuition bills — and want a dedicated status screen, pack countdowns, optional GST exports, or a free tier
+      that covers up to {SITE.freeClients} clients with unlimited invoices,</strong> Croodit is built for that
+      shape. You can see how we model your exact trade for{" "}
+      {professions.map((p, i) => (
+        <span>{i > 0 ? (i === professions.length - 1 ? " and " : ", ") : ""}<a href={`/for/${p.slug}`}>{p.slug === "zumba-trainers" ? p.label : p.label.toLowerCase()}</a></span>
+      ))}, or across all of them on <a href="/for">who Croodit is built for</a>.
+    </p>
+    <p>
+      <strong>If you actually need something broader than invoicing</strong> — workout and nutrition plans inside
+      a client app (<a href="/croodit-vs-fitqii">Croodit vs Fitqii</a>), free multi-teacher coaching-centre
+      attendance and teacher payroll (<a href="/croodit-vs-khatastudio">Croodit vs KhataStudio</a>), project
+      quotations and OTP e-signed contracts (<a href="/croodit-vs-riffit">Croodit vs Riffit</a>), or inventory
+      and shop GST billing (<a href="/vyapar-alternative-for-trainers-and-coaches">Vyapar alternative for
+      trainers and coaches</a>) — each of those has its own comparison.
+    </p>
+    <p>
+      <strong>And if you have fewer than five regulars and don't want software at all,</strong> the manual route
+      is free: <a href="/answers/how-to-send-an-invoice-on-whatsapp">how to send an invoice on WhatsApp with a
+      UPI payment link</a>, <a href="/answers/how-to-track-who-paid-me-on-upi">how to track who paid you on UPI
+      when everyone pays the same amount</a>, and{" "}
+      <a href="/answers/how-to-ask-a-client-for-payment-politely">how to ask a client for payment politely</a>.
+      Every pre-software question is indexed at{" "}
+      <a href="/answers">how to get paid on time as a trainer, coach or tutor in India</a>.
+    </p>
+
+    <h2>Questions people ask before they choose</h2>
+    <div class="faq__list" style="margin-top:6px">
+      {faqs.map((item, i) => (
+        <details open={i === 0}>
+          <summary>{item.q}</summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+
+    <p style="font-size:14px;color:var(--t-50)">
+      Bhar Do (Bha₹ Do) is a product of 2001 Labs and is not affiliated with Croodit. Everything above was read
+      from bhardo.com, bhardo.com/founding and its profession pages on {updatedHuman} and may have changed
+      since — check bhardo.com for current plans and founding-seat availability.
+    </p>
+
+    <MoreComparisons current="croodit-vs-bhar-do" />
+  </article>
+
+  <section class="wrap final">
+    <div class="final__box">
+      <div class="blob blob--violet anim-blobA" style="width:520px;height:520px;top:-260px;right:-160px;filter:blur(60px);opacity:.7"></div>
+      <div class="final__logo"><Mark id="a1" width={50} /></div>
+      <h2>Built for the roster, not the chat scroll. <span>Croodit.</span></h2>
+      <p>Free forever for up to {SITE.freeClients} clients. Your packages, your UPI, your WhatsApp.</p>
+      <div class="final__cta">
+        <a href={playLink(Astro.url.pathname, "final")} class="btn btn--lime">Get it on Google Play</a>
+        <a href={iphoneHref} class="btn btn--glass">{iphoneLabel}</a>
+      </div>
+    </div>
+  </section>
+</Base>

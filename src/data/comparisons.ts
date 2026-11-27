@@ -152,16 +152,17 @@ export const fitqii = {
 
 /**
  * Bhar Do (2001 Labs) — the closest competitor: same buyer, same WhatsApp + UPI channel.
- * No comparison page yet, so it appears on the /compare hub only (no `comparisons` row).
- * Source: bhardo.com and bhardo.com/founding, read on `verified`. Its own pages describe
- * reminders two ways — "ready-made reminder cards … forward in one tap" and, in the plan
- * list, "Automated payment reminders on WhatsApp" — so the site quotes both, not a verdict.
+ * Source: bhardo.com, bhardo.com/founding, bhardo.com/for/tuition-teachers,
+ * bhardo.com/for/fitness-trainers and bhardo.com/for/freelancers, read on `verified`.
+ * Its own pages describe reminders two ways — "ready-made reminder cards … forward in one tap"
+ * on the homepage and FAQ, and "Automated payment reminders on WhatsApp" / "Reminders go out
+ * without you" in the plan list and profession pages — so the site quotes both, not a verdict.
  */
 export const bhardo = {
   name: "Bhar Do",
   url: "https://bhardo.com",
-  verified: "2026-10-12",
-  verifiedHuman: "12 October 2026",
+  verified: "2026-11-27",
+  verifiedHuman: "27 November 2026",
   freeClients: 3,
   freeInvoicesMonthly: 5,
   freeSessionsMonthly: 10,
@@ -175,6 +176,24 @@ export const bhardo = {
   sendsReminder:
     'You forward it. Bhar Do prepares "reminder cards" you forward in one tap; its plan list calls them "automated payment reminders"',
   usableToday: "Yes — it runs inside WhatsApp, so any phone with WhatsApp",
+  /** Starter tier inclusions, read from bhardo.com#pricing on `verified`. */
+  freeFeatures: [
+    "10 sessions a month",
+    "5 invoices a month",
+    "Up to 3 clients",
+    "WhatsApp sharing",
+    "Payment tracking (\"Who owes me?\")",
+  ] as const,
+  /** Pro tier inclusions, read from bhardo.com#pricing and bhardo.com/founding on `verified`. */
+  proFeatures: [
+    "Unlimited sessions, invoices and clients",
+    "Client booking page — share one link, clients pick a slot, sessions auto-log",
+    "Monthly recurring billing — prepares the invoice every month, you forward it in one tap",
+    "Automated payment reminders / ready-made reminder cards on WhatsApp",
+    "Revenue analytics — earned, pending, and top clients or services",
+    "UPI ID, QR code and bank details on every invoice",
+    "Priority support",
+  ] as const,
 } as const;
 
 /**
@@ -256,5 +275,14 @@ export const comparisons = [
     blurb:
       "KhataStudio is free attendance and fee management for coaching centres — batches, teacher payroll and P&L. Read it if you run a multi-teacher academy, not a solo practice.",
     competitor: khatastudio,
+  },
+  {
+    slug: "croodit-vs-bhar-do",
+    href: "/croodit-vs-bhar-do",
+    name: "Croodit vs Bhar Do",
+    pole: "The WhatsApp-chat pole",
+    blurb:
+      "Bhar Do is an AI invoicing assistant inside WhatsApp for tutors and trainers — type a session in Hinglish, get a PDF with your UPI QR, plus a client booking page. Read it if you log sessions in a chat rather than on a roster.",
+    competitor: bhardo,
   },
 ] as const;
